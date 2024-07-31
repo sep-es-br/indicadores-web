@@ -1,0 +1,21 @@
+<section class="breadcrumbSection">
+    <div class="container mt-5 pt-3">
+        <ul class="breadcrumb  text-gray-600 fs-7">
+            <li class="breadcrumb-item text-gray-600">
+                <a [routerLink]="'/'" class=" breadcrumb-link text-hover-primary">
+                    <i class="fa-solid fa-house iconBreadcrumb"></i>
+                </a>
+              </li>
+              <ng-container *ngFor="let data of breadcrumb">
+                <li class="breadcrumb-item text-gray-600">
+                    <a [routerLink]="data.link"  class="text-gray-600 breadcrumb-link text-hover-primary">{{ data.label }}</a>
+                  </li>
+            </ng-container>
+            <!-- <ng-container *ngFor="let path of breadcrumbNav">
+              <li class="breadcrumb-item text-gray-600">
+                <a [routerLink]="path"  [ngClass]="{ 'd-none': currentPage === 'main','link-atual': currentPage === path }"  class="text-gray-600 breadcrumb-link text-hover-primary">{{ path | breadcrumbnavlink }}</a>
+              </li>
+            </ng-container> -->
+          </ul>
+    </div>
+</section>

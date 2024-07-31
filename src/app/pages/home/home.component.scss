@@ -1,0 +1,148 @@
+
+.mainSection{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #03122f;
+    background-image: url('/assets/images/home/slide.jpg');
+    background-size: cover;
+    height: 100vh;
+    div.container{
+        margin-top: 160px;
+    }
+}
+
+.mainTitle{
+    font-family: "Montserrat", sans-serif;
+    color: #fff;
+    padding: 1.5rem;
+    text-align: center;
+    font-weight: 900;
+    font-size: 40px;
+    text-transform: uppercase;
+}
+
+.mainBordered{
+    border: solid 1.5px #fff;
+}
+
+.numberTitle{
+    color: var(--corDefault);
+    font-size: 50px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+
+.mainText{
+    color: #fff;
+    font-size: 30px;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+}
+
+.mainHighlight{
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 30px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+
+.iconCard{
+    width: 70px !important;
+    height: 70px !important;
+}
+
+.card-text{
+    color: rgba(19, 36, 70, 0.4627450980392157);
+    font-size: 18px;
+}
+
+.adjustBtn{
+    position: absolute;
+    padding-left: 0;
+    // margin-bottom: 0.75rem;
+    bottom: 10px;
+}
+
+@media screen and (max-width: 1024px)   {
+    .mainSection{
+        min-height: 100vh;
+        height: 100% ;
+        div.container{
+            margin-top: 110px;
+        }
+    }
+    .mainTitle{
+        font-size: 24px;
+    }
+
+    .mainText{
+        font-size: 25px;
+    }
+    .mainHighlight{
+        font-size: 20px;
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+    .mainSection{
+        div.container{
+            margin-top: -100px;
+        }
+    }
+    .mainTitle{
+        font-size: 1.2rem;
+    }
+    .mainText{
+        font-size: 18px;
+    }
+    .mainHighlight{
+        font-size: 16px;
+    }
+    
+}
+
+@media screen and (max-width: 576px){
+    .mainSection{
+        div.container{
+            margin-top: 0px;
+        }
+    }
+    
+}
+
+@media screen and (max-width: 425px) {
+    .mainSection{
+        div.container{
+            margin-top: 0px;
+        }
+    }
+    .mainTitle{
+        font-size: 1rem;
+    }
+    .mainText{
+        font-size: 16px;
+    }
+    .mainHighlight{
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .mainSection{
+        div.container{
+            margin-top: 20px;
+        }
+    }
+    .mainTitle{
+        font-size: 0.9rem;
+    }
+    .mainText{
+        font-size: 14px;
+    }
+    
+}

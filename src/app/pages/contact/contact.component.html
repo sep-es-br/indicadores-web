@@ -1,0 +1,50 @@
+<div class="mainContact">
+    <app-header [background]="true" ></app-header>
+    <app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+    <section class="mainSection">
+        <div class="container mb-5">
+            <div class="row">
+                <div class="col-lg-4 p-auto pe-md-5">
+                    <h1 class="mainTitle">Fale conosco</h1>
+                    <p class="mainText">
+                        SECRETARIA DE ECONOMIA E PLANEJAMENTO (SEP)
+                    </p>
+                    <a class="mapLink mb-5" href="https://maps.app.goo.gl/yUq5sfndBawMU9MaA" target="_blank">
+                        Avenida Governador Bley,236, 4º andar,<br>
+                        Edifício Fábio Ruschi - Centro<br>
+                        CEP: 29010-150 - Vitória / ES<br>
+                    </a>
+                    <div class="col-12 mt-3 m-auto overflow-auto justify-content-center">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3741.4932173281736!2d-40.33762402371572!3d-20.321233450612702!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xb83daabd882677%3A0xce33a06bf3b6894!2sSEP%20-%20Secretaria%20de%20Estado%20de%20Economia%20e%20Planejamento!5e0!3m2!1spt-BR!2sbr!4v1719259019878!5m2!1spt-BR!2sbr" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+                    </div>
+                        <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3741.4932173281736!2d-40.33762402371572!3d-20.321233450612702!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xb83daabd882677%3A0xce33a06bf3b6894!2sSEP%20-%20Secretaria%20de%20Estado%20de%20Economia%20e%20Planejamento!5e0!3m2!1spt-BR!2sbr!4v1719259019878!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
+                </div>
+                <div class="col-lg-7 ms-lg-5">
+                    <form>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control card shadow" id="name" placeholder="Digite seu nome">
+                            <label for="name" class="form-label">Nome</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control card shadow" id="email" placeholder="Digite seu email">
+                            <label for="email" class="form-label">Email</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="subject" class="form-control card shadow" id="subject" placeholder="Digite seu email">
+                            <label for="subject" class="form-label">Assunto</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control card shadow" id="message" rows="10" placeholder="Digite sua mensagem" style="height: 10rem;"></textarea>
+                            <label for="message" class="form-label">Mensagem</label>
+                        </div>
+                        <div class="row p-3">
+                            <button type="submit" class="btn btn-primary">Enviar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<app-footer></app-footer>

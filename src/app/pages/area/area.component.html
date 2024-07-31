@@ -1,0 +1,150 @@
+<app-header [background]="true" ></app-header>
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<section class="mainSection" *ngIf="areaData">
+    <div class="container">
+        <div class="iconArea">
+            <i class="fa-solid {{areaData.icon}}"></i>
+        </div>
+        <h1 class="titleArea">{{ areaData.name }}</h1>
+        <div class="row">
+            <div class="col-md-6 col-lg-9">
+                <p class="descriptionArea">{{areaData.description}}</p>
+                <div class="row" [hidden]="true">
+                    <div class="col-lg-6">
+                        <div class="card shadow bg-white m-3">
+                            <div class="card-body">
+                                <h5 class="card-title">&nbsp;</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 ">
+                        <div class="card shadow bg-white m-3">
+                            <div class="card-body">
+                                <h5 class="card-title">&nbsp;</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 text-center">
+                <div class="card CardAreas custom-shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Desafios</h5>
+                        <ul class="menuLateral mb-0" >
+                            <ng-container *ngFor="let area of allAreas" >
+                                <li class="nav-item" [ngClass]="{'active': areaId == area.id }">
+                                    <a class="nav-link d-flex"   [routerLink]="['/areas']" [queryParams]="{id:area.id}" >
+                                        <div class="iconAreaMenu">
+                                            <i class="fa-solid {{area.icon}}"></i>
+                                        </div>
+                                        <div class="textAreaMenu">
+                                            {{area.name}}
+                                        </div> 
+                                    </a>
+                                </li>
+                            </ng-container>
+                        </ul>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        &nbsp;
+    </div>
+</section>
+<section class="secondarySection" style="">
+    <div class="container" style="position: relative ;margin-top: 7rem;">
+        <h1 class="titleDesafios">Desafios</h1>
+        <p class="titleSecondary">Confira os resultados dos indicadores da área de {{areaData.name}} para cada desafio.</p>
+        <div class="row">
+            <div class="col-md-4 p-3">
+                <div class="card shadow p-3">
+                    <div class="card-title">
+                        <div class="titleChallenge" >
+                            <span class="numberChallenge">05</span>
+                            <span class="textChallenge">Desafios</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="card bg-overview">
+                            <h3 class="titleOverview" >2024</h3>
+                            <div class="overview mb-3">
+                                <span class="green-legend">0</span>
+                                <span class="yellow-legend">10</span>
+                                <span class="red-legend">5</span>
+                                <span class="grey-legend">80</span>
+                            </div>
+                        </div>
+                        <div class="card bg-overview mt-3">
+                            <h3 class="titleOverview" >2022</h3>
+                            <div class="overview mb-3">
+                                <span class="green-legend">0</span>
+                                <span class="yellow-legend">10</span>
+                                <span class="red-legend">5</span>
+                                <span class="grey-legend">80</span>
+                            </div>
+                        </div>
+
+                        <div class="legend mt-3">
+                            <div class="row">
+                                <div class="col-1 mt-2">
+                                    <span class="green-legend"></span>
+                                </div>
+                                <div class="col-11 mt-2">
+                                    <p class="ms-2 m-auto">Alcançado</p>
+                                </div>
+                                <div class="col-1 mt-2">
+                                    <span class="yellow-legend"></span>
+                                </div>
+                                <div class="col-11 mt-2">
+                                    <p class="ms-2 m-auto">Parcialmente Alcançado</p>
+                                </div>
+                                <div class="col-1 mt-2">
+                                    <span class="red-legend"></span>
+                                </div>
+                                <div class="col-11 mt-2">
+                                    <p class="ms-2 m-auto">Não Alcançado</p>
+                                </div>
+                                <div class="col-1 mt-2">
+                                    <span class="grey-legend"></span>
+                                </div>
+                                <div class="col-11 mt-2">
+                                    <p class="ms-2 m-auto">Não foi possível mensurar</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 p-3">
+                <ng-container *ngFor="let item of [].constructor(6)">
+                    <div class="card shadow mb-3">
+                        <div class="row">
+                            <div class="col-md-8 p-3">
+                                <p>
+                                    Apoiar o desenvolvimento de novas tecnologias sustentáveis voltadas para a agricultura familiar
+                                </p>
+                            </div>
+                            <div class="col-md-4 p-3">
+                                <div class="overview-indicator">
+                                    <span class="green-legend">2022</span>
+                                    <span class="yellow-legend">2024</span>
+                                    <div class="indicators m-auto ms-2">
+                                        10 Indicadores
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+               
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    
+</section>
+<app-footer></app-footer>

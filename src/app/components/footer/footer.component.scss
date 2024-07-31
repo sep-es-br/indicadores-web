@@ -1,0 +1,15 @@
+footer {
+    background-color: #03122f;
+    position: relative;
+    bottom: 0;
+    color: #fff;
+}
+
+.iconYouTube{
+    padding-left: 10px !important;
+}
+
+.btnIcon:hover{
+    transform: scale(1.25);
+    animation: 1.5s ease-in-out infinite alternate iconYouTube;
+}

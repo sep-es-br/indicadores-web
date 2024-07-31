@@ -1,0 +1,29 @@
+@import './assets/fonts/fonts';
+@import './assets/styles/mixins';
+@import './assets/styles/variables';
+
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+:root {
+    --corDefault: #0098da;
+}
+
+*{
+    scroll-padding-top: 150px;
+    -webkit-user-select:none;  
+    -moz-user-select:none;     
+    -ms-user-select:none;      
+    user-select:none;  
+}
+
+.btnIcon{
+    width: 40px !important;
+    height: 40px !important;
+}
+
+.no_underline{
+   text-decoration: none !important;
+}
+
+.cursor-default{
+    cursor: default !important;
+}

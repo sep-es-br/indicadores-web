@@ -1,0 +1,185 @@
+.iconArea{
+    font-size: 70px;
+    color: #132446;
+    margin-right: 10px;    
+}
+
+.titleArea{
+    // font-size: 50px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #132446;
+}
+
+.CardAreas{
+    background-color: #132446;
+    color: #fff;
+    z-index: 10;
+}
+
+.menuLateral{
+    text-align: start;
+    padding-left: 0;
+    cursor: pointer;
+    li{
+        list-style: none;
+        padding: 5px;
+        font-size: 16px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+        color: #fff;
+        border-bottom: 3px solid #10345a;
+
+        i{
+            margin-right: 0.75rem;
+        }
+    }
+    li:last-child{
+        border-bottom: none;
+    }
+}
+
+.menuLateral li:hover,.menuLateral .active{
+    background-color: #fff;
+    border-radius: 30px;
+    color: var(--corDefault);
+    transition: all 250ms ease-in-out
+}
+
+.iconAreaMenu{
+    margin: auto;
+    padding: auto;
+    text-align: center;
+    // font-size: 2.5rem;
+    font-size: 2rem;
+    margin-right: 0.75rem;
+    width: 50px !important;
+}
+
+.textAreaMenu{
+    width: 100%;
+    margin: auto;
+}
+
+.secondarySection{
+    background-color: #0098da;
+    margin-top: -15rem;
+    .container{
+        padding-top: 7rem;
+        padding-bottom: 3.5rem;
+    }
+}
+
+.titleDesafios{
+    color: #112b4f;
+    text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+}
+
+.custom-shadow{
+    // box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.55) !important;
+    box-shadow: 5px 6px 25px rgb(19 36 70 / 58%);
+}
+
+.titleSecondary{
+    color: #c7e8f6;
+    font-size: 24px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+
+.titleChallenge{
+    text-align: center;
+    color: #112b4f;
+    font-family: 'Montserrat', sans-serif;
+    // font-weight: 800;
+    .numberChallenge{
+        font-weight: bolder;
+        display: block;
+        font-size: 5rem;
+        line-height: 5rem;
+    }
+    .textChallenge{
+        font-size: 1.75rem;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+}
+
+.legend span{
+    content: '&nbsp;';
+    display: block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.green-legend{
+    background-color: #1fab27;
+}
+.yellow-legend{
+    background-color: #dfb706;
+}
+.red-legend{
+    background-color: #ff0000;
+}
+.grey-legend{
+    background-color: #808080;
+}
+.blue-legend{
+    background-color: #132446;
+}
+
+.bg-overview{
+    background-color: rgba(var(--bs-secondary-bg-rgb), .8);
+}
+
+.titleOverview{
+    text-align: center;
+    color: #112b4f;
+    font-weight: bold;
+}
+
+.overview{
+    display:grid;
+    grid-template-columns:25% 25% 25% 25%;
+    align-self: center;
+    span{
+        margin: auto .75rem;
+        // background-color: #0098da;
+        justify-content: center;
+        text-align: center;
+        display: inline-block;
+        align-content:center;
+        height: 60px;
+        width: 60px;
+        border-radius: 50%;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: white;
+    }
+}
+
+.overview-indicator{
+    display:grid;
+    grid-template-columns:25% 25% 50%;
+    align-self: center;
+    span{
+        margin: auto .75rem;
+        justify-content: center;
+        text-align: center;
+        display: inline-block;
+        align-content:center;
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+        font-size: 1rem;
+        font-weight: 700;
+        color: white;
+    }
+    .indicators span{
+        border-radius: 0;
+    }
+}
