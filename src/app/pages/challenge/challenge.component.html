@@ -1,0 +1,55 @@
+<app-header [background]="true" ></app-header>
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<section class="mainSection" *ngIf="areaData && challengeData">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-lg-9">
+                <h3 class="titleArea">{{challengeData.name}}</h3>
+                <div class="row indicators" [hidden]="false">
+                    <div class="ng-scope">
+                        <div class="row card-container card-container-metricas ng-scope">
+                        <div class="col-lg-3 item-card-metricas cards-indicadores">
+                            <span class="count-indicador-title ng-binding">00</span>
+                            <span class="info-text">Meta <br>atingida</span>
+                            <div class="card-cor-verde mini-legenda">≥ 100%</div>
+                        </div>
+                        <div class="col-lg-3 item-card-metricas cards-indicadores">
+                            <span class="count-indicador-title ng-binding">01</span>
+                            <span class="info-text">Meta parcialmente atingida</span>
+                            <div class="card-cor-amarela mini-legenda"> ≥ 85% e &lt; 100% </div>
+                        </div>
+                        <div class="col-lg-3 item-card-metricas cards-indicadores">
+                            <span class="count-indicador-title ng-binding">00</span>
+                            <span class="info-text cards-indicadores">Meta não <br>atingida</span>
+                            <div class="card-cor-verm mini-legenda"> &lt; 85% </div>
+                        </div>
+                        <div class="col-lg-3 item-card-metricas cards-indicadores">
+                            <span class="count-indicador-title ng-binding">00</span>
+                            <span class="info-text">Não é possível <br>mensurar</span>
+                            <div class="card-cor-preta mini-legenda"></div>
+                        </div>
+                    </div></div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 text-center">
+                <div class="card CardAreas custom-shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Desafios</h5>
+                        <ul class="menuLateral mb-0" >
+                            <ng-container *ngFor="let challenge of areaData.challenge" >
+                                <li class="nav-item" [ngClass]="{'active': challengeId == challenge.id }">
+                                    <a class="nav-link d-flex"  [routerLink]="['/challenge']" [queryParams]="{id:challenge.id}" >
+                                        <div class="textAreaMenu">
+                                            {{challenge.name}}
+                                        </div> 
+                                    </a>
+                                </li>
+                            </ng-container>
+                        </ul> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        &nbsp;
+    </div>
+</section>

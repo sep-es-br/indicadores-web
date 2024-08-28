@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, ElementRef, OnInit, Renderer2, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AreaService } from "../../shared/services/area/area.service";
 import { IArea, IAreaOverview } from "../../shared/interfaces/area.interface";
@@ -13,65 +13,84 @@ export class AreaComponent implements OnInit {
 
 	public areaId: number | null = null;
 
-	public breadcrumb:unknown = [];
+	public breadcrumb: unknown = [];
 
 	public areaData!: IArea;
 
-	public allAreas!:IAreaOverview[];
+	public allAreas!: IAreaOverview[];
 
-	private challenges!:any;
+	private challenges!: any;
 
-	private currentUrl:string = "";
+	private currentUrl: string = "";
 
-	constructor(private _router: Router ,private _route: ActivatedRoute, private _areaService: AreaService) {
-		this.areaId = this._route.snapshot.queryParams["id"] ?? null;
-		this.currentUrl = this._router.url;
+	constructor(
+		private _router: Router,
+		private _route: ActivatedRoute,
+		private _areaService: AreaService,
+	) {
 	}
 
 	ngOnInit(): void {
-		this.getData();
+		this._route.queryParams.subscribe(params => {
+			this.areaId = params["id"] ? Number(params["id"]) : null;
+			this.getData();
+		});
+		this.currentUrl = this._router.url;
 	}
 
 	getData(): void {
 		if (this.areaId == null) {
 			this._router.navigate(["/"]);
+			return;
 		}
-
 		this.getAllAreas();
 		this.getDetails();
-
 	}
 
-	getAllAreas(){
+	getAllAreas() {
 		const allAreaResponse = this._areaService.getAll();
 		allAreaResponse.subscribe(
 			data => {
-				this.allAreas = orderArrayText(data,"name");
-				console.log("Todas as Áreas --> ",data);
+				this.allAreas = orderArrayText(data, "name");
+				console.log("Todas as Áreas --> ", data);
 			}
 		);
 	}
 
-	getDetails(){
-		const areaDetail =  this._areaService.getDetail(Number(this.areaId));
+	getDetails() {
+		const areaDetail = this._areaService.getDetail(Number(this.areaId));
 		console.log(areaDetail);
 		areaDetail.subscribe(
 			data => {
-				console.log("Dados backend -->",typeof data);
+				console.log("Dados backend -->", data);
 				this.areaData = data;
+				sessionStorage.setItem("AreaData",JSON.stringify(this.areaData));
 				this.updateBreadcrumb();
 			}
 		);
 	}
 
-	updateBreadcrumb(){
+	replaceIcon(newIconClass: string) {
+		const iconElement = document.getElementById("iconElement");
+
+		if (iconElement) {
+			iconElement.remove();
+
+			const newIconElement = document.createElement("i");
+			newIconElement.id = "iconElement";
+			newIconElement.className = `fa-solid ${newIconClass}`;
+
+			const iconArea = document.querySelector(".iconArea");
+			if(iconArea){
+				iconArea.appendChild(newIconElement);
+			}
+		}
+	}
+
+	updateBreadcrumb() {
 		this.breadcrumb = [
 			{
 				label: this.areaData.name,
-				link: this._router.navigateByUrl(this.currentUrl),
-				params: {
-					id: this.areaId
-				}
 			}
 		];
 	}

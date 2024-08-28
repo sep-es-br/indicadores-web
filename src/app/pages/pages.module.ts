@@ -7,17 +7,20 @@ import { ComponentsModule } from "../components/components.module";
 import { ContactComponent } from "./contact/contact.component";
 import { CountUpModule } from "ngx-countup";
 import { RouterModule } from "@angular/router";
+import { ChallengeComponent } from "./challenge/challenge.component";
 
 @NgModule({
 	declarations: [
 		HomeComponent,
 		AreaComponent,
+		ChallengeComponent,
 		AboutComponent,
 		ContactComponent
 	],
 	exports: [
 		HomeComponent,
 		AreaComponent,
+		ChallengeComponent,
 		AboutComponent,
 		ContactComponent
 	],

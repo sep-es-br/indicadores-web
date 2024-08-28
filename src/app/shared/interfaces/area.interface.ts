@@ -1,10 +1,12 @@
+import { IChallenge } from "./challenge.interface";
+
 export interface IArea {
 	id: number,
 	name: string,
 	icon: string,
     description: string,
 	indicator: number,
-	challenge: number
+	challenge: IChallenge[]
 }
 
 export class AreaData{
@@ -13,6 +15,11 @@ export class AreaData{
 	icon = "fa-shield-halved";
 	indicator = 0;
 	challenge = 0;
+}
+
+export interface IAreaData{
+	id: number,
+	name: string,
 }
 
 export interface IAreaOverview {

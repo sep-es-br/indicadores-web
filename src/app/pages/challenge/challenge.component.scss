@@ -34,23 +34,75 @@
     }
 }
 
-.indicators {
-    display: flex;
-    flex-wrap: wrap;
-    
-    .col-lg-6 {
-        display: flex;
-        flex-direction: column;
-    }
-    
-    .card {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-    }
+.card-container.card-container-metricas {
+    margin-bottom: 40px;
+    margin-top: 30px;
 }
 
+.count-indicador-title {
+    font-size: 38px;
+    line-height: 34px;
+    margin-top: 20px;
+}
 
+.info-text {
+    font-size: 20px;
+    line-height: 24px;
+    margin-bottom: 10px;
+    font-weight:normal;
+}
+
+.mini-legenda {
+    font-family: 'Montserrat', 'Montserrat Regular', 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 16px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.card-cor-verm, .card-cor-verde, .card-cor-amarela, .card-cor-preta {
+    height: 26px;
+    width: -webkit-fill-available;
+    border-radius: 16px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+.card-cor-verde {
+    background-color: rgba(42, 195, 137, 1);
+}
+
+.card-cor-verm {
+    background-color: rgba(234, 73, 112, 1);
+}
+
+.card-cor-amarela {
+    background-color: rgba(253, 191, 1, 1);
+}
+
+.card-cor-preta {
+    background-color: rgba(67, 71, 74, 1);
+}
+
+.item-card-metricas {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: space-between;
+    flex-basis: 23%;
+    color: #132446;
+    font-family: 'Montserrat', 'Montserrat Regular', 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 25px;
+    box-shadow: 5px 5px 21px rgb(0 0 0 / 20%);
+    border-radius: 16px;
+    margin: 1%;
+    background-color: white;
+}
 
 
 .subtitle {
@@ -88,18 +140,6 @@
     text-decoration: none;
 }
 
-.challenge-info{
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    flex-direction: column-reverse;
-}
-.info-nome {
-    display: flex;
-    text-align: center;
-    font-size: 1.2rem;
-}
-
 .menuLateral{
     text-align: start;
     padding-left: 0;
@@ -123,25 +163,15 @@
 }
 
 .menuLateral li:hover,.menuLateral .active{
-    background-color: #fff;
-    border-radius: 30px;
     color: var(--corDefault);
     transition: all 250ms ease-in-out
 }
 
-.iconAreaMenu{
-    margin: auto;
-    padding: auto;
-    text-align: center;
-    // font-size: 2.5rem;
-    font-size: 2rem;
-    margin-right: 0.75rem;
-    width: 50px !important;
-}
 
 .textAreaMenu{
     width: 100%;
     margin: auto;
+    font-size: small;
 }
 
 .secondarySection{
@@ -161,7 +191,6 @@
 }
 
 .custom-shadow{
-    // box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.55) !important;
     box-shadow: 5px 6px 25px rgb(19 36 70 / 58%);
 }
 

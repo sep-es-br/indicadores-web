@@ -8,7 +8,7 @@
               </li>
               <ng-container *ngFor="let data of breadcrumb">
                 <li class="breadcrumb-item text-gray-600">
-                    <a [routerLink]="data.link"  class="text-gray-600 breadcrumb-link text-hover-primary">{{ data.label }}</a>
+                    <a [routerLink]="data.link" [queryParams]="data.params"  class="text-gray-600 breadcrumb-link text-hover-primary">{{ data.label }}</a>
                   </li>
             </ng-container>
             <!-- <ng-container *ngFor="let path of breadcrumbNav">
