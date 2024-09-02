@@ -238,24 +238,12 @@
 }
 
 .ball-item {
-    width: 80px;
-    height: 70px;
+    display: flex;
+    height: 40px;
     padding-top: 5px;
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
-}
-
-.green-ball-img{
-    background-image: url(/assets/images/home/bola-verde.png);
-}
-
-.yellow-ball-img{
-    background-image: url(/assets/images/home/bola-amarela.png);
-}
-
-.red-ball-img{
-    background-image: url(/assets/images/home/bola-vermelha.png);
 }
 
 .mirrored-green-ball-img{
@@ -338,3 +326,197 @@
         color: white;
     }
 }
+
+.text-select {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 24px;
+    color: #132446;
+    margin-bottom: 8px;
+}
+
+.dropdown-menu {
+    display: none; 
+    position: absolute; 
+    top: 100%; 
+    left: 0;
+    background-color: #ffffff; 
+    border: 1px solid #ddd; 
+    border-radius: 4px; 
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); 
+    z-index: 1000; 
+    width: 100%; 
+    max-height: 200px; 
+    overflow-y: auto; 
+}
+
+
+.btn-group .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu li {
+    list-style: none; 
+}
+
+.dropdown-menu a {
+    display: block; 
+    padding: 10px 15px; 
+    color: #333; 
+    text-decoration: none; 
+}
+
+.dropdown-menu a:hover {
+    background-color: #f8f9fa; 
+}
+
+.dropdown-btn {
+    background-color: rgba(19, 36, 70, 1);
+    text-align: start;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    color: white;
+    border-radius: 10px;
+    padding: 6px 12px;
+    width: 100%;
+    height: 57px;
+}
+
+.caret{
+    float: right;
+    margin-top: 1%;
+    border-top: 10px dashed;
+    border-right: 9px solid transparent;
+    border-left: 9px solid transparent;
+    color: white;
+}
+
+.indicador-header-item .medidas-text {
+    background-color: #A8ACB6;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.indicador-header-container  {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-top: 50px;
+    list-style: none;
+    margin-bottom: 40px;
+}
+
+.indicador-header-item {
+    margin-right: 3%;
+}
+.d-flex-colum, .cards-indicadores {
+    flex-direction: column;
+}
+.d-flex, .d-flex-colum, .cards-indicadores {
+    display: flex;
+    align-items: center;
+}
+.bck-blue {
+    background-color: #888b91;
+    border-radius: 10px;
+    padding: 6px 12px;
+    width: 100%;
+    height: 57px;
+    text-align: center;
+    color: rgba(19, 36, 70, 1);
+}
+
+.medidas-text {
+    font-family: 'Montserrat-Bold', 'Montserrat Regular', 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 18px !important;
+    color: #132446;
+}
+
+.indicador-header-item .info-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+}
+
+.icone-polaridade {
+    width: 40px;
+    height: 5vh;
+    margin-right: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    background-image: url(/assets/images/home/expectativa-positiva.png);
+}
+
+.item-ods {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+    gap: 5px; 
+    align-items: center;
+}
+
+.ods-image {
+    width: 100%;
+    max-width: 94px;
+    height: auto;
+    object-fit: contain;
+}
+
+.table-resultados-container {
+    display: flex;
+    padding-top: 20px;
+}
+
+.performance-table {
+    width: 100%;
+    border-spacing: 4px;
+    border-collapse: unset;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+}
+
+.header-cell {
+    background-color: rgba(19, 36, 70, 1);
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    border: 1px solid #dcdcdc;
+}
+
+.subheader-cell {
+    background-color: rgba(19, 36, 70, 0.7058823529411765);
+    color: white;
+    font-weight: normal;
+    padding: 10px;
+    border: 1px solid #dcdcdc;
+}
+
+.body-cell {
+    background-color: #f5f5f5;
+    padding: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    border: 1px solid #dcdcdc;
+    color: #333;
+}
+
+.performance-cell img {
+    width: 20px;
+    height: 20px;
+}
+
+.performance-cell img[alt="Positivo"] {
+    background-color: green;
+    border-radius: 50%;
+}
+
+.performance-cell img[alt="Negativo"] {
+    background-color: red;
+    border-radius: 50%;
+}
+
