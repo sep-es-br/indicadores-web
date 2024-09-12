@@ -483,6 +483,7 @@
 .header-cell {
     background-color: rgba(19, 36, 70, 1);
     color: white;
+    border-radius: 10px;
     font-weight: bold;
     padding: 10px;
     border: 1px solid #dcdcdc;
@@ -491,6 +492,7 @@
 .subheader-cell {
     background-color: rgba(19, 36, 70, 0.7058823529411765);
     color: white;
+    border-radius: 10px;
     font-weight: normal;
     padding: 10px;
     border: 1px solid #dcdcdc;
@@ -499,6 +501,7 @@
 .body-cell {
     background-color: #f5f5f5;
     padding: 10px;
+    border-radius: 10px;
     font-family: 'Montserrat', sans-serif;
     font-weight: bold;
     border: 1px solid #dcdcdc;
