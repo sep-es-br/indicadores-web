@@ -15,7 +15,8 @@ export class AreaService {
 		private _http: HttpClient,
 	) {}
 
-	getDetail(areaId: number): Observable<IArea> {
+	getDetail(areaId: String): Observable<IArea> {
+		console.log(areaId)
 		return this._http.get<IArea>(`${this._url}/detail/${areaId}`).pipe(
 			catchError((err: HttpErrorResponse) => {
 				// this._errorHandlerService.handleError(err);

@@ -16,9 +16,9 @@ export class ChallengeComponent implements OnInit{
 	
 	public breadcrumb: unknown = [];
 
-	public areaId: number | null = null;
+	public areaId: string | null = null;
 
-	public challengeId: number | null = null;
+	public challengeId: string | null = null;
 
 	public areaData!: IArea;
 
@@ -48,7 +48,7 @@ export class ChallengeComponent implements OnInit{
 	}
 	ngOnInit(): void {
 		this._route.queryParams.subscribe(params => {
-			this.challengeId = params["id"] ? Number(params["id"]) : null;
+			this.challengeId = params["id"] ? String(params["id"]) : null;
 			this.areaId = this.areaData.id;
 			this.getData();
 		});

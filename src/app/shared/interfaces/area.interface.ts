@@ -1,7 +1,7 @@
 import { IChallenge } from "./challenge.interface";
 
 export interface IArea {
-	id: number,
+	id: string,
 	name: string,
 	icon: string,
     description: string,
@@ -9,21 +9,13 @@ export interface IArea {
 	challenge: IChallenge[]
 }
 
-export class AreaData{
-	id = 0;
-	name = "Segurança em defesa da vida";
-	icon = "fa-shield-halved";
-	indicator = 0;
-	challenge = 0;
-}
-
 export interface IAreaData{
-	id: number,
+	id: string,
 	name: string,
 }
 
 export interface IAreaOverview {
-	id: number,
+	id: string,
 	name: string,
 	icon: string,
     description: string,

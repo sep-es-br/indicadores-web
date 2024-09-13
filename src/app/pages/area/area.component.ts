@@ -11,7 +11,7 @@ import { orderArrayText } from "../../shared/utils/textUtils";
 })
 export class AreaComponent implements OnInit {
 
-	public areaId: number | null = null;
+	public areaId: String | null = null;
 
 	public breadcrumb: unknown = [];
 
@@ -32,7 +32,7 @@ export class AreaComponent implements OnInit {
 
 	ngOnInit(): void {
 		this._route.queryParams.subscribe(params => {
-			this.areaId = params["id"] ? Number(params["id"]) : null;
+			this.areaId = params["id"] ? String(params["id"]) : null;
 			this.getData();
 		});
 		this.currentUrl = this._router.url;
@@ -58,16 +58,18 @@ export class AreaComponent implements OnInit {
 	}
 
 	getDetails() {
-		const areaDetail = this._areaService.getDetail(Number(this.areaId));
-		console.log(areaDetail);
-		areaDetail.subscribe(
-			data => {
-				console.log("Dados backend -->", data);
-				this.areaData = data;
-				sessionStorage.setItem("AreaData",JSON.stringify(this.areaData));
-				this.updateBreadcrumb();
-			}
-		);
+		if(this.areaId){
+			const areaDetail = this._areaService.getDetail(this.areaId);
+			console.log(areaDetail);
+			areaDetail.subscribe(
+				data => {
+					console.log("Dados backend -->", data);
+					this.areaData = data;
+					sessionStorage.setItem("AreaData",JSON.stringify(this.areaData));
+					this.updateBreadcrumb();
+				}
+			);
+		}
 	}
 
 	replaceIcon(newIconClass: string) {
