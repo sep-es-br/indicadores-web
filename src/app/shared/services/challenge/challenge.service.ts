@@ -15,7 +15,7 @@ export class ChallengeService {
         private _http: HttpClient,
 	) { }
 
-	getDetail(challengeId: number): Observable<IChallenge> {
+	getDetail(challengeId: string): Observable<IChallenge> {
 		return this._http.get<IChallenge>(`${this._url}/detail/${challengeId}`).pipe(
 			catchError((err: HttpErrorResponse) => {
 				return throwError(() => err);

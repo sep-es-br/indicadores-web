@@ -15,7 +15,7 @@ export class IndicatorService {
         private _http: HttpClient,
 	) { }
 
-	getDetail(challengeId: number): Observable<Iindicator[]> {
+	getDetail(challengeId: string): Observable<Iindicator[]> {
 		return this._http.get<Iindicator[]>(`${this._url}/detail/${challengeId}`).pipe(
 			catchError((err: HttpErrorResponse) => {
 				return throwError(() => err);

@@ -1,8 +1,12 @@
+import { ITargetResult } from "./TargetResult.interface"
+
 export interface Iindicator{
-    measurementUnit: string
+    uuId: string
+    measureUnit: string
     name: string
     organizationAcronym: string
-    organizationName: string
     polarity: string
     ods: number[]
+    targetFor: ITargetResult[]
+    resultedIn: ITargetResult[]
 }

@@ -1,6 +1,7 @@
+import { Iindicator } from "./indicator.interface";
+
 export interface IChallenge {
-	id: string,
+	uuId: string,
 	name: string,
-	baseYear: number,
-	score: number
+	indicatorList: Iindicator
 }
