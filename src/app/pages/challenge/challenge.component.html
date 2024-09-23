@@ -36,7 +36,7 @@
                 <div class="btn-group dropdown" style="width: 100%;">
                     <button id="single-button" type="button" class="dropdown-btn" (click)="toggleDropdown()" aria-haspopup="true"
                         aria-expanded="false">
-                        {{ selectedIndicator?.name }}
+                        {{ selectedIndicator?.name ?? '-- Selecione um indicador --'}}
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" *ngIf="dropdownOpen" role="menu" aria-labelledby="single-button">

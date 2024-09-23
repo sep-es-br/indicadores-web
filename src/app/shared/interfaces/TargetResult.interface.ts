@@ -7,10 +7,11 @@ export interface ITargetResult {
 export interface IFilteredResult {
     value: number;
     showValue: string;
+    year?: number
 }
 
 export interface IYearTargetResult {
-    year: number
+    year?: number
     targetFor: IFilteredResult[]
     resultedIn: IFilteredResult[]
 }

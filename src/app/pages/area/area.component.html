@@ -5,10 +5,11 @@
         <div class="iconArea">
             <i id="iconElement" class="fa-solid {{areaData.icon}}"></i>
         </div>
-        <h1 class="titleArea">{{ areaData.name }}</h1>
+        <h2 class="titleArea">{{ areaData.name }}</h2>
         <div class="row">
             <div class="col-md-6 col-lg-9">
-                <p class="descriptionArea">{{areaData.description}}</p>
+                <p class="descriptionArea" *ngIf="areaData.description !== areaData.name">
+                    {{areaData.description}}</p>
                 <div class="row indicators" [hidden]="false">
                     <div class="col-lg-6">
                         <div class="card shadow bg-white m-3">
@@ -18,7 +19,7 @@
                                 <div class="card-desafio-display">
                                     <!-- <span ng-hide="areaCtrl.result.year" [hidden]="true" class="ng-hide"><i class="fa fa-spin fa-spinner"></i></span>    -->
                                     <span class="">
-                                      2021:
+                                      {{currentYear -2}}:
                                     </span> 
                                     <div class="card-info">
                                       655.0
@@ -28,7 +29,7 @@
                                 <div class="card-desafio-display">
                                     <!-- <span ng-hide="areaCtrl.result.year" [hidden]="true" class="ng-hide"><i class="fa fa-spin fa-spinner"></i></span>    -->
                                     <span class="">
-                                      2022:
+                                      {{currentYear -1}}:
                                     </span> 
                                     <div class="card-info">
                                       2.4K
@@ -50,7 +51,7 @@
                                 <div class="card-desafio-display">
                                     <!-- <span ng-hide="areaCtrl.result.year" [hidden]="true" class="ng-hide"><i class="fa fa-spin fa-spinner"></i></span>    -->
                                     <span class="">
-                                      2021:
+                                       {{currentYear -2}}:
                                     </span> 
                                     <div class="card-info">
                                         0.21
@@ -60,7 +61,7 @@
                                 <div class="card-desafio-display">
                                     <!-- <span ng-hide="areaCtrl.result.year" [hidden]="true" class="ng-hide"><i class="fa fa-spin fa-spinner"></i></span>    -->
                                     <span class="">
-                                      2022:
+                                       {{currentYear -1}}:
                                     </span> 
                                     <div class="card-info">
                                         0.23
@@ -102,7 +103,7 @@
         &nbsp;
     </div>
 </section>
-<section class="secondarySection" style="">
+<section class="secondarySection" style="" *ngIf="areaData">
     <div class="container" style="position: relative ;margin-top: 7rem;">
         <h1 class="titleDesafios">Desafios</h1>
         <p class="titleSecondary">Confira os resultados dos indicadores da área de {{areaData.name}} para cada desafio.</p>
@@ -118,19 +119,19 @@
                     <div class="card-body">
 
                         <div class="card bg-overview">
-                            <h3 class="titleOverview" >2024</h3>
+                            <h3 class="titleOverview" >{{currentYear -1}}</h3>
                             <div class="overview mb-3">
-                                <span class="ball-item green-ball-img">0</span>
-                                <span class="ball-item yellow-ball-img">10</span>
-                                <span class="ball-item red-ball-img">5</span>
+                                <span class="ball-item green-ball-img">{{ countlastYear.green }}</span>
+                                <span class="ball-item yellow-ball-img">{{ countlastYear.yellow }}</span>
+                                <span class="ball-item red-ball-img">{{ countlastYear.red }}</span>
                             </div>
                         </div>
                         <div class="card bg-overview mt-3">
-                            <h3 class="titleOverview" >2022</h3>
+                            <h3 class="titleOverview" >{{currentYear -2}}</h3>
                             <div class="overview mb-3">
-                                <span class="ball-item green-ball-img">0</span>
-                                <span class="ball-item yellow-ball-img">10</span>
-                                <span class="ball-item red-ball-img">5</span>
+                                <span class="ball-item green-ball-img">{{ countSecondToLast.green }}</span>
+                                <span class="ball-item yellow-ball-img">{{ countSecondToLast.yellow }}</span>
+                                <span class="ball-item red-ball-img">{{ countSecondToLast.red }}</span>
                             </div>
                         </div>
 
@@ -167,26 +168,32 @@
                 </div>
             </div>
             <div class="col-md-8 p-3">
-                <ng-container *ngFor="let challenge of areaData.challenge">
+                <ng-container *ngFor="let challenge of areaData.challenge; index as i">
                     <div class="card shadow mb-3">
                         <div class="row">
                             <div class="col-md-8 p-3 challenge-info">
                                 <div class="info-nome">
-                                    <a class="decoration-off" [routerLink]="['/challenge']" [queryParams]="{id: challenge.uuId}" style="color: #132446;" href="#">{{challenge.name}}</a>
+                                    <a class="decoration-off"  [routerLink]="['/challenge']" [queryParams]="{id: challenge.uuId}" style="color: #132446;" href="#">{{challenge.name}}</a>
                                   </div>
                             </div>
                             <div class="col-md-4 p-3">
                                 <div class="overview-indicator">
                                     <div class="m-auto ms-2 text-center">
-                                        <span class="ball-item mirrored-green-ball-img"></span>
-                                        2022
+                                         <span 
+                                            class="ball-item"
+                                            [ngClass]="lastYearClassMap[i]"
+                                         ></span>
+                                        {{currentYear -1}}
                                     </div>
                                     <div class="m-auto ms-2 text-center">
-                                        <span class="ball-item mirrored-yellow-ball-img"></span>
-                                        2024
+                                        <span 
+                                        class="ball-item"
+                                        [ngClass]="secondToLastYearClassMap[i]"
+                                        ></span>
+                                        {{currentYear -2}}
                                     </div>
                                     <div class="m-auto ms-2 text-center">
-                                        <span class="blue-legend mb-2">0</span>
+                                        <span class="blue-legend mb-2">{{challenge.indicatorList.length}}</span>
                                         Indicadores
                                     </div>
                                 </div>
@@ -200,6 +207,22 @@
     </div>
 </section>
 <section>
-    
+    <ng-container>
+        <div class="container">
+            <div class="p-5">
+                <h3 class="titleArea">OBJETIVOS DE DESENVOLVIMENTO SUSTENTÁVEL (ODS)</h3>
+                <p class="descriptionArea" style="color: #0098da; font-weight:600">Veja os ODS relacionados com a área estratégica e o número de indicadores atendidos</p>
+                <div class="item-ods">
+                    <div *ngFor="let ods of odsCounts">
+                        <img 
+                             [src]="'/assets/images/ODS/ODS-' + ods.ods + '.png'"
+                             [alt]="'ODS ' + ods"
+                             class="ods-image">
+                        <p class="ods-text">{{ods.count}} {{ods.count === 1 ? 'Indicador' : 'Indicadores'}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
 </section>
 <app-footer></app-footer>

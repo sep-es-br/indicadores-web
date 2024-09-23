@@ -3,6 +3,12 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { AreaService } from "../../shared/services/area/area.service";
 import { IArea, IAreaOverview } from "../../shared/interfaces/area.interface";
 import { orderArrayText } from "../../shared/utils/textUtils";
+import { IBreadcrumbItem } from "../../shared/interfaces/breadcrumb-item.interface";
+import { ChallengeComponent } from "../challenge/challenge.component";
+import { IChallenge } from "../../shared/interfaces/challenge.interface";
+import { IYearTargetResult } from "../../shared/interfaces/TargetResult.interface";
+import { tap } from "rxjs";
+import { IOdsCount } from "../../shared/interfaces/odsCount.interface";
 
 @Component({
 	selector: "app-area",
@@ -11,17 +17,27 @@ import { orderArrayText } from "../../shared/utils/textUtils";
 })
 export class AreaComponent implements OnInit {
 
-	public areaId: String | null = null;
+	public areaId: string | null = null;
 
-	public breadcrumb: unknown = [];
+	public breadcrumb: Array<IBreadcrumbItem> = [];
 
 	public areaData!: IArea;
 
 	public allAreas!: IAreaOverview[];
 
-	private challenges!: any;
+	public odsCounts!: IOdsCount[];
+
+	public countlastYear!: {green: number, yellow: number, red: number, grey: number}; 
+
+	public countSecondToLast!: {green: number, yellow: number, red: number, grey: number}; 
+
+	public lastYearClassMap: Array<string> = []
+
+	public secondToLastYearClassMap: Array<string> = []
 
 	private currentUrl: string = "";
+
+	public currentYear: number = new Date().getFullYear();
 
 	constructor(
 		private _router: Router,
@@ -65,6 +81,11 @@ export class AreaComponent implements OnInit {
 				data => {
 					console.log("Dados backend -->", data);
 					this.areaData = data;
+					this.lastYearClassMap = this._areaService.lastYearClassMap
+					this.secondToLastYearClassMap = this._areaService.secondToLastYearClassMap
+					this.countlastYear = this.countTotal(this.lastYearClassMap);
+					this.countSecondToLast = this.countTotal(this.secondToLastYearClassMap);
+					this.odsCounts = this.getOdsCounts();
 					sessionStorage.setItem("AreaData",JSON.stringify(this.areaData));
 					this.updateBreadcrumb();
 				}
@@ -89,6 +110,16 @@ export class AreaComponent implements OnInit {
 		}
 	}
 
+	public countTotal(ballList: Array<string>){
+		type ColorKey = 'green' | 'yellow' | 'red' | 'grey';
+		let count: { green: number; red: number; yellow: number; grey: number } = { green: 0, red: 0, yellow: 0, grey: 0,};
+		ballList.forEach((classBall) =>{
+			const colorKey = classBall.split('-')[1] as ColorKey;
+			count[colorKey]++
+		})
+		return count
+	}
+
 	updateBreadcrumb() {
 		this.breadcrumb = [
 			{
@@ -97,4 +128,28 @@ export class AreaComponent implements OnInit {
 		];
 	}
 
+	trackByChallengeId(index: number, challenge: IChallenge): string {
+		return challenge.uuId;
+	}
+
+	public getOdsCounts(): IOdsCount[] {
+		const odsMap: { [key: number]: number } = {};
+	
+		this.areaData.challenge.forEach(challenge => {
+		  challenge.indicatorList.forEach(indicator => {
+			indicator.ods.forEach(ods => {
+			  if (odsMap[ods]) {
+				odsMap[ods] += 1;
+			  } else {
+				odsMap[ods] = 1;
+			  }
+			});
+		  });
+		});
+	
+		return Object.keys(odsMap).map(key => ({
+		  ods: +key,
+		  count: odsMap[+key]
+		}));
+	  }
 }

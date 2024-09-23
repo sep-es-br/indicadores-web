@@ -1,4 +1,4 @@
-import { Component, numberAttribute, OnInit } from "@angular/core";
+import { Component, numberAttribute, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AreaService } from "../../shared/services/area/area.service";
 import { IArea, IAreaData } from "../../shared/interfaces/area.interface";
@@ -7,6 +7,7 @@ import { IChallenge } from "../../shared/interfaces/challenge.interface";
 import { IndicatorService } from "../../shared/services/indicator/indicator.service";
 import { Iindicator } from "../../shared/interfaces/indicator.interface";
 import { IYearTargetResult } from "../../shared/interfaces/TargetResult.interface";
+import { IBreadcrumbItem } from "../../shared/interfaces/breadcrumb-item.interface";
 
 @Component({
 	selector: "app-challenge",
@@ -15,7 +16,7 @@ import { IYearTargetResult } from "../../shared/interfaces/TargetResult.interfac
 })
 export class ChallengeComponent implements OnInit{
 	
-	public breadcrumb: unknown = [];
+	public breadcrumb: Array<IBreadcrumbItem> = [];
 
 	public areaId: string | null = null;
 
