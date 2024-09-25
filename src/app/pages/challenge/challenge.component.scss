@@ -258,7 +258,7 @@
     background-image: url(/assets/images/home/bola-vermelha-espelhada.png);
 }
 
-.mirrored-grey-ball-img{
+.mirrored-gray-ball-img{
     background-image: url(/assets/images/home/bola-cinza-espelhada.png);
 }
 
@@ -271,7 +271,7 @@
 .red-legend{
     background-color: #ff0000;
 }
-.grey-legend{
+.gray-legend{
     background-color: #808080;
 }
 .blue-legend{
@@ -383,6 +383,26 @@
     height: 57px;
 }
 
+.dropdown-year-btn {
+    background-color: rgba(19, 36, 70, 1);
+    text-align: start;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    color: white;
+    border: none;
+
+    .caret{
+        float: right;
+        margin-left: 5px;
+        margin-top: 8%;
+        border-top: 10px dashed;
+        border-right: 9px solid transparent;
+        border-left: 9px solid transparent;
+        color: white;
+    }
+    
+  }
+
 .caret{
     float: right;
     margin-top: 1%;
@@ -474,6 +494,7 @@
 
 .performance-table {
     width: 100%;
+    table-layout: fixed;
     border-spacing: 4px;
     border-collapse: unset;
     font-family: 'Montserrat', sans-serif;

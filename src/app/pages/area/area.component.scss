@@ -229,6 +229,10 @@
     background-image: url(/assets/images/home/bola-vermelha.png);
 }
 
+.gray-ball-img{
+    background-image: url(/assets/images/home/bola-cinza.png);
+}
+
 .mirrored-green-ball-img{
     background-image: url(/assets/images/home/bola-verde-espelhada.png);
 }
@@ -241,21 +245,21 @@
     background-image: url(/assets/images/home/bola-vermelha-espelhada.png);
 }
 
-.mirrored-grey-ball-img{
+.mirrored-gray-ball-img{
     background-image: url(/assets/images/home/bola-cinza-espelhada.png);
 }
 
 .green-legend{
-    background-color: #1fab27;
+    background-color: #00b050;
 }
 .yellow-legend{
-    background-color: #dfb706;
+    background-color: #faa954;
 }
 .red-legend{
     background-color: #ff0000;
 }
 .grey-legend{
-    background-color: #808080;
+    background-color: #a6a6a6;
 }
 .blue-legend{
     background-color: #132446;
@@ -273,10 +277,10 @@
 
 .overview{
     display:grid;
-    grid-template-columns:repeat(3, 1fr);
+    grid-template-columns:repeat(4, 1fr);
     align-self: center;
     span{
-        margin: auto .75rem;
+        margin: auto .5rem;
         // background-color: #0098da;
         justify-content: center;
         text-align: center;

@@ -79,7 +79,7 @@ export class AreaService {
     		const average = indicatorScoreCalculationResultList.length > 0 ? total / indicatorScoreCalculationResultList.length : -1;
 
 			if (average == -1){
-				return 'mirrored-grey-ball-img'
+				return 'mirrored-gray-ball-img'
 			}else if (average >= 7.5) {
 				return 'mirrored-green-ball-img'
 			} else if (average >= 5 && average < 7.5) {
@@ -89,54 +89,6 @@ export class AreaService {
 			}
 
 	}
-
-	// private calculateBetterAndWorse(challenge: IChallenge){
-
-	// 	challenge.indicatorList.forEach((indicator) => {
-	// 		const yearsToFilter = [this.currentYear - 1, this.currentYear - 2]; 
-	// 		const yearGroupedData: IYearTargetResult = {
-	// 			resultedIn: indicator.resultedIn
-	// 				.filter(item => yearsToFilter.includes(item.year))
-	// 				.map(item => ({ ...item })), 
-	// 			targetFor: indicator.targetFor
-	// 				.filter(item => yearsToFilter.includes(item.year))
-	// 				.map(item => ({ ...item })), 
-	// 			};
-	// 			const hasBothYearsInResultedIn = yearsToFilter.every(year =>
-	// 				yearGroupedData.resultedIn.some(item => item.year === year));
-				
-	// 			const hasBothYearsInTargetFor = yearsToFilter.every(year =>
-	// 				yearGroupedData.targetFor.some(item => item.year === year));
-		
-	// 			if (hasBothYearsInResultedIn && hasBothYearsInTargetFor) {
-	// 				const indicatorScoreCalculationResultList: number[] = [];
-					
-	// 				yearsToFilter.forEach(year => {
-
-	// 					const resultedInValue = yearGroupedData.resultedIn.find(item => item.year === year)?.value ?? 0;
-	// 					const targetForValue = yearGroupedData.targetFor.find(item => item.year === year)?.value ?? 0;
-						
-	// 					let percentage: number;
-	// 					console.log(resultedInValue, targetForValue, indicator.polarity, year)
-	// 					if (indicator.polarity === 'Positiva' || indicator.polarity === 'Positivo') {
-	// 					percentage = (resultedInValue / targetForValue) * 100;
-	// 					} else {
-	// 					percentage = (targetForValue / resultedInValue) * 100;
-	// 					}
-						
-	// 					if (percentage !== null) {
-	// 						indicatorScoreCalculationResultList.push(percentage);
-	// 					}
-	// 				});
-		
-	// 				// const total = indicatorScoreCalculationResultList.reduce((acc, curr) => acc + curr, 0);
-	// 				// const average = indicatorScoreCalculationResultList.length > 0 ? total / indicatorScoreCalculationResultList.length : -1;
-
-	// 				// console.log(indicatorScoreCalculationResultList);
-	// 			}
-	// 	})
-
-	// }
 
 	private getIndicatorScoreCalculationResult(polarity: string, targetFor: number, resultedIn: number): number | null {
 		if (!targetFor || !resultedIn || targetFor <= 0 || resultedIn <= 0) {

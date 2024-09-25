@@ -1,6 +1,8 @@
 import { IChallenge } from "./challenge.interface";
 
 export interface IArea {
+	startOfAdministrationYear: number,
+	endOfAdministrationYear: number,
 	id: string,
 	name: string,
 	icon: string,

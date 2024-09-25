@@ -10,70 +10,8 @@
             <div class="col-md-6 col-lg-9">
                 <p class="descriptionArea" *ngIf="areaData.description !== areaData.name">
                     {{areaData.description}}</p>
-                <div class="row indicators" [hidden]="false">
+                <div class="row indicators" [hidden]="true">
                     <div class="col-lg-6">
-                        <div class="card shadow bg-white m-3">
-                            <div class="card-body">
-                                <i class="fa-regular fa-face-smile polarity"></i>
-                                <h4 class="card-title">NÚMERO DE PRESOS CAPACITADOS<br>Unidade</h4>
-                                <div class="card-desafio-display">
-                                    <!-- <span ng-hide="areaCtrl.result.year" [hidden]="true" class="ng-hide"><i class="fa fa-spin fa-spinner"></i></span>    -->
-                                    <span class="">
-                                      {{currentYear -2}}:
-                                    </span> 
-                                    <div class="card-info">
-                                      655.0
-                                      <!-- <span ng-hide="areaCtrl.result" [hidden]="true" class="ng-hide"><i class="fa fa-spin fa-spinner"></i></span> -->
-                                    </div>
-                                </div>
-                                <div class="card-desafio-display">
-                                    <!-- <span ng-hide="areaCtrl.result.year" [hidden]="true" class="ng-hide"><i class="fa fa-spin fa-spinner"></i></span>    -->
-                                    <span class="">
-                                      {{currentYear -1}}:
-                                    </span> 
-                                    <div class="card-info">
-                                      2.4K
-                                      <!-- <span ng-hide="areaCtrl.result" [hidden]="true" class="ng-hide"><i class="fa fa-spin fa-spinner"></i></span> -->
-                                    </div>
-                                </div>
-                                <div class="subtitle ng-binding ng-scope" style="text-align: left">
-                                    <span class="desafio-text">Desafio:</span>
-                                    Aumentar a eficácia do sistema prisional e de ressocialização
-                                  </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 ">
-                        <div class="card shadow bg-white m-3">
-                            <div class="card-body">
-                                <i class="fa-regular fa-face-frown polarity"></i>
-                                <h4 class="card-title">PERCENTUAL DE EGRESSOS CONTRATADOS VIA ESCRITÓRIO SOCIAL<br>%</h4>
-                                <div class="card-desafio-display">
-                                    <!-- <span ng-hide="areaCtrl.result.year" [hidden]="true" class="ng-hide"><i class="fa fa-spin fa-spinner"></i></span>    -->
-                                    <span class="">
-                                       {{currentYear -2}}:
-                                    </span> 
-                                    <div class="card-info">
-                                        0.21
-                                      <!-- <span ng-hide="areaCtrl.result" [hidden]="true" class="ng-hide"><i class="fa fa-spin fa-spinner"></i></span> -->
-                                    </div>
-                                </div>
-                                <div class="card-desafio-display">
-                                    <!-- <span ng-hide="areaCtrl.result.year" [hidden]="true" class="ng-hide"><i class="fa fa-spin fa-spinner"></i></span>    -->
-                                    <span class="">
-                                       {{currentYear -1}}:
-                                    </span> 
-                                    <div class="card-info">
-                                        0.23
-                                      <!-- <span ng-hide="areaCtrl.result" [hidden]="true" class="ng-hide"><i class="fa fa-spin fa-spinner"></i></span> -->
-                                    </div>
-                                </div>
-                                <div class="subtitle ng-binding ng-scope" style="text-align: left">
-                                    <span class="desafio-text">Desafio:</span>
-                                    Aumentar a eficácia do sistema prisional e de ressocialização
-                                  </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -124,6 +62,7 @@
                                 <span class="ball-item green-ball-img">{{ countlastYear.green }}</span>
                                 <span class="ball-item yellow-ball-img">{{ countlastYear.yellow }}</span>
                                 <span class="ball-item red-ball-img">{{ countlastYear.red }}</span>
+                                <span class="ball-item gray-ball-img">{{ countlastYear.gray }}</span>
                             </div>
                         </div>
                         <div class="card bg-overview mt-3">
@@ -132,6 +71,7 @@
                                 <span class="ball-item green-ball-img">{{ countSecondToLast.green }}</span>
                                 <span class="ball-item yellow-ball-img">{{ countSecondToLast.yellow }}</span>
                                 <span class="ball-item red-ball-img">{{ countSecondToLast.red }}</span>
+                                <span class="ball-item gray-ball-img">{{ countSecondToLast.gray }}</span>
                             </div>
                         </div>
 

@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, ElementRef, OnInit, Renderer2, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AreaService } from "../../shared/services/area/area.service";
-import { IArea, IAreaOverview } from "../../shared/interfaces/area.interface";
+import { IArea, IAreaOverview } from '../../shared/interfaces/area.interface';
 import { orderArrayText } from "../../shared/utils/textUtils";
 import { IBreadcrumbItem } from "../../shared/interfaces/breadcrumb-item.interface";
 import { ChallengeComponent } from "../challenge/challenge.component";
@@ -27,9 +27,9 @@ export class AreaComponent implements OnInit {
 
 	public odsCounts!: IOdsCount[];
 
-	public countlastYear!: {green: number, yellow: number, red: number, grey: number}; 
+	public countlastYear!: {green: number, yellow: number, red: number, gray: number}; 
 
-	public countSecondToLast!: {green: number, yellow: number, red: number, grey: number}; 
+	public countSecondToLast!: {green: number, yellow: number, red: number, gray: number}; 
 
 	public lastYearClassMap: Array<string> = []
 
@@ -86,11 +86,28 @@ export class AreaComponent implements OnInit {
 					this.countlastYear = this.countTotal(this.lastYearClassMap);
 					this.countSecondToLast = this.countTotal(this.secondToLastYearClassMap);
 					this.odsCounts = this.getOdsCounts();
-					sessionStorage.setItem("AreaData",JSON.stringify(this.areaData));
+					this.saveSessionStorage()
 					this.updateBreadcrumb();
 				}
 			);
 		}
+	}
+
+	saveSessionStorage(){
+		const areaData = {
+			startOfAdministrationYear: this.areaData.startOfAdministrationYear,
+			endOfAdministrationYear: this.areaData.endOfAdministrationYear,
+			id: this.areaData.id,
+			name: this.areaData.name,
+			description: this.areaData.description,
+			icon: this.areaData.icon,
+
+			challenge: this.areaData.challenge.map(c => ({
+			  uuId: c.uuId,
+			  name: c.name
+			}))
+		  };
+		sessionStorage.setItem("AreaData",JSON.stringify(areaData));
 	}
 
 	replaceIcon(newIconClass: string) {
@@ -111,8 +128,8 @@ export class AreaComponent implements OnInit {
 	}
 
 	public countTotal(ballList: Array<string>){
-		type ColorKey = 'green' | 'yellow' | 'red' | 'grey';
-		let count: { green: number; red: number; yellow: number; grey: number } = { green: 0, red: 0, yellow: 0, grey: 0,};
+		type ColorKey = 'green' | 'yellow' | 'red' | 'gray';
+		let count: { green: number; red: number; yellow: number; gray: number } = { green: 0, red: 0, yellow: 0, gray: 0};
 		ballList.forEach((classBall) =>{
 			const colorKey = classBall.split('-')[1] as ColorKey;
 			count[colorKey]++
