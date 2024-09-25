@@ -68,7 +68,6 @@ export class AreaComponent implements OnInit {
 		allAreaResponse.subscribe(
 			data => {
 				this.allAreas = orderArrayText(data, "name");
-				console.log("Todas as Áreas --> ", data);
 			}
 		);
 	}
@@ -76,10 +75,8 @@ export class AreaComponent implements OnInit {
 	getDetails() {
 		if(this.areaId){
 			const areaDetail = this._areaService.getDetail(this.areaId);
-			console.log(areaDetail);
 			areaDetail.subscribe(
 				data => {
-					console.log("Dados backend -->", data);
 					this.areaData = data;
 					this.lastYearClassMap = this._areaService.lastYearClassMap
 					this.secondToLastYearClassMap = this._areaService.secondToLastYearClassMap

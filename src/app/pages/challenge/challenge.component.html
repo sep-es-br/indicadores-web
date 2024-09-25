@@ -119,19 +119,16 @@
                                 </ul> 
                             </div>
                         </th>
-                        <!-- Exibe o segundo conjunto apenas se houver dados em indicatorYearTargetResult -->
                         <th colspan="3" class="header-cell" [ngClass]="{'invisible': !(indicatorLastYearTargetResult)}">
                             {{indicatorLastYearTargetResult?.year}}
                         </th>
                     </tr>
                     <tr>
-                        <!-- Exibe o conjunto META, RESULTADO, DESEMPENHO apenas se selectedYearTargetResult tiver valores -->
                         <ng-container *ngIf="selectedYearTargetResult">
                             <th class="subheader-cell">META</th>
                             <th class="subheader-cell">REALIZADO</th>
                             <th class="subheader-cell">DESEMPENHO</th>
                         </ng-container>
-                        <!-- Exibe o conjunto META, RESULTADO, DESEMPENHO apenas se indicatorYearTargetResult tiver valores -->
                         <ng-container>
                             <th class="subheader-cell" [ngClass]="{'invisible': !(indicatorLastYearTargetResult)}">META</th>
                             <th class="subheader-cell" [ngClass]="{'invisible': !(indicatorLastYearTargetResult)}">REALIZADO</th>
@@ -145,7 +142,6 @@
                         <td class="body-cell" rowspan="2">
                             {{ indicatorBaseYearTargetResult?.year || '-'}}
                         </td>
-                        <!-- Exibe os dados apenas se selectedYearTargetResult tiver valores -->
                         <ng-container *ngIf="selectedYearTargetResult">
                             <td class="body-cell">{{ selectedYearTargetResult?.targetFor?.[0]?.showValue || 'Sem dados' }}</td>
                             <td class="body-cell">{{ selectedYearTargetResult?.resultedIn?.[0]?.showValue || 'Sem dados' }}</td>
@@ -157,7 +153,6 @@
                                 <span *ngIf="!selectedYearTargetResult" class="ball-item mirrored-grey-ball-img"></span>
                             </td>
                         </ng-container>
-                        <!-- Exibe os dados apenas se indicatorYearTargetResult tiver valores -->
                         <ng-container>
                             <td class="body-cell" [ngClass]="{'invisible': !(indicatorLastYearTargetResult)}">{{ indicatorLastYearTargetResult?.targetFor?.[0]?.showValue || 'Sem dados' }}</td>
                             <td class="body-cell" [ngClass]="{'invisible': !(indicatorLastYearTargetResult)}">{{ indicatorLastYearTargetResult?.resultedIn?.[0]?.showValue || 'Sem dados' }}</td>

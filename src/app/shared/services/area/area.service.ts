@@ -20,24 +20,17 @@ export class AreaService {
 
 	public secondToLastYearClassMap: Array<string> = []
 
-	// public worstIndicator!: {challengeName: string, indicator: Iindicator}
-
-	// public bestIndicator
-
 	constructor(
 		private _http: HttpClient,
 	) {}
 
 	getDetail(areaId: String): Observable<IArea> {
-		console.log(areaId)
 		return this._http.get<IArea>(`${this._url}/detail/${areaId}`).pipe(
 			tap((area)=> {
 				this.lastYearClassMap = area.challenge.map((challenge)=> this.getBallClass(challenge, this.currentYear  -1))
 				this.secondToLastYearClassMap = area.challenge.map((challenge)=> this.getBallClass(challenge, this.currentYear  -2))
-				// area.challenge.map((challenge)=> this.calculateBetterAndWorse(challenge))
 			}),
 			catchError((err: HttpErrorResponse) => {
-				// this._errorHandlerService.handleError(err);
 				return throwError(() => err);
 			}));
 	}

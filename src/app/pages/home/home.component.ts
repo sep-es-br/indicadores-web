@@ -16,7 +16,6 @@ export class HomeComponent implements OnInit {
 
 	constructor(private _homeService: HomeService) { 
 		this.homeData = new HomeData();
-		console.log(this.homeData);
 	}
 
 	ngOnInit(): void {
@@ -27,8 +26,7 @@ export class HomeComponent implements OnInit {
 		const responseData = this._homeService.getGeneralData();
 		responseData.subscribe(
 			data=> {
-				this.homeData = data;
-				console.log("Dados backend -->",data);}
+				this.homeData = data;}
 		);
 	}
 

@@ -94,7 +94,6 @@ export class ChallengeComponent implements OnInit {
           Array.isArray(this.challengeData.indicatorList)
         ) {
           this.indicatorData = this.challengeData.indicatorList;
-          console.log(this.indicatorData);
         }
         this.upYearBreadcrumb();
       });
@@ -167,7 +166,6 @@ export class ChallengeComponent implements OnInit {
         .filter((item) => item.year === this.currentYear - 1)
         .map(({ year, ...rest }) => rest),
     };
-    console.log(lastYearData);
     if (
       lastYearData.resultedIn.length > 0 ||
       lastYearData.targetFor.length > 0

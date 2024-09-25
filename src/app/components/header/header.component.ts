@@ -29,9 +29,6 @@ export class HeaderComponent implements OnInit {
 		const icon = toggler.querySelector("svg.iconMenu");
 	
 		toggler.addEventListener("click", () => {
-			console.log("Clicou no botão de menu");
-			console.log(icon);
-			console.log(toggler.classList);
 			if (toggler.classList.contains("collapsed")) {
 				this.menuButton = this.openButton;
 			} else {
