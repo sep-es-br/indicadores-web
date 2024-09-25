@@ -137,8 +137,8 @@ export class ChallengeComponent implements OnInit {
       .filter(
         (year) =>
           year >= this.areaData.startOfAdministrationYear &&
-          year <= this.areaData.endOfAdministrationYear 
-          // && year !== this.currentYear - 1
+          year <= this.areaData.endOfAdministrationYear && 
+          year !== this.currentYear - 1
       )
       .sort((a, b) => b - a);
 
