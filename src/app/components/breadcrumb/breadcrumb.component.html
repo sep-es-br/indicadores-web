@@ -11,11 +11,6 @@
                     <a [routerLink]="data.link" [queryParams]="data.params"  class="text-gray-600 breadcrumb-link text-hover-primary">{{ data.label }}</a>
                   </li>
             </ng-container>
-            <!-- <ng-container *ngFor="let path of breadcrumbNav">
-              <li class="breadcrumb-item text-gray-600">
-                <a [routerLink]="path"  [ngClass]="{ 'd-none': currentPage === 'main','link-atual': currentPage === path }"  class="text-gray-600 breadcrumb-link text-hover-primary">{{ path | breadcrumbnavlink }}</a>
-              </li>
-            </ng-container> -->
           </ul>
     </div>
 </section>

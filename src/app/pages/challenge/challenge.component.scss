@@ -338,7 +338,8 @@
 
 .dropdown-menu {
     display: none; 
-    position: absolute; 
+    position: absolute;
+    cursor: pointer; 
     top: 100%; 
     left: 0;
     background-color: #ffffff; 

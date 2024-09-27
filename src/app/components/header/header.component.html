@@ -20,7 +20,12 @@
 		<li class="nav-item">
 			<a class="nav-link text-white" href="#">FAQ</a>
 		</li>
-      </ul>
+  </ul>
+  <select *ngIf="showAdminList" (change)="onSelectionChange($event)" class="custom-select">
+    <option *ngFor="let admin of administrationList" [value]="admin.id">
+      {{ admin.name }}
+    </option>
+  </select>
     </div>
     <div class="col-5 col-md-4 col-lg-2">
       <img class="img-fluid" src="/assets/images/home/Logo_SEP_Branco.png" />

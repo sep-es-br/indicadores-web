@@ -1,4 +1,4 @@
-<app-header></app-header>
+<app-header (selectionChange)="onDropdownChange($event)" [showAdminList]="true"></app-header>
 <section class="mainSection">
     <div class="container">
         <div class="p-3 p-md-5  mb-5 mt-5">
@@ -19,9 +19,9 @@
                     Indicadores
                 </div>
             </div>
-            <p class="mt-5 ps-5 pe-5 mainText">{{homeData.description}}</p>
+            <p class="mt-5 ps-5 pe-5 mainText">{{homeData.name}}</p>
             <div class="text-center mt-5" *ngIf="homeData.areas">
-                <a href="#area" >
+                <a href="#areas" >
                     <i class="fa-solid fa-circle-chevron-down fa-bounce text-white fs-1" style="--fa-animation-duration: 1.8s;--fa-animation-timing:3s;--fa-animation-iteration-count:5"></i>
                 </a>
             </div>

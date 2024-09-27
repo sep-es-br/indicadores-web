@@ -55,9 +55,8 @@
                         </div>
                     </div>
                     <div class="card-body">
-
                         <div class="card bg-overview">
-                            <h3 class="titleOverview" >{{currentYear -1}}</h3>
+                            <h3 class="titleOverview" >{{_areaService.administrationYear}}</h3>
                             <div class="overview mb-3">
                                 <span class="ball-item green-ball-img">{{ countlastYear.green }}</span>
                                 <span class="ball-item yellow-ball-img">{{ countlastYear.yellow }}</span>
@@ -66,7 +65,7 @@
                             </div>
                         </div>
                         <div class="card bg-overview mt-3">
-                            <h3 class="titleOverview" >{{currentYear -2}}</h3>
+                            <h3 class="titleOverview" >{{_areaService.administrationYear -1}}</h3>
                             <div class="overview mb-3">
                                 <span class="ball-item green-ball-img">{{ countSecondToLast.green }}</span>
                                 <span class="ball-item yellow-ball-img">{{ countSecondToLast.yellow }}</span>
@@ -123,18 +122,18 @@
                                             class="ball-item"
                                             [ngClass]="lastYearClassMap[i]"
                                          ></span>
-                                        {{currentYear -1}}
+                                        {{_areaService.administrationYear}}
                                     </div>
                                     <div class="m-auto ms-2 text-center">
                                         <span 
                                         class="ball-item"
                                         [ngClass]="secondToLastYearClassMap[i]"
                                         ></span>
-                                        {{currentYear -2}}
+                                        {{_areaService.administrationYear -1}}
                                     </div>
                                     <div class="m-auto ms-2 text-center">
                                         <span class="blue-legend mb-2">{{challenge.indicatorList.length}}</span>
-                                        Indicadores
+                                        {{challenge.indicatorList.length <= 1 ? 'Indicador' : 'Indicadores'}}
                                     </div>
                                 </div>
                             </div>
@@ -154,10 +153,12 @@
                 <p class="descriptionArea" style="color: #0098da; font-weight:600">Veja os ODS relacionados com a área estratégica e o número de indicadores atendidos</p>
                 <div class="item-ods">
                     <div *ngFor="let ods of odsCounts">
-                        <img 
-                             [src]="'/assets/images/ODS/ODS-' + ods.ods + '.png'"
-                             [alt]="'ODS ' + ods"
-                             class="ods-image">
+                        <a [href]="'https://brasil.un.org/pt-br/sdgs/' + ods.ods" target="_blank">
+                            <img 
+                                 [src]="'/assets/images/ODS/ODS-' + ods.ods + '.png'"
+                                 [alt]="'ODS ' + ods"
+                                 class="ods-image">
+                        </a> 
                         <p class="ods-text">{{ods.count}} {{ods.count === 1 ? 'Indicador' : 'Indicadores'}}</p>
                     </div>
                 </div>

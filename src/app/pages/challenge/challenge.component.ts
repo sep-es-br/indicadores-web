@@ -36,6 +36,8 @@ export class ChallengeComponent implements OnInit {
 
   public ballClassLastYear?: string | null = null;
 
+  public ballClassYearTargetResult?: string | null = null;
+
   public indicatorBaseYearTargetResult?: IYearTargetResult;
 
   public indicatorLastYearTargetResult?: IYearTargetResult;
@@ -43,6 +45,8 @@ export class ChallengeComponent implements OnInit {
   public challengeData?: IChallenge;
 
   public dropdownOpen: boolean = false;
+
+  public showLastYear: boolean = false;
 
   public dropdownOpenYear: boolean = false;
 
@@ -67,11 +71,16 @@ export class ChallengeComponent implements OnInit {
     this._route.queryParams.subscribe((params) => {
       this.challengeId = params['id'] ? String(params['id']) : null;
       this.areaId = this.areaData.id;
-      this.selectedIndicator = null;
-      this.selectedYearTargetResult = null;
-      this.countlastYear = undefined;
+      this.clear()
       this.getData();
     });
+  }
+
+  clear(){
+    this.selectedIndicator = null;
+    this.selectedYearTargetResult = null;
+    this.countlastYear = undefined;
+    this.indicatorLastYearTargetResult = undefined;
   }
 
   getData(): void {
@@ -103,6 +112,10 @@ export class ChallengeComponent implements OnInit {
   upYearBreadcrumb() {
     this.breadcrumb = [
       {
+				label: this.areaData.administrationName,
+				link: this._router.url
+			},
+      {
         label: this.areaData.name,
         link: this._router.url.split('/')[0] + '/area',
         params: {
@@ -110,9 +123,16 @@ export class ChallengeComponent implements OnInit {
         },
       },
       {
-        label: this.areaData.name,
+        label: this.areaData.name
       },
     ];
+  }
+
+  truncateText(text: string, maxLength: number): string {
+    if (text.length > maxLength) {
+      return text.substring(0, maxLength) + '...';
+    }
+    return text;
   }
 
   toggleDropdown() {
@@ -126,6 +146,7 @@ export class ChallengeComponent implements OnInit {
   }
 
   selectIndicator(indicator: Iindicator) {
+    this.clear()
     this.selectedIndicator = indicator;
     this.dropdownOpen = false;
     const allYears = Array.from(
@@ -156,26 +177,34 @@ export class ChallengeComponent implements OnInit {
     if (yearGroupedData.length > 0) {
       this.indicatorYearTargetResult = yearGroupedData;
       this.selectedYearTargetResult = this.indicatorYearTargetResult[0];
+      this.ballClassYearTargetResult = this.getBallClass(this.selectedIndicator.polarity, 
+      this.selectedYearTargetResult?.targetFor?.[0]?.value ?? 0, this.selectedYearTargetResult?.resultedIn?.[0]?.value ?? 0)
+      if(!(this.currentYear -1 >= this.areaData.startOfAdministrationYear && this.currentYear -1 <= this.areaData.endOfAdministrationYear)){
+        this.countlastYear = { [this.ballClassYearTargetResult.split('-')[1]]: 1}  
+      }
     }
-    const lastYearData: IYearTargetResult = {
-      year: this.currentYear - 1,
-      resultedIn: indicator.resultedIn
-        .filter((item) => item.year === this.currentYear - 1)
-        .map(({ year, ...rest }) => rest),
-      targetFor: indicator.targetFor
-        .filter((item) => item.year === this.currentYear - 1)
-        .map(({ year, ...rest }) => rest),
-    };
-    if (
-      lastYearData.resultedIn.length > 0 ||
-      lastYearData.targetFor.length > 0
-    ) {
-      this.indicatorLastYearTargetResult = lastYearData;
-      this.ballClassLastYear = this.getBallClass(this.selectedIndicator.polarity, 
+
+    if(this.currentYear -1 >= this.areaData.startOfAdministrationYear && this.currentYear -1 <= this.areaData.endOfAdministrationYear){
+      const lastYearData: IYearTargetResult = {
+        year: this.currentYear - 1,
+        resultedIn: indicator.resultedIn
+          .filter((item) => item.year === this.currentYear - 1)
+          .map(({ year, ...rest }) => rest),
+        targetFor: indicator.targetFor
+          .filter((item) => item.year === this.currentYear - 1)
+          .map(({ year, ...rest }) => rest),
+      };
+      if (
+        lastYearData.resultedIn.length > 0 ||
+        lastYearData.targetFor.length > 0
+      ) {
+        this.indicatorLastYearTargetResult = lastYearData;
+        this.ballClassLastYear = this.getBallClass(this.selectedIndicator.polarity, 
         this.indicatorLastYearTargetResult?.targetFor?.[0]?.value ?? 0, this.indicatorLastYearTargetResult?.resultedIn?.[0]?.value ?? 0)
-      this.countlastYear = { [this.ballClassLastYear.split('-')[1]]: 1}
-      
+        this.countlastYear = { [this.ballClassLastYear.split('-')[1]]: 1}  
+      }
     }
+
 
     const baseYearData: IYearTargetResult = {
       year: this.areaData.startOfAdministrationYear - 1,
@@ -193,10 +222,24 @@ export class ChallengeComponent implements OnInit {
     if (baseYearData.resultedIn.length > 0) {
       this.indicatorBaseYearTargetResult = baseYearData;
     }
+
+    if(this.indicatorLastYearTargetResult == undefined && !(this.selectedYearTargetResult == null)){
+      this.showLastYear = false
+    }else{
+      this.showLastYear = true
+    }
   }
 
   selectYear(indicator: IYearTargetResult) {
     this.selectedYearTargetResult = indicator;
+    if(this.selectedIndicator){
+      this.ballClassYearTargetResult = this.getBallClass(this.selectedIndicator.polarity, 
+      this.selectedYearTargetResult?.targetFor?.[0]?.value ?? 0, this.selectedYearTargetResult?.resultedIn?.[0]?.value ?? 0)
+      if(!(this.currentYear -1 >= this.areaData.startOfAdministrationYear && this.currentYear -1 <= this.areaData.endOfAdministrationYear)){
+        this.countlastYear = { [this.ballClassYearTargetResult.split('-')[1]]: 1}  
+      }
+    }
+
     this.dropdownOpenYear = false;
   }
 

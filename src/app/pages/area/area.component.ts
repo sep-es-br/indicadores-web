@@ -42,7 +42,7 @@ export class AreaComponent implements OnInit {
 	constructor(
 		private _router: Router,
 		private _route: ActivatedRoute,
-		private _areaService: AreaService,
+		public _areaService: AreaService,
 	) {
 	}
 
@@ -64,7 +64,7 @@ export class AreaComponent implements OnInit {
 	}
 
 	getAllAreas() {
-		const allAreaResponse = this._areaService.getAll();
+		const allAreaResponse = this._areaService.getAll(this.areaId);
 		allAreaResponse.subscribe(
 			data => {
 				this.allAreas = orderArrayText(data, "name");
@@ -94,6 +94,7 @@ export class AreaComponent implements OnInit {
 		const areaData = {
 			startOfAdministrationYear: this.areaData.startOfAdministrationYear,
 			endOfAdministrationYear: this.areaData.endOfAdministrationYear,
+			administrationName: this.areaData.administrationName,
 			id: this.areaData.id,
 			name: this.areaData.name,
 			description: this.areaData.description,
@@ -136,6 +137,10 @@ export class AreaComponent implements OnInit {
 
 	updateBreadcrumb() {
 		this.breadcrumb = [
+			{
+				label: this.areaData.administrationName,
+				link: this._router.url
+			},
 			{
 				label: this.areaData.name,
 			}

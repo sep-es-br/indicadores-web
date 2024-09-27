@@ -119,9 +119,11 @@
                                 </ul> 
                             </div>
                         </th>
-                        <th colspan="3" class="header-cell" [ngClass]="{'invisible': !(indicatorLastYearTargetResult)}">
-                            {{indicatorLastYearTargetResult?.year}}
-                        </th>
+                        <ng-container *ngIf="showLastYear">
+                            <th colspan="3" class="header-cell" [ngClass]="{'invisible': !(indicatorLastYearTargetResult)}">
+                                {{indicatorLastYearTargetResult?.year}}
+                            </th>
+                        </ng-container>
                     </tr>
                     <tr>
                         <ng-container *ngIf="selectedYearTargetResult">
@@ -129,7 +131,7 @@
                             <th class="subheader-cell">REALIZADO</th>
                             <th class="subheader-cell">DESEMPENHO</th>
                         </ng-container>
-                        <ng-container>
+                        <ng-container *ngIf="showLastYear">
                             <th class="subheader-cell" [ngClass]="{'invisible': !(indicatorLastYearTargetResult)}">META</th>
                             <th class="subheader-cell" [ngClass]="{'invisible': !(indicatorLastYearTargetResult)}">REALIZADO</th>
                             <th class="subheader-cell" [ngClass]="{'invisible': !(indicatorLastYearTargetResult)}">DESEMPENHO</th>
@@ -147,13 +149,11 @@
                             <td class="body-cell">{{ selectedYearTargetResult?.resultedIn?.[0]?.showValue || 'Sem dados' }}</td>
                             <td class="body-cell">
                                 <span *ngIf="selectedYearTargetResult"
-                                      class="ball-item"  
-                                      [ngClass]="getBallClass(selectedIndicator.polarity, selectedYearTargetResult?.targetFor?.[0]?.value ?? 0, selectedYearTargetResult?.resultedIn?.[0]?.value ?? 0)">
+                                      class="ball-item {{ballClassYearTargetResult}}">
                                 </span>
-                                <span *ngIf="!selectedYearTargetResult" class="ball-item mirrored-grey-ball-img"></span>
                             </td>
                         </ng-container>
-                        <ng-container>
+                        <ng-container *ngIf="showLastYear">
                             <td class="body-cell" [ngClass]="{'invisible': !(indicatorLastYearTargetResult)}">{{ indicatorLastYearTargetResult?.targetFor?.[0]?.showValue || 'Sem dados' }}</td>
                             <td class="body-cell" [ngClass]="{'invisible': !(indicatorLastYearTargetResult)}">{{ indicatorLastYearTargetResult?.resultedIn?.[0]?.showValue || 'Sem dados' }}</td>
                             <td class="body-cell" [ngClass]="{'invisible': !(indicatorLastYearTargetResult)}">

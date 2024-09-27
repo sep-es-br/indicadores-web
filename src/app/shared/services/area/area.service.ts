@@ -16,6 +16,8 @@ export class AreaService {
 
 	private currentYear: number = new Date().getFullYear();
 
+	public administrationYear: number = 0;
+
 	public lastYearClassMap: Array<string> = []
 
 	public secondToLastYearClassMap: Array<string> = []
@@ -27,16 +29,23 @@ export class AreaService {
 	getDetail(areaId: String): Observable<IArea> {
 		return this._http.get<IArea>(`${this._url}/detail/${areaId}`).pipe(
 			tap((area)=> {
-				this.lastYearClassMap = area.challenge.map((challenge)=> this.getBallClass(challenge, this.currentYear  -1))
-				this.secondToLastYearClassMap = area.challenge.map((challenge)=> this.getBallClass(challenge, this.currentYear  -2))
+				if(this.currentYear -1 >= area.startOfAdministrationYear && this.currentYear -1 <= area.endOfAdministrationYear){
+					this.lastYearClassMap = area.challenge.map((challenge)=> this.getBallClass(challenge, this.currentYear  -1))
+					this.secondToLastYearClassMap = area.challenge.map((challenge)=> this.getBallClass(challenge, this.currentYear  -2))
+					this.administrationYear = this.currentYear  -1
+				}else{
+					this.lastYearClassMap = area.challenge.map((challenge)=> this.getBallClass(challenge, area.endOfAdministrationYear))
+					this.secondToLastYearClassMap = area.challenge.map((challenge)=> this.getBallClass(challenge, area.endOfAdministrationYear -1))
+					this.administrationYear = area.endOfAdministrationYear
+				}
 			}),
 			catchError((err: HttpErrorResponse) => {
 				return throwError(() => err);
 			}));
 	}
 
-	getAll(): Observable<IAreaOverview[]>{
-		return this._http.get<IAreaOverview[]>(this._url).pipe(
+	getAll(areaId: String | null): Observable<IAreaOverview[]>{
+		return this._http.get<IAreaOverview[]>(`${this._url}/${areaId}`).pipe(
 			catchError((err: HttpErrorResponse) => {
 				return throwError(() => err);
 			})
