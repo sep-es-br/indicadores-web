@@ -60,6 +60,7 @@ header{
     border: none;
     font-weight: 700;
     font-family: "Montserrat", sans-serif;
+    cursor: pointer;
   }
   
   .custom-select option {
@@ -68,6 +69,10 @@ header{
     border: none; 
     font-weight: 700;
     font-family: "Montserrat", sans-serif;
+  }
+
+  .custom-select:hover{
+    color: var(--corDefault) !important;
   }
 
   .custom-select:focus,
