@@ -1,6 +1,7 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output } from "@angular/core";
 import { IAdministration } from "../../shared/interfaces/administration.interface";
 import { HomeService } from "../../shared/services/home/home.service";
+import { Router } from "@angular/router";
 
 @Component({
 	selector: "app-header",
@@ -10,27 +11,26 @@ import { HomeService } from "../../shared/services/home/home.service";
 export class HeaderComponent implements OnInit {
 
 	@Input() background:boolean = false;
-	@Input() showAdminList: boolean = false;
 	@Output() selectionChange = new EventEmitter<string>();
 
 	public openButton = "<i class='fa-solid fa-ellipsis-vertical iconMenu text-white fs-3'></i>";
 	public closeButton = "<i class='fa-solid fa-xmark iconMenu text-white fs-3'></i>";
 	public menuButton = this.openButton;
 	public administrationList: IAdministration[] = []
+	public selectedAdminId!: string | null;
 
-	constructor(private el: ElementRef,private _homeService: HomeService) {}
+	constructor(private el: ElementRef,private _homeService: HomeService, private router: Router) {}
 
 	ngOnInit(): void {
-		if(this.showAdminList){
-			const responseData = this._homeService.administrationList();
+		const responseData = this._homeService.administrationList();
 		responseData.subscribe(
 			data=> {
 				this.administrationList = data;
-				this.selectionChange.emit(this.administrationList[0].id);
+				const storedId = sessionStorage.getItem('adminId');
+				this.selectedAdminId = storedId !== null ? storedId : this.administrationList[0].id;
+				this.selectionChange.emit(this.selectedAdminId);
 			}
 		);
-
-		}
 	}
 
 	isScrolled = false;
@@ -39,6 +39,10 @@ export class HeaderComponent implements OnInit {
 	onSelectionChange(event: Event) {
 		const selectedValue = (event.target as HTMLSelectElement).value;
 		this.selectionChange.emit(selectedValue);
+		sessionStorage.setItem('adminId', selectedValue);
+		if (this.router.url !== '/home') {
+			this.router.navigate(['/home']);
+		  }
 	  }
 
 	ngAfterContentChecked(): void {

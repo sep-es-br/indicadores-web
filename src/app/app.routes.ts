@@ -4,11 +4,16 @@ import { AreaComponent } from "./pages/area/area.component";
 import { AboutComponent } from "./pages/about/about.component";
 import { ContactComponent } from "./pages/contact/contact.component";
 import { ChallengeComponent } from "./pages/challenge/challenge.component";
+import { LoginComponent } from "./pages/login/login.component";
 
 export const routes: Routes = [
 
 	{
-		path: "",
+		path: "login",
+		component: LoginComponent,
+	},
+	{
+		path: "home",
 		component: HomeComponent,
 	},
 	{
@@ -29,7 +34,7 @@ export const routes: Routes = [
 	},
 	{
 		path: "**",
-		redirectTo: "",
+		redirectTo: "login",
 		pathMatch: "full"
 	}
 ];

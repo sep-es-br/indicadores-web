@@ -21,7 +21,7 @@
 			<a class="nav-link text-white" href="#">FAQ</a>
 		</li>
   </ul>
-  <select *ngIf="showAdminList" (change)="onSelectionChange($event)" class="custom-select">
+  <select [(ngModel)]="selectedAdminId" (change)="onSelectionChange($event)" class="custom-select">
     <option *ngFor="let admin of administrationList" [value]="admin.id">
       {{ admin.name }}
     </option>
