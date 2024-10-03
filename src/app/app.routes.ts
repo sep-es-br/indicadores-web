@@ -5,12 +5,17 @@ import { AboutComponent } from "./pages/about/about.component";
 import { ContactComponent } from "./pages/contact/contact.component";
 import { ChallengeComponent } from "./pages/challenge/challenge.component";
 import { LoginComponent } from "./pages/login/login.component";
+import { AuthRedirectComponent } from "./pages/auth-redirect/auth-redirect.component";
 
 export const routes: Routes = [
 
 	{
 		path: "login",
 		component: LoginComponent,
+	},
+	{
+		path: "token",
+		component: AuthRedirectComponent,
 	},
 	{
 		path: "home",

@@ -3,6 +3,7 @@ import { HomeService } from "../../shared/services/home/home.service";
 import { IHome,HomeData } from "../../shared/interfaces/home.interface";
 import { Observable, timeout } from "rxjs";
 import { Router } from "@angular/router";
+import { AuthenticationService } from "../../shared/services/autentication/authentication.service";
 
 @Component({
 	selector: "app-login",
@@ -13,13 +14,13 @@ export class LoginComponent implements OnInit {
 
     public currentYear: number = new Date().getFullYear();
 
-	constructor(private router: Router) { 
+	constructor(private authenticationService: AuthenticationService) { 
 	}
 
 	ngOnInit(): void {
 	}
 
     login(){
-        this.router.navigate(['/home']);
+        this.authenticationService.acessoCidadaoSignIn();
     }
 }

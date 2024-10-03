@@ -8,9 +8,11 @@ import { ContactComponent } from "./contact/contact.component";
 import { CountUpModule } from "ngx-countup";
 import { RouterModule } from "@angular/router";
 import { ChallengeComponent } from "./challenge/challenge.component";
+import { AuthRedirectComponent } from "./auth-redirect/auth-redirect.component";
 
 @NgModule({
 	declarations: [
+		AuthRedirectComponent,
 		HomeComponent,
 		AreaComponent,
 		ChallengeComponent,
@@ -18,6 +20,7 @@ import { ChallengeComponent } from "./challenge/challenge.component";
 		ContactComponent
 	],
 	exports: [
+		AuthRedirectComponent,
 		HomeComponent,
 		AreaComponent,
 		ChallengeComponent,
