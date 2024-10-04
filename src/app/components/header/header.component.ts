@@ -46,8 +46,6 @@ export class HeaderComponent implements OnInit {
 	  }
 
 	ngAfterContentChecked(): void {
-		//Called after every check of the component's or directive's content.
-		//Add 'implements AfterContentChecked' to the class.
 		
 		const toggler = this.el.nativeElement.querySelector(".navbar-toggler");
 		const icon = toggler.querySelector("svg.iconMenu");

@@ -113,7 +113,7 @@ export class ChallengeComponent implements OnInit {
     this.breadcrumb = [
       {
 				label: this.areaData.administrationName,
-				link: this._router.url
+				link: '/home'
 			},
       {
         label: this.areaData.name,

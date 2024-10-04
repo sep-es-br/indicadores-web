@@ -7,7 +7,6 @@ import {
 
 export const authGuard: CanActivateChildFn = (route, state) => {
   const storageToken = sessionStorage.getItem('token');
-
   if (!!storageToken) {
     return true;
   }

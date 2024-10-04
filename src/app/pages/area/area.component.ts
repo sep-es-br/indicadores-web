@@ -56,7 +56,7 @@ export class AreaComponent implements OnInit {
 
 	getData(): void {
 		if (this.areaId == null) {
-			this._router.navigate(["/"]);
+			this._router.navigate(["/home"]);
 			return;
 		}
 		this.getAllAreas();
@@ -139,7 +139,7 @@ export class AreaComponent implements OnInit {
 		this.breadcrumb = [
 			{
 				label: this.areaData.administrationName,
-				link: this._router.url
+				link: '/home'
 			},
 			{
 				label: this.areaData.name,

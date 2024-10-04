@@ -6,6 +6,7 @@ import { ContactComponent } from "./pages/contact/contact.component";
 import { ChallengeComponent } from "./pages/challenge/challenge.component";
 import { LoginComponent } from "./pages/login/login.component";
 import { AuthRedirectComponent } from "./pages/auth-redirect/auth-redirect.component";
+import { authGuard } from "./shared/guards/auth.guard";
 
 export const routes: Routes = [
 
@@ -20,6 +21,7 @@ export const routes: Routes = [
 	{
 		path: "home",
 		component: HomeComponent,
+    	canActivate: [authGuard],
 	},
 	{
 		path:"about",
@@ -27,11 +29,13 @@ export const routes: Routes = [
 	},
 	{
 		path: "challenge",
-		component: ChallengeComponent,	
+		component: ChallengeComponent,
+		canActivate: [authGuard],	
 	},
 	{
 		path: "area",
-		component: AreaComponent,	
+		component: AreaComponent,
+		canActivate: [authGuard],	
 	},
 	{
 		path: "contato",

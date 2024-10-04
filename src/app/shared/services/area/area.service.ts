@@ -6,6 +6,7 @@ import { IArea, IAreaOverview } from "../../interfaces/area.interface";
 import { IChallenge } from "../../interfaces/challenge.interface";
 import { IYearTargetResult } from "../../interfaces/TargetResult.interface";
 import { Iindicator } from "../../interfaces/indicator.interface";
+import { ErrorHandlerService } from "../error-handler/error-handler.service";
 
 @Injectable({
 	providedIn: "root",
@@ -24,6 +25,7 @@ export class AreaService {
 
 	constructor(
 		private _http: HttpClient,
+		private _errorHandlerService: ErrorHandlerService,
 	) {}
 
 	getDetail(areaId: String): Observable<IArea> {
@@ -40,6 +42,7 @@ export class AreaService {
 				}
 			}),
 			catchError((err: HttpErrorResponse) => {
+				this._errorHandlerService.handleError(err);
 				return throwError(() => err);
 			}));
 	}
@@ -47,6 +50,7 @@ export class AreaService {
 	getAll(areaId: String | null): Observable<IAreaOverview[]>{
 		return this._http.get<IAreaOverview[]>(`${this._url}/${areaId}`).pipe(
 			catchError((err: HttpErrorResponse) => {
+				this._errorHandlerService.handleError(err);
 				return throwError(() => err);
 			})
 		);
