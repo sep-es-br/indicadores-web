@@ -1,0 +1,173 @@
+<app-header [background]="true" ></app-header>
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<section class="mainSection" *ngIf="areaData && challengeData && indicatorData">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-lg-9">
+                <h3 class="titleArea">{{challengeData.name}}</h3>
+                <div class="row indicators" [hidden]="false">
+                    <div>
+                        <div class="row card-container card-container-metricas">
+                        <div class="col-lg-3 item-card-metricas cards-indicadores">
+                            <span class="count-indicador-title ">{{countlastYear?.green || 0}}</span>
+                            <span class="info-text">Meta <br>atingida</span>
+                            <div class="card-cor-verde mini-legenda">≥ 100%</div>
+                        </div>
+                        <div class="col-lg-3 item-card-metricas cards-indicadores">
+                            <span class="count-indicador-title ">{{countlastYear?.yellow || 0}}</span>
+                            <span class="info-text">Meta parcialmente atingida</span>
+                            <div class="card-cor-amarela mini-legenda"> ≥ 85% e &lt; 100% </div>
+                        </div>
+                        <div class="col-lg-3 item-card-metricas cards-indicadores">
+                            <span class="count-indicador-title">{{countlastYear?.red || 0}}</span>
+                            <span class="info-text cards-indicadores">Meta não <br>atingida</span>
+                            <div class="card-cor-verm mini-legenda"> &lt; 85% </div>
+                        </div>
+                        <div class="col-lg-3 item-card-metricas cards-indicadores">
+                            <span class="count-indicador-title ">{{countlastYear?.gray || 0}}</span>
+                            <span class="info-text">Não é possível <br>mensurar</span>
+                            <div class="card-cor-preta mini-legenda"></div>
+                        </div>
+                    </div></div>
+                </div>
+                <div class="text-select">
+                    Selecione um indicador:
+                </div>
+                <div class="btn-group dropdown" style="width: 100%;">
+                    <button id="single-button" type="button" class="dropdown-btn" (click)="toggleDropdown()" aria-haspopup="true"
+                        aria-expanded="false">
+                        {{ selectedIndicator?.name ?? '-- Selecione um indicador --'}}
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" *ngIf="dropdownOpen" role="menu" aria-labelledby="single-button">
+                        <li role="menuitem" *ngFor="let indicator of indicatorData">
+                            <a (click)="selectIndicator(indicator)">{{ indicator.name }}</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="row indicators" *ngIf="selectedIndicator">
+                    <ul class="d-flex indicador-header-container">
+                        <li class="d-flex-colum indicador-header-item">
+                            <span class="info-text">ORGÃO:</span>
+                            <span class="bck-blue medidas-text">{{selectedIndicator.organizationAcronym}}</span>
+                        </li>
+                        <li class="d-flex-colum indicador-header-item">
+                            <span class="info-text">UND. MEDIDA :</span>
+                            <span class="bck-blue medidas-text">{{selectedIndicator.measureUnit}}</span>
+                        </li>
+                        <li class="d-flex-colum indicador-header-item indicador-header-polaridade">
+                            <span class="info-text">POLARIDADE:</span>
+                            <span *ngIf="selectedIndicator.polarity == 'Positiva' || selectedIndicator.polarity == 'Positivo'" class="bck-blue medidas-text d-flex">
+                                <div class="icone-polaridade"></div>
+                                <div>QUANTO MAIOR MELHOR</div>
+                            </span>
+                            <span *ngIf="selectedIndicator.polarity == 'Negativa' || selectedIndicator.polarity == 'Negativo'" class="bck-blue medidas-text d-flex">
+                                <div class="icone-polaridade" style="transform: rotate(180deg);"></div>
+                                <div>QUANTO MENOR MELHOR</div>
+                            </span>
+                        </li>
+                        <li class="indicador-header-item indicador-header-ods" style="margin-right: 0%; width: 20%;">
+                            <div class="item-ods" >
+                                <img *ngFor="let ods of selectedIndicator.ods"
+                                     [src]="'/assets/images/ODS/ODS-' + ods + '.png'"
+                                     [alt]="'ODS ' + ods"
+                                     class="ods-image">
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-3 text-center">
+                <div class="card CardAreas custom-shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Desafios</h5>
+                        <ul class="menuLateral mb-0" >
+                            <ng-container *ngFor="let challenge of areaData.challenge" >
+                                <li class="nav-item" [ngClass]="{'active': challengeId == challenge.uuId }">
+                                    <a class="nav-link d-flex"  [routerLink]="['/challenge']" [queryParams]="{id:challenge.uuId}" >
+                                        <div class="textAreaMenu">
+                                            {{challenge.name}}
+                                        </div> 
+                                    </a>
+                                </li>
+                            </ng-container>
+                        </ul> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        &nbsp;
+        <div class="row" *ngIf="selectedIndicator">
+            <div class="table-resultados-container">
+                <table class="performance-table">
+                    <tr>
+                        <th rowspan="2" class="header-cell">BASE DE REFERÊNCIA</th>
+                        <th rowspan="2" class="header-cell">ANO</th>
+
+                        <th colspan="3" class="header-cell" *ngIf="selectedYearTargetResult">
+                            <div class="btn-group dropdown">
+                                <button id="single-button" type="button" class="dropdown-year-btn" (click)="toggleDropdownYear()" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    {{ selectedYearTargetResult ? selectedYearTargetResult.year : 'Selecionar ano' }}
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" *ngIf="dropdownOpenYear" role="menu" style="left: auto;" aria-labelledby="single-button">
+                                    <li role="menuitem" *ngFor="let indicator of indicatorYearTargetResult" >
+                                        <a style="padding: 0px 15px;" (click)="selectYear(indicator)">{{ indicator.year }}</a>
+                                    </li>
+                                </ul> 
+                            </div>
+                        </th>
+                        <ng-container *ngIf="showLastYear">
+                            <th colspan="3" class="header-cell" [ngClass]="{'invisible': !(indicatorLastYearTargetResult)}">
+                                {{indicatorLastYearTargetResult?.year}}
+                            </th>
+                        </ng-container>
+                    </tr>
+                    <tr>
+                        <ng-container *ngIf="selectedYearTargetResult">
+                            <th class="subheader-cell">META</th>
+                            <th class="subheader-cell">REALIZADO</th>
+                            <th class="subheader-cell">DESEMPENHO</th>
+                        </ng-container>
+                        <ng-container *ngIf="showLastYear">
+                            <th class="subheader-cell" [ngClass]="{'invisible': !(indicatorLastYearTargetResult)}">META</th>
+                            <th class="subheader-cell" [ngClass]="{'invisible': !(indicatorLastYearTargetResult)}">REALIZADO</th>
+                            <th class="subheader-cell" [ngClass]="{'invisible': !(indicatorLastYearTargetResult)}">DESEMPENHO</th>
+                        </ng-container>
+                    </tr>
+                    <tr>
+                        <td class="body-cell" rowspan="2">
+                            {{ indicatorBaseYearTargetResult?.resultedIn?.[0]?.showValue || '-' }}
+                        </td>
+                        <td class="body-cell" rowspan="2">
+                            {{ indicatorBaseYearTargetResult?.year || '-'}}
+                        </td>
+                        <ng-container *ngIf="selectedYearTargetResult">
+                            <td class="body-cell">{{ selectedYearTargetResult?.targetFor?.[0]?.showValue || 'Sem dados' }}</td>
+                            <td class="body-cell">{{ selectedYearTargetResult?.resultedIn?.[0]?.showValue || 'Sem dados' }}</td>
+                            <td class="body-cell">
+                                <span *ngIf="selectedYearTargetResult"
+                                      class="ball-item {{ballClassYearTargetResult}}">
+                                </span>
+                            </td>
+                        </ng-container>
+                        <ng-container *ngIf="showLastYear">
+                            <td class="body-cell" [ngClass]="{'invisible': !(indicatorLastYearTargetResult)}">{{ indicatorLastYearTargetResult?.targetFor?.[0]?.showValue || 'Sem dados' }}</td>
+                            <td class="body-cell" [ngClass]="{'invisible': !(indicatorLastYearTargetResult)}">{{ indicatorLastYearTargetResult?.resultedIn?.[0]?.showValue || 'Sem dados' }}</td>
+                            <td class="body-cell" [ngClass]="{'invisible': !(indicatorLastYearTargetResult)}">
+                                <span *ngIf="indicatorYearTargetResult"
+                                      class="ball-item {{ballClassLastYear}}">
+                                </span>
+                                <span *ngIf="!indicatorYearTargetResult" class="ball-item mirrored-grey-ball-img"></span>
+                            </td>
+                        </ng-container>
+                    </tr>
+                </table>
+            </div>                       
+        </div>
+        &nbsp;
+    </div>
+</section>
+<app-footer></app-footer>

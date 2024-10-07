@@ -1,0 +1,28 @@
+.mainSection{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #EAEAE8;
+    background-image: url('/assets/images/home/slide-blur.png');
+    background-size: cover;
+    height: 100vh;
+}
+
+.card{
+    background-color: #03122F;
+    align-items: center;
+}
+
+.login-button button{
+    background-color: #0098DA;
+}
+
+.user-img{
+    width: 20px;
+    margin-bottom: 5px;
+    margin-right: 10px;
+}
+
+.footer span{
+    color: white;
+}

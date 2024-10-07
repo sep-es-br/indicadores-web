@@ -16,7 +16,6 @@ export class BreadcrumbComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		// console.log("Breadcrumb: ", this.route.url, " - ", this.route.url.toString());
 	}
 
 }

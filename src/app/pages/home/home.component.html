@@ -1,7 +1,10 @@
-<app-header></app-header>
+<app-header (selectionChange)="onDropdownChange($event)"></app-header>
 <section class="mainSection">
     <div class="container">
         <div class="p-3 p-md-5  mb-5 mt-5">
+            <h1 class="mainTitle">
+                Gestão {{homeData.startYear}} - {{homeData.endYear}}
+            </h1>
             <h1 class="mainTitle">
                 Bem-vindo ao painel de indicadores do governo do estado do Espírito Santo
             </h1>
@@ -19,9 +22,9 @@
                     Indicadores
                 </div>
             </div>
-            <p class="mt-5 ps-5 pe-5 mainText">{{homeData.description}}</p>
+            <p class="mt-5 ps-5 pe-5 mainText">Agora você poderá comparar as metas com os resultados alcançados pelos indicadores entre {{homeData.startYear}} a {{homeData.endYear}}</p>
             <div class="text-center mt-5" *ngIf="homeData.areas">
-                <a href="#areas" >
+                <a href="/home#areas" >
                     <i class="fa-solid fa-circle-chevron-down fa-bounce text-white fs-1" style="--fa-animation-duration: 1.8s;--fa-animation-timing:3s;--fa-animation-iteration-count:5"></i>
                 </a>
             </div>
@@ -41,7 +44,7 @@
                             <i class="fa-solid {{area.icon}} iconCard"></i>
                             <h4 class="card-title cursor-default fontMS-700">{{area.name}}</h4>
                             <p class="card-text cursor-default">Área composta por <span class="fw-bold">{{area.challenge}}</span> desafios e <span class="fw-bold">{{area.indicator}}</span> Indicadores Estratégicos</p>
-                            <a [routerLink]="['/areas']" [queryParams]="{id:area.id}" routerLinkActive="router-link-active"  class="btn btn-link no_underline fontMS-700 adjustBtn">Ver detalhes  <i class="fa-solid fa-right-long"></i></a>
+                            <a [routerLink]="['/area']" [queryParams]="{id:area.id}" routerLinkActive="router-link-active"  class="btn btn-link no_underline fontMS-700 adjustBtn">Ver detalhes  <i class="fa-solid fa-right-long"></i></a>
                         </div>
                     </div> 
                 </div> 

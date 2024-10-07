@@ -5,6 +5,7 @@ import { HeaderComponent } from "./header/header.component";
 import { BreadcrumbComponent } from "./breadcrumb/breadcrumb.component";
 import { NgbDropdownModule, NgbToastModule, NgbModule, NgbTooltipModule, NgbAlertModule } from "@ng-bootstrap/ng-bootstrap";
 import { RouterModule } from "@angular/router";
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
 	declarations: [
@@ -19,6 +20,7 @@ import { RouterModule } from "@angular/router";
 		NgbToastModule,
 		NgbModule,
 		NgbTooltipModule,
+		FormsModule,
 		NgbAlertModule
 		// CollapseModule.forRoot(),
 		// NavbarModule.forRoot()

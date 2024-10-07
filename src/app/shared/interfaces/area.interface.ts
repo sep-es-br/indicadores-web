@@ -1,22 +1,24 @@
+import { IChallenge } from "./challenge.interface";
+
 export interface IArea {
-	id: number,
+	startOfAdministrationYear: number,
+	endOfAdministrationYear: number,
+	administrationName: string,
+	id: string,
 	name: string,
 	icon: string,
     description: string,
 	indicator: number,
-	challenge: number
+	challenge: IChallenge[]
 }
 
-export class AreaData{
-	id = 0;
-	name = "Segurança em defesa da vida";
-	icon = "fa-shield-halved";
-	indicator = 0;
-	challenge = 0;
+export interface IAreaData{
+	id: string,
+	name: string,
 }
 
 export interface IAreaOverview {
-	id: number,
+	id: string,
 	name: string,
 	icon: string,
     description: string,

@@ -1,21 +1,103 @@
 .iconArea{
-    font-size: 70px;
+    font-size: 50px;
     color: #132446;
     margin-right: 10px;    
 }
 
 .titleArea{
-    // font-size: 50px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
     text-transform: uppercase;
     color: #132446;
 }
 
+.descriptionArea{
+    font-size: 1.5rem;
+    line-height: 2rem;
+    text-align: justify;
+    color:#132446;
+}
+
+
+.card-title{
+    text-align: center;
+    font-weight:bold;
+    color:#132446;
+}
+
 .CardAreas{
     background-color: #132446;
     color: #fff;
     z-index: 10;
+    .card-title{
+        color:#fff;
+    }
+}
+
+.indicators {
+    display: flex;
+    flex-wrap: wrap;
+    
+    .col-lg-6 {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .card {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+}
+
+
+
+
+.subtitle {
+    font-family: 'Montserrat', 'Montserrat', sans-serif;
+    font-size: 1.2rem;
+    color: #132446b5;
+    margin-top: 20px;
+}
+
+.desafio-text {
+    font-weight:bold;
+}
+
+.card-desafio-display {
+    text-align: left;
+    margin-top: 5%;
+    font-size: 28px;
+    color:#132446;
+    display: flex;
+    justify-content: center;
+    font-weight:bold;
+
+    
+    .card-info {
+        margin-left: 5%;
+        width: 202px;
+        min-height: 35px;
+        text-align: center;
+        background-color: rgba(19, 36, 70, 0.9607843137254902);
+        border-radius: 9px;
+        color: rgba(255, 255, 255, 0.9607843137254902);
+    }
+}
+.decoration-off{
+    text-decoration: none;
+}
+
+.challenge-info{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column-reverse;
+}
+.info-nome {
+    display: flex;
+    text-align: center;
+    font-size: 1.2rem;
 }
 
 .menuLateral{
@@ -115,18 +197,69 @@
     height: 30px;
     border-radius: 50%;
 }
+.polarity{
+    display: flex;
+    width: 14vw;
+    height: 9vh;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin: 20px auto;
+    background-position: center;
+    color:#132446;
+}
+
+.ball-item {
+    width: 80px;
+    height: 70px;
+    padding-top: 5px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.green-ball-img{
+    background-image: url(/assets/images/home/bola-verde.png);
+}
+
+.yellow-ball-img{
+    background-image: url(/assets/images/home/bola-amarela.png);
+}
+
+.red-ball-img{
+    background-image: url(/assets/images/home/bola-vermelha.png);
+}
+
+.gray-ball-img{
+    background-image: url(/assets/images/home/bola-cinza.png);
+}
+
+.mirrored-green-ball-img{
+    background-image: url(/assets/images/home/bola-verde-espelhada.png);
+}
+
+.mirrored-yellow-ball-img{
+    background-image: url(/assets/images/home/bola-amarela-espelhada.png);
+}
+
+.mirrored-red-ball-img{
+    background-image: url(/assets/images/home/bola-vermelha-espelhada.png);
+}
+
+.mirrored-gray-ball-img{
+    background-image: url(/assets/images/home/bola-cinza-espelhada.png);
+}
 
 .green-legend{
-    background-color: #1fab27;
+    background-color: #00b050;
 }
 .yellow-legend{
-    background-color: #dfb706;
+    background-color: #faa954;
 }
 .red-legend{
     background-color: #ff0000;
 }
 .grey-legend{
-    background-color: #808080;
+    background-color: #a6a6a6;
 }
 .blue-legend{
     background-color: #132446;
@@ -144,10 +277,10 @@
 
 .overview{
     display:grid;
-    grid-template-columns:25% 25% 25% 25%;
+    grid-template-columns:repeat(4, 1fr);
     align-self: center;
     span{
-        margin: auto .75rem;
+        margin: auto .5rem;
         // background-color: #0098da;
         justify-content: center;
         text-align: center;
@@ -164,7 +297,7 @@
 
 .overview-indicator{
     display:grid;
-    grid-template-columns:25% 25% 50%;
+    grid-template-columns:30% 30% 40%;
     align-self: center;
     span{
         margin: auto .75rem;
@@ -179,7 +312,27 @@
         font-weight: 700;
         color: white;
     }
-    .indicators span{
-        border-radius: 0;
-    }
+}
+
+.item-ods {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); 
+    gap: 10px; 
+}
+
+.item-ods > div {
+    text-align: center; 
+}
+
+.ods-image {
+    width: 100%;
+    max-width: 120px; 
+    height: auto;
+    object-fit: contain;
+}
+
+.ods-text {
+    margin-top: 5px; 
+    font-size: 14px;
+    font-weight: bold;
 }

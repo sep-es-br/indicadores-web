@@ -1,4 +1,7 @@
-import { Component, ElementRef, HostListener, Input, OnInit } from "@angular/core";
+import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output } from "@angular/core";
+import { IAdministration } from "../../shared/interfaces/administration.interface";
+import { HomeService } from "../../shared/services/home/home.service";
+import { Router } from "@angular/router";
 
 @Component({
 	selector: "app-header",
@@ -8,30 +11,46 @@ import { Component, ElementRef, HostListener, Input, OnInit } from "@angular/cor
 export class HeaderComponent implements OnInit {
 
 	@Input() background:boolean = false;
+	@Output() selectionChange = new EventEmitter<string>();
 
 	public openButton = "<i class='fa-solid fa-ellipsis-vertical iconMenu text-white fs-3'></i>";
 	public closeButton = "<i class='fa-solid fa-xmark iconMenu text-white fs-3'></i>";
 	public menuButton = this.openButton;
+	public administrationList: IAdministration[] = []
+	public selectedAdminId!: string | null;
 
-	constructor(private el: ElementRef) {}
+	constructor(private el: ElementRef,private _homeService: HomeService, private router: Router) {}
 
 	ngOnInit(): void {
+		const responseData = this._homeService.administrationList();
+		responseData.subscribe(
+			data=> {
+				this.administrationList = data;
+				const storedId = sessionStorage.getItem('adminId');
+				this.selectedAdminId = storedId !== null ? storedId : this.administrationList[0].id;
+				this.selectionChange.emit(this.selectedAdminId);
+			}
+		);
 	}
 
 	isScrolled = false;
 	isNavbarCollapsed = false;
 
+	onSelectionChange(event: Event) {
+		const selectedValue = (event.target as HTMLSelectElement).value;
+		this.selectionChange.emit(selectedValue);
+		sessionStorage.setItem('adminId', selectedValue);
+		if (this.router.url !== '/home') {
+			this.router.navigate(['/home']);
+		  }
+	  }
+
 	ngAfterContentChecked(): void {
-		//Called after every check of the component's or directive's content.
-		//Add 'implements AfterContentChecked' to the class.
 		
 		const toggler = this.el.nativeElement.querySelector(".navbar-toggler");
 		const icon = toggler.querySelector("svg.iconMenu");
 	
 		toggler.addEventListener("click", () => {
-			console.log("Clicou no botão de menu");
-			console.log(icon);
-			console.log(toggler.classList);
 			if (toggler.classList.contains("collapsed")) {
 				this.menuButton = this.openButton;
 			} else {
