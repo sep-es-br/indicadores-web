@@ -15,13 +15,10 @@ export class AreaService {
 
 	private _url = `${environment.apiUrl}area`;
 
-	private currentYear: number = new Date().getFullYear();
-
-	public administrationYear: number = 0;
-
-	public lastYearClassMap: Array<string> = []
-
-	public secondToLastYearClassMap: Array<string> = []
+	public firstYear: Array<string> = []
+	public secondYear: Array<string> = []
+	public thirdYear: Array<string> = []
+	public fourthYear: Array<string> = []
 
 	constructor(
 		private _http: HttpClient,
@@ -31,15 +28,10 @@ export class AreaService {
 	getDetail(areaId: String): Observable<IArea> {
 		return this._http.get<IArea>(`${this._url}/detail/${areaId}`).pipe(
 			tap((area)=> {
-				if(this.currentYear -1 >= area.startOfAdministrationYear && this.currentYear -1 <= area.endOfAdministrationYear){
-					this.lastYearClassMap = area.challenge.map((challenge)=> this.getBallClass(challenge, this.currentYear  -1))
-					this.secondToLastYearClassMap = area.challenge.map((challenge)=> this.getBallClass(challenge, this.currentYear  -2))
-					this.administrationYear = this.currentYear  -1
-				}else{
-					this.lastYearClassMap = area.challenge.map((challenge)=> this.getBallClass(challenge, area.endOfAdministrationYear))
-					this.secondToLastYearClassMap = area.challenge.map((challenge)=> this.getBallClass(challenge, area.endOfAdministrationYear -1))
-					this.administrationYear = area.endOfAdministrationYear
-				}
+					this.firstYear = area.challenge.map((challenge)=> this.getBallClass(challenge, area.startOfAdministrationYear))
+					this.secondYear = area.challenge.map((challenge)=> this.getBallClass(challenge, area.startOfAdministrationYear + 1))
+					this.thirdYear = area.challenge.map((challenge)=> this.getBallClass(challenge, area.startOfAdministrationYear + 2))
+					this.fourthYear = area.challenge.map((challenge)=> this.getBallClass(challenge, area.startOfAdministrationYear + 3))
 			}),
 			catchError((err: HttpErrorResponse) => {
 				this._errorHandlerService.handleError(err);

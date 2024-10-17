@@ -295,9 +295,16 @@
     }
 }
 
+.card-overview-indicator{
+    display: flex;
+    align-content: space-around;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
 .overview-indicator{
     display:grid;
-    grid-template-columns:30% 30% 40%;
+    grid-template-columns: 18% 18% 18% 18% 28%;
     align-self: center;
     span{
         margin: auto .75rem;

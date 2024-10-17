@@ -50,27 +50,45 @@
                 <div class="card shadow p-3">
                     <div class="card-title">
                         <div class="titleChallenge" >
-                            <span class="numberChallenge">05</span>
-                            <span class="textChallenge">Desafios</span>
+                            <span class="numberChallenge">{{areaData.challenge.length}}</span>
+                            <span class="textChallenge">{{areaData.challenge.length <= 1 ? 'Desafio' : 'Desafios'}}</span>
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="card bg-overview">
-                            <h3 class="titleOverview" >{{_areaService.administrationYear}}</h3>
+                            <h3 class="titleOverview" >{{areaData.startOfAdministrationYear}}</h3>
                             <div class="overview mb-3">
-                                <span class="ball-item green-ball-img">{{ countlastYear.green }}</span>
-                                <span class="ball-item yellow-ball-img">{{ countlastYear.yellow }}</span>
-                                <span class="ball-item red-ball-img">{{ countlastYear.red }}</span>
-                                <span class="ball-item gray-ball-img">{{ countlastYear.gray }}</span>
+                                <span class="ball-item green-ball-img">{{ countFirstYear.green }}</span>
+                                <span class="ball-item yellow-ball-img">{{ countFirstYear.yellow }}</span>
+                                <span class="ball-item red-ball-img">{{ countFirstYear.red }}</span>
+                                <span class="ball-item gray-ball-img">{{ countFirstYear.gray }}</span>
                             </div>
                         </div>
                         <div class="card bg-overview mt-3">
-                            <h3 class="titleOverview" >{{_areaService.administrationYear -1}}</h3>
+                            <h3 class="titleOverview" >{{areaData.startOfAdministrationYear + 1}}</h3>
                             <div class="overview mb-3">
-                                <span class="ball-item green-ball-img">{{ countSecondToLast.green }}</span>
-                                <span class="ball-item yellow-ball-img">{{ countSecondToLast.yellow }}</span>
-                                <span class="ball-item red-ball-img">{{ countSecondToLast.red }}</span>
-                                <span class="ball-item gray-ball-img">{{ countSecondToLast.gray }}</span>
+                                <span class="ball-item green-ball-img">{{ countSecondYear.green }}</span>
+                                <span class="ball-item yellow-ball-img">{{ countSecondYear.yellow }}</span>
+                                <span class="ball-item red-ball-img">{{ countSecondYear.red }}</span>
+                                <span class="ball-item gray-ball-img">{{ countSecondYear.gray }}</span>
+                            </div>
+                        </div>
+                        <div class="card bg-overview mt-3">
+                            <h3 class="titleOverview" >{{areaData.startOfAdministrationYear + 2}}</h3>
+                            <div class="overview mb-3">
+                                <span class="ball-item green-ball-img">{{ countThirdYear.green }}</span>
+                                <span class="ball-item yellow-ball-img">{{ countThirdYear.yellow }}</span>
+                                <span class="ball-item red-ball-img">{{ countThirdYear.red }}</span>
+                                <span class="ball-item gray-ball-img">{{ countThirdYear.gray }}</span>
+                            </div>
+                        </div>
+                        <div class="card bg-overview mt-3">
+                            <h3 class="titleOverview" >{{areaData.startOfAdministrationYear + 3}}</h3>
+                            <div class="overview mb-3">
+                                <span class="ball-item green-ball-img">{{ countFourthYear.green }}</span>
+                                <span class="ball-item yellow-ball-img">{{ countFourthYear.yellow }}</span>
+                                <span class="ball-item red-ball-img">{{ countFourthYear.red }}</span>
+                                <span class="ball-item gray-ball-img">{{ countFourthYear.gray }}</span>
                             </div>
                         </div>
 
@@ -110,26 +128,40 @@
                 <ng-container *ngFor="let challenge of areaData.challenge; index as i">
                     <div class="card shadow mb-3">
                         <div class="row">
-                            <div class="col-md-8 p-3 challenge-info">
+                            <div class="col-md-7 p-3 challenge-info">
                                 <div class="info-nome">
                                     <a class="decoration-off"  [routerLink]="['/challenge']" [queryParams]="{id: challenge.uuId}" style="color: #132446;" href="#">{{challenge.name}}</a>
                                   </div>
                             </div>
-                            <div class="col-md-4 p-3">
+                            <div class="col-md-5 p-2 card-overview-indicator">
                                 <div class="overview-indicator">
                                     <div class="m-auto ms-2 text-center">
-                                         <span 
-                                            class="ball-item"
-                                            [ngClass]="lastYearClassMap[i]"
-                                         ></span>
-                                        {{_areaService.administrationYear}}
+                                        <span 
+                                           class="ball-item"
+                                           [ngClass]="firstYear[i]"
+                                        ></span>
+                                       {{areaData.startOfAdministrationYear}}
+                                   </div>
+                                   <div class="m-auto ms-2 text-center">
+                                    <span 
+                                       class="ball-item"
+                                       [ngClass]="secondYear[i]"
+                                    ></span>
+                                   {{areaData.startOfAdministrationYear + 1}}
                                     </div>
                                     <div class="m-auto ms-2 text-center">
                                         <span 
-                                        class="ball-item"
-                                        [ngClass]="secondToLastYearClassMap[i]"
+                                           class="ball-item"
+                                           [ngClass]="thirdYear[i]"
                                         ></span>
-                                        {{_areaService.administrationYear -1}}
+                                       {{areaData.startOfAdministrationYear + 2}}
+                                   </div>
+                                   <div class="m-auto ms-2 text-center">
+                                    <span 
+                                       class="ball-item"
+                                       [ngClass]="fourthYear[i]"
+                                    ></span>
+                                   {{areaData.startOfAdministrationYear + 3}}
                                     </div>
                                     <div class="m-auto ms-2 text-center">
                                         <span class="blue-legend mb-2">{{challenge.indicatorList.length}}</span>

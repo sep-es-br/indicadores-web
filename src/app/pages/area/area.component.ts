@@ -27,13 +27,15 @@ export class AreaComponent implements OnInit {
 
 	public odsCounts!: IOdsCount[];
 
-	public countlastYear!: {green: number, yellow: number, red: number, gray: number}; 
+	public firstYear: Array<string> = []
+	public secondYear: Array<string> = []
+	public thirdYear: Array<string> = []
+	public fourthYear: Array<string> = []
 
-	public countSecondToLast!: {green: number, yellow: number, red: number, gray: number}; 
-
-	public lastYearClassMap: Array<string> = []
-
-	public secondToLastYearClassMap: Array<string> = []
+	public countFirstYear!: {green: number, yellow: number, red: number, gray: number}; 
+	public countSecondYear!: {green: number, yellow: number, red: number, gray: number}; 
+	public countThirdYear!: {green: number, yellow: number, red: number, gray: number}; 
+	public countFourthYear!: {green: number, yellow: number, red: number, gray: number}; 
 
 	private currentUrl: string = "";
 
@@ -78,10 +80,17 @@ export class AreaComponent implements OnInit {
 			areaDetail.subscribe(
 				data => {
 					this.areaData = data;
-					this.lastYearClassMap = this._areaService.lastYearClassMap
-					this.secondToLastYearClassMap = this._areaService.secondToLastYearClassMap
-					this.countlastYear = this.countTotal(this.lastYearClassMap);
-					this.countSecondToLast = this.countTotal(this.secondToLastYearClassMap);
+
+					this.firstYear = this._areaService.firstYear
+					this.secondYear = this._areaService.secondYear
+					this.thirdYear = this._areaService.thirdYear
+					this.fourthYear = this._areaService.fourthYear
+
+					this.countFirstYear = this.countTotal(this.firstYear);
+					this.countSecondYear = this.countTotal(this.secondYear);
+					this.countThirdYear = this.countTotal(this.thirdYear);
+					this.countFourthYear = this.countTotal(this.fourthYear);
+
 					this.odsCounts = this.getOdsCounts();
 					this.saveSessionStorage()
 					this.updateBreadcrumb();
