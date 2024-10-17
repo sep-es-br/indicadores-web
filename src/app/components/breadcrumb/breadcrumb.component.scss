@@ -16,8 +16,9 @@
 }
 
 .breadcrumb-item + .breadcrumb-item::before {
-    content: ">";
+    content: "›";
     margin: 0 6px; 
+    font-size: 25px;
     color: #8a92a2; 
 
 }
