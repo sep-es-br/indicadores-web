@@ -27,8 +27,8 @@ export const authGuard: CanActivateChildFn = (route, state) => {
           email: response.email,
           role: response.role,
         };
-        if (!response.role.includes('INDICADORES_ADMIN')) {
-          toastService.showToast('error','Acesso negado: Você não tem permissão para acessar essa aplicação');
+        if (!response.role.includes('INDICADORES_ADMIN') && !response.role.includes('PAINEL_INDICADORES')) {
+          toastService.showToast('error', 'Acesso negado: Você não tem permissão para acessar essa aplicação');
           sessionStorage.clear(); 
           router.navigate(['/login']); 
           return; 

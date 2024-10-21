@@ -63,7 +63,7 @@ export class HeaderComponent implements OnInit {
   @HostListener("window:scroll", ["$event"])
 	onWindowScroll() {
 		const scrollPosition = window.scrollY;
-		const threshold = 250; // Ajuste este valor conforme necessário
+		const threshold = 100; // Ajuste este valor conforme necessário
 
 		this.isScrolled = scrollPosition > threshold;
 	}

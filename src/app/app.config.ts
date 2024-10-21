@@ -5,6 +5,7 @@ import { provideAnimations } from "@angular/platform-browser/animations";
 
 import { routes } from "./app.routes";
 import { authInterceptor } from "./shared/interceptors/auth.interceptor";
+import { applicationInterceptor } from "./shared/interceptors/application.interceptor";
 
 export const appConfig: ApplicationConfig = {
 	providers: [
@@ -12,6 +13,6 @@ export const appConfig: ApplicationConfig = {
 		provideAnimations(),
 		{ provide: TitleStrategy, useClass: DefaultTitleStrategy },
 		// importProvidersFrom(HttpClientModule)
-		provideHttpClient(withInterceptors([authInterceptor]))
+		provideHttpClient(withInterceptors([authInterceptor, applicationInterceptor]))
 	]
 };

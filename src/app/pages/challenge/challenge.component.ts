@@ -27,26 +27,26 @@ export class ChallengeComponent implements OnInit {
 
   public indicatorYearTargetResult: IYearTargetResult[] = [];
 
-  public countlastYear?: {
+  public countScoreYear?: {
     green?: number;
     yellow?: number;
     red?: number;
     gray?: number;
   };
 
-  public ballClassLastYear?: string | null = null;
+  public ballClassCurrentYear ?: string | null = null;
 
   public ballClassYearTargetResult?: string | null = null;
 
   public indicatorBaseYearTargetResult?: IYearTargetResult;
 
-  public indicatorLastYearTargetResult?: IYearTargetResult;
+  public indicatorCurrentYearTargetResult?: IYearTargetResult;
 
   public challengeData?: IChallenge;
 
   public dropdownOpen: boolean = false;
 
-  public showLastYear: boolean = false;
+  public showCurrentYear : boolean = false;
 
   public dropdownOpenYear: boolean = false;
 
@@ -79,8 +79,8 @@ export class ChallengeComponent implements OnInit {
   clear(){
     this.selectedIndicator = null;
     this.selectedYearTargetResult = null;
-    this.countlastYear = undefined;
-    this.indicatorLastYearTargetResult = undefined;
+    this.countScoreYear = undefined;
+    this.indicatorCurrentYearTargetResult = undefined;
   }
 
   getData(): void {
@@ -149,20 +149,24 @@ export class ChallengeComponent implements OnInit {
     this.clear()
     this.selectedIndicator = indicator;
     this.dropdownOpen = false;
-    const allYears = Array.from(
-      new Set([
-        ...this.selectedIndicator.resultedIn.map((item) => item.year),
-        ...this.selectedIndicator.targetFor.map((item) => item.year),
-      ])
-    )
-      .filter(
-        (year) =>
-          year >= this.areaData.startOfAdministrationYear &&
-          year <= this.areaData.endOfAdministrationYear && 
-          year !== this.currentYear - 1
-      )
-      .sort((a, b) => b - a);
+    const allYears: number[] = [];
+    for (let year = this.areaData.startOfAdministrationYear; year <= this.areaData.endOfAdministrationYear; year++) {
+    if (year !== this.currentYear) {
+      allYears.push(year);
+      }
+    }
 
+    if (this.currentYear === this.areaData.startOfAdministrationYear) {
+      allYears.sort((a, b) => b - a);
+    } else if (this.currentYear > this.areaData.startOfAdministrationYear) {
+      allYears.sort((a, b) => {
+        if (a < this.currentYear && b < this.currentYear) {
+          return b - a;
+        }
+        return 0;
+      });
+    }
+    console.log(allYears)
     const yearGroupedData: IYearTargetResult[] = allYears.map((year) => {
       return {
         year,
@@ -174,35 +178,33 @@ export class ChallengeComponent implements OnInit {
           .map(({ year, ...rest }) => rest),
       };
     });
-    if (yearGroupedData.length > 0) {
       this.indicatorYearTargetResult = yearGroupedData;
       this.selectedYearTargetResult = this.indicatorYearTargetResult[0];
       this.ballClassYearTargetResult = this.getBallClass(this.selectedIndicator.polarity, 
       this.selectedYearTargetResult?.targetFor?.[0]?.value ?? 0, this.selectedYearTargetResult?.resultedIn?.[0]?.value ?? 0)
-      if(!(this.currentYear -1 >= this.areaData.startOfAdministrationYear && this.currentYear -1 <= this.areaData.endOfAdministrationYear)){
-        this.countlastYear = { [this.ballClassYearTargetResult.split('-')[1]]: 1}  
-      }
+      if(!(this.currentYear >= this.areaData.startOfAdministrationYear && this.currentYear <= this.areaData.endOfAdministrationYear)){
+        this.countScoreYear = { [this.ballClassYearTargetResult.split('-')[1]]: 1}  
     }
 
-    if(this.currentYear -1 >= this.areaData.startOfAdministrationYear && this.currentYear -1 <= this.areaData.endOfAdministrationYear){
-      const lastYearData: IYearTargetResult = {
-        year: this.currentYear - 1,
+    if(this.currentYear >= this.areaData.startOfAdministrationYear && this.currentYear <= this.areaData.endOfAdministrationYear){
+      const currentYearData: IYearTargetResult = {
+        year: this.currentYear,
         resultedIn: indicator.resultedIn
-          .filter((item) => item.year === this.currentYear - 1)
+          .filter((item) => item.year === this.currentYear)
           .map(({ year, ...rest }) => rest),
         targetFor: indicator.targetFor
-          .filter((item) => item.year === this.currentYear - 1)
+          .filter((item) => item.year === this.currentYear)
           .map(({ year, ...rest }) => rest),
       };
-      if (
-        lastYearData.resultedIn.length > 0 ||
-        lastYearData.targetFor.length > 0
-      ) {
-        this.indicatorLastYearTargetResult = lastYearData;
-        this.ballClassLastYear = this.getBallClass(this.selectedIndicator.polarity, 
-        this.indicatorLastYearTargetResult?.targetFor?.[0]?.value ?? 0, this.indicatorLastYearTargetResult?.resultedIn?.[0]?.value ?? 0)
-        this.countlastYear = { [this.ballClassLastYear.split('-')[1]]: 1}  
-      }
+      // if (
+      //   CurrentYear Data.resultedIn.length > 0 ||
+      //   CurrentYear Data.targetFor.length > 0
+      // ) {
+        this.indicatorCurrentYearTargetResult = currentYearData;
+        this.ballClassCurrentYear  = this.getBallClass(this.selectedIndicator.polarity, 
+        this.indicatorCurrentYearTargetResult?.targetFor?.[0]?.value ?? 0, this.indicatorCurrentYearTargetResult?.resultedIn?.[0]?.value ?? 0)
+        this.countScoreYear = { [this.ballClassCurrentYear .split('-')[1]]: 1}  
+      
     }
 
 
@@ -223,10 +225,10 @@ export class ChallengeComponent implements OnInit {
       this.indicatorBaseYearTargetResult = baseYearData;
     }
 
-    if(this.indicatorLastYearTargetResult == undefined && !(this.selectedYearTargetResult == null)){
-      this.showLastYear = false
+    if(this.indicatorCurrentYearTargetResult == undefined && !(this.selectedYearTargetResult == null)){
+      this.showCurrentYear  = false
     }else{
-      this.showLastYear = true
+      this.showCurrentYear  = true
     }
   }
 
@@ -236,7 +238,7 @@ export class ChallengeComponent implements OnInit {
       this.ballClassYearTargetResult = this.getBallClass(this.selectedIndicator.polarity, 
       this.selectedYearTargetResult?.targetFor?.[0]?.value ?? 0, this.selectedYearTargetResult?.resultedIn?.[0]?.value ?? 0)
       if(!(this.currentYear -1 >= this.areaData.startOfAdministrationYear && this.currentYear -1 <= this.areaData.endOfAdministrationYear)){
-        this.countlastYear = { [this.ballClassYearTargetResult.split('-')[1]]: 1}  
+        this.countScoreYear = { [this.ballClassYearTargetResult.split('-')[1]]: 1}  
       }
     }
 
