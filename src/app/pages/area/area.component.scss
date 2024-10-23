@@ -12,8 +12,8 @@
 }
 
 .descriptionArea{
-    font-size: 1.5rem;
-    line-height: 2rem;
+    font-size: 2.0rem;
+    line-height: 2.5rem;
     text-align: justify;
     color:#132446;
 }
@@ -293,6 +293,36 @@
         font-weight: 700;
         color: white;
     }
+}
+
+.border-with-text {
+    position: relative;
+    border-top: 3px solid #10345A; 
+    margin-bottom: 20px;
+    text-align: center;
+    padding-left: 5px;
+    cursor: default;
+  }
+  
+  .border-with-text span {
+    position: absolute;
+    top: -12px; 
+    left: 50%;
+    font-size: 0.8rem;
+    transform: translateX(-50%); 
+    background-color: #132446; 
+    padding: 0 2px;
+    font-weight: bold;
+    cursor: default;
+    text-wrap: nowrap;
+  }
+
+.nav-item {
+    border-bottom: 1px solid #ccc; 
+}
+
+.nav-item.no-border {
+    border-bottom: none !important; 
 }
 
 .card-overview-indicator{

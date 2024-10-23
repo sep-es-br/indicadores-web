@@ -4,6 +4,8 @@ export interface IArea {
 	startOfAdministrationYear: number,
 	endOfAdministrationYear: number,
 	administrationName: string,
+	modelName: string,
+	modelNameInPlural: string,
 	id: string,
 	name: string,
 	icon: string,

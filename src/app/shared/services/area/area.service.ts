@@ -13,7 +13,7 @@ import { ErrorHandlerService } from "../error-handler/error-handler.service";
 })
 export class AreaService {
 
-	private _url = `${environment.apiUrl}area`;
+	private _url = `${environment.apiUrl}organizer`;
 
 	public firstYear: Array<string> = []
 	public secondYear: Array<string> = []
@@ -39,8 +39,8 @@ export class AreaService {
 			}));
 	}
 
-	getAll(areaId: String | null): Observable<IAreaOverview[]>{
-		return this._http.get<IAreaOverview[]>(`${this._url}/${areaId}`).pipe(
+	getAll(areaId: String | null): Observable<{ [key: string]: IAreaOverview[] }>{
+		return this._http.get<{ [key: string]: IAreaOverview[] }>(`${this._url}/${areaId}`).pipe(
 			catchError((err: HttpErrorResponse) => {
 				this._errorHandlerService.handleError(err);
 				return throwError(() => err);

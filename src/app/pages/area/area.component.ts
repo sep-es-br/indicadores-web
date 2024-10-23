@@ -23,7 +23,9 @@ export class AreaComponent implements OnInit {
 
 	public areaData!: IArea;
 
-	public allAreas!: IAreaOverview[];
+	public areaName!: {name: string, namePlural: string};
+
+	public allAreas!: { [key: string]: IAreaOverview[] };
 
 	public odsCounts!: IOdsCount[];
 
@@ -61,18 +63,23 @@ export class AreaComponent implements OnInit {
 			this._router.navigate(["/home"]);
 			return;
 		}
-		this.getAllAreas();
 		this.getDetails();
+		this.getAllAreas();
 	}
 
 	getAllAreas() {
 		const allAreaResponse = this._areaService.getAll(this.areaId);
 		allAreaResponse.subscribe(
 			data => {
-				this.allAreas = orderArrayText(data, "name");
+				this.allAreas = data
 			}
 		);
 	}
+
+	getOrganizersKey() {
+		const organizersKey = Object.keys(this.allAreas || {});
+    	return organizersKey.sort();
+    }
 
 	getDetails() {
 		if(this.areaId){
@@ -80,7 +87,6 @@ export class AreaComponent implements OnInit {
 			areaDetail.subscribe(
 				data => {
 					this.areaData = data;
-
 					this.firstYear = this._areaService.firstYear
 					this.secondYear = this._areaService.secondYear
 					this.thirdYear = this._areaService.thirdYear
@@ -92,29 +98,12 @@ export class AreaComponent implements OnInit {
 					this.countFourthYear = this.countTotal(this.fourthYear);
 
 					this.odsCounts = this.getOdsCounts();
-					this.saveSessionStorage()
+
+					sessionStorage.setItem("AreaData", JSON.stringify(this.areaData))
 					this.updateBreadcrumb();
 				}
 			);
 		}
-	}
-
-	saveSessionStorage(){
-		const areaData = {
-			startOfAdministrationYear: this.areaData.startOfAdministrationYear,
-			endOfAdministrationYear: this.areaData.endOfAdministrationYear,
-			administrationName: this.areaData.administrationName,
-			id: this.areaData.id,
-			name: this.areaData.name,
-			description: this.areaData.description,
-			icon: this.areaData.icon,
-
-			challenge: this.areaData.challenge.map(c => ({
-			  uuId: c.uuId,
-			  name: c.name
-			}))
-		  };
-		sessionStorage.setItem("AreaData",JSON.stringify(areaData));
 	}
 
 	replaceIcon(newIconClass: string) {
