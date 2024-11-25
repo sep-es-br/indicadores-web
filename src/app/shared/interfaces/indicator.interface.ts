@@ -1,7 +1,7 @@
 import { ITargetResult } from "./TargetResult.interface"
 
 export interface Iindicator{
-    uuId: string
+    id: string
     measureUnit: string
     name: string
     organizationAcronym: string
