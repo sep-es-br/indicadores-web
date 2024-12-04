@@ -33,8 +33,7 @@ export class HomeComponent implements OnInit {
 					this.areaName = this.homeData.overview.organizer.parentOrganizer[0]?.nameInPlural
 				}else{
 					this.areaName = this.homeData.overview.organizer.childOrganizer[0]?.nameInPlural
-				}
-			console.log()}
+				}}
 		);
 	}
 

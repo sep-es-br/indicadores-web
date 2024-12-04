@@ -103,9 +103,9 @@ export class AreaService {
 	  
 		if (percentage >= 100) {
 		  return 10;
-		} else if (percentage >= 85 && percentage < 100) {
+		} else if (percentage >= 75 && percentage < 100) {
 		  return 5;
-		} else if (percentage < 85) {
+		} else if (percentage < 75) {
 		  return 0;
 		}
 

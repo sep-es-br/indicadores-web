@@ -138,9 +138,6 @@ export class AreaComponent implements OnInit {
 			{
 				label: this.areaData.administrationName,
 				link: '/home'
-			},
-			{
-				label: this.areaData.name,
 			}
 		];
 	}

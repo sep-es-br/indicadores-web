@@ -29,7 +29,7 @@
         <div class="row mt-5">
             <ng-container *ngFor="let eixo of getOrganizersKey()">
                 <div class="border-with-text" *ngIf="eixo.length > 0">
-                    <span>{{eixo == '' ? 'teste' : eixo}}</span>
+                    <span>{{eixo == '' ? '' : eixo}}</span>
                 </div>
                 <div class="col-md-4 mb-5" *ngFor="let area of homeData.organizers[eixo]">
                     <div class="card border-light shadow p-3 h-100">
