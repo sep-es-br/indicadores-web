@@ -22,7 +22,7 @@
                         <ul class="menuLateral mb-0" >
                             <ng-container *ngFor="let eixo of getOrganizersKey()" >
                                 <div class="border-with-text mt-3 mb-3" *ngIf="eixo.length > 0">
-                                    <span>{{eixo == '' ? 'teste' : eixo}}</span>
+                                    <span>{{eixo == '' ? '' : eixo}}</span>
                                 </div>
                                 <li class="nav-item" *ngFor="let area of allAreas[eixo]; let i = index; let last = last" 
                                 [ngClass]="{'active': areaId == area.id, 'no-border': last }">

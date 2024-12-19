@@ -4,7 +4,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-lg-10">
-                <h3 class="titleArea">ANÁLISE DE DESEMPENHO -   
+                <h3 class="titleArea mb-3">{{challengeData.name}}</h3>
+                <h3 class="titleAnalysis">ANÁLISE DE DESEMPENHO -   
                 <div class="btn-group dropdown">  
                 <button id="single-button" type="button" class="dropdown-year-of-title-btn" (click)="toggleDropdownYearOfTitle()" aria-haspopup="true"
                                             aria-expanded="false">
@@ -16,27 +17,34 @@
                                                     <a (click)="selectYearOfTitle(year)">{{ year }}</a>
                                                 </li>
                                         </ul> </div></h3>
-                <h3 class="titleArea">{{challengeData.name}}</h3>
                 <div class="row indicators" [hidden]="false">
                     <div>
                         <div class="row card-container card-container-metricas">
                         <div class="col-lg-3 item-card-metricas cards-indicadores">
-                            <span class="count-indicador-title ">{{countScoreYear?.green || 0}}</span>
+                            <div class="overview mb-1 mt-2">
+                                <span class="ball-item green-ball-img">{{ countScoreYear?.green || 0}}</span>
+                            </div>
                             <span class="info-text">Meta <br>atingida</span>
                             <div class="card-cor-verde mini-legenda">≥ 100%</div>
                         </div>
                         <div class="col-lg-3 item-card-metricas cards-indicadores">
-                            <span class="count-indicador-title ">{{countScoreYear?.yellow || 0}}</span>
+                            <div class="overview mb-1 mt-2">
+                                <span class="ball-item yellow-ball-img">{{ countScoreYear?.yellow || 0 }}</span>
+                            </div>
                             <span class="info-text">Meta parcialmente<br> atingida</span>
                             <div class="card-cor-amarela mini-legenda"> ≥ 75% e &lt; 100% </div>
                         </div>
                         <div class="col-lg-3 item-card-metricas cards-indicadores">
-                            <span class="count-indicador-title">{{countScoreYear?.red || 0}}</span>
+                            <div class="overview mb-1 mt-2">
+                                <span class="ball-item red-ball-img">{{ countScoreYear?.red || 0 }}</span>
+                            </div>
                             <span class="info-text cards-indicadores">Meta não <br>atingida</span>
                             <div class="card-cor-verm mini-legenda"> &lt; 75% </div>
                         </div>
                         <div class="col-lg-3 item-card-metricas cards-indicadores">
-                            <span class="count-indicador-title ">{{countScoreYear?.gray || 0}}</span>
+                            <div class="overview mb-1 mt-2">
+                                <span class="ball-item gray-ball-img">{{countScoreYear?.gray || 0}}</span>
+                            </div>
                             <span class="info-text">Não é possível <br>mensurar</span>
                             <div class="card-cor-preta mini-legenda"></div>
                         </div>
