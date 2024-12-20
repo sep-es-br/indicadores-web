@@ -118,6 +118,27 @@ export class ChallengeComponent implements OnInit {
           this.indicatorData = this.challengeData.indicatorList;
         }
         this.upYearBreadcrumb();
+
+        const yearsWithValues: number[] = [];
+        const yearRange = [];
+        for (let year = this.areaData.startOfAdministrationYear; year <= this.areaData.endOfAdministrationYear; year++) {
+          yearRange.push(year);
+        }
+
+        yearRange.forEach((year) => {
+          const hasValue = this.indicatorData.some((indicator) => 
+            indicator.targetFor.some((target) => target.year === year && target.value !== null) ||
+            indicator.resultedIn.some((result) => result.year === year && result.value !== null)
+          );
+          if (hasValue) {
+            yearsWithValues.push(year);
+          }
+        });
+
+        if (yearsWithValues.length > 0) {
+          this.selectedYear = Math.max(...yearsWithValues);
+        }
+
         if (this.selectedYear !== null) {
           this.populateCountScoreYear(this.selectedYear);
         }
