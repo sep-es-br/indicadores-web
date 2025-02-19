@@ -128,7 +128,7 @@ export class ChallengeComponent implements OnInit {
         yearRange.forEach((year) => {
           const hasValue = this.indicatorData.some((indicator) => 
             indicator.targetFor.some((target) => target.year === year && target.value !== null) ||
-            indicator.resultedIn.some((result) => result.year === year && result.value !== null)
+            indicator.resulted.some((result) => result.year === year && result.value !== null)
           );
           if (hasValue) {
             yearsWithValues.push(year);
@@ -191,7 +191,7 @@ export class ChallengeComponent implements OnInit {
     this.selectedYear = year
     this.countScoreYear = { green: 0, yellow: 0, red: 0, gray: 0 }; 
     this.indicatorData.forEach(indicator =>{
-      const resultForYear = indicator.resultedIn.find(result => result.year === this.selectedYear);
+      const resultForYear = indicator.resulted.find(result => result.year === this.selectedYear);
       const targetForYear = indicator.targetFor.find(target => target.year === this.selectedYear);
 
 
@@ -223,7 +223,7 @@ export class ChallengeComponent implements OnInit {
     const yearGroupedData: IYearTargetResult[] = this.allYears.map((year) => {
       return {
         year,
-        resultedIn: indicator.resultedIn
+        resultedIn: indicator.resulted
           .filter((item) => item.year === year)
           .map(({ year, ...rest }) => rest),
         targetFor: indicator.targetFor
@@ -241,7 +241,7 @@ export class ChallengeComponent implements OnInit {
     // if(this.currentYear >= this.areaData.startOfAdministrationYear && this.currentYear <= this.areaData.endOfAdministrationYear){
       const firstYearData: IYearTargetResult = {
         year: this.areaData.startOfAdministrationYear,
-        resultedIn: indicator.resultedIn
+        resultedIn: indicator.resulted
           .filter((item) => item.year === this.areaData.startOfAdministrationYear)
           .map(({ year, ...rest }) => rest),
         targetFor: indicator.targetFor
@@ -256,7 +256,7 @@ export class ChallengeComponent implements OnInit {
 
     const baseYearData: IYearTargetResult = {
       year: this.areaData.startOfAdministrationYear - 1,
-      resultedIn: indicator.resultedIn
+      resultedIn: indicator.resulted
         .filter(
           (item) => item.year === this.areaData.startOfAdministrationYear - 1
         )
@@ -269,6 +269,8 @@ export class ChallengeComponent implements OnInit {
     };
     if (baseYearData.resultedIn.length > 0) {
       this.indicatorBaseYearTargetResult = baseYearData;
+    }else{
+      this.indicatorBaseYearTargetResult = undefined
     }
 
     if(this.indicatorFirstYearTargetResult == undefined && !(this.selectedYearTargetResult == null)){

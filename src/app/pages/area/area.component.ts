@@ -151,7 +151,7 @@ export class AreaComponent implements OnInit {
 	
 		this.areaData.challenge.forEach(challenge => {
 		  challenge.indicatorList.forEach(indicator => {
-			indicator.ods.forEach(ods => {
+			indicator.odsgoal.forEach(ods => {
 			  if (odsMap[ods]) {
 				odsMap[ods] += 1;
 			  } else {

@@ -56,7 +56,7 @@ export class AreaService {
 
 			const yearGroupedData: IYearTargetResult = {
 				year: referringYear,
-				resultedIn: indicator.resultedIn
+				resultedIn: indicator.resulted
 					.filter(item => item.year === referringYear)
 					.map(({ year, ...rest }) => rest),  
 				targetFor: indicator.targetFor
