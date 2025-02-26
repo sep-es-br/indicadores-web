@@ -6,7 +6,7 @@ export interface Iindicator{
     name: string
     organizationAcronym: string
     polarity: string
-    odsgoal: number[]
+    ods: number[]
     targetFor: ITargetResult[]
     resulted: ITargetResult[]
 }
