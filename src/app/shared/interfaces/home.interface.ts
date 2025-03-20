@@ -8,12 +8,24 @@ export interface IHome {
 	referenceYear: number;
 	description: string;
 	overview: {
-		areasEstrategicas: number;
+		organizer: OverViewOrganizer;
 		desafios: number;
 		indicadores: number;
 	}
-	areas?:IAreaOverview[]
+	organizers?:{ [key: string]: IAreaOverview[] };
 }
+
+export interface OrganizerItem {
+	name: string;
+	nameInPlural: string;
+	countOrganizer: number;
+	relationshipType: string;
+  }
+
+export interface OverViewOrganizer {
+	parentOrganizer: OrganizerItem[];
+	childOrganizer: OrganizerItem[];
+  }
 
 export class HomeData{
 	name: string = "";
@@ -26,7 +38,7 @@ export class HomeData{
 }
 
 export class OverviewData{
-	areasEstrategicas: number = 0;
+	organizer: OverViewOrganizer = { parentOrganizer: [], childOrganizer: [] };
 	desafios: number = 0;
 	indicadores: number = 0;
 }

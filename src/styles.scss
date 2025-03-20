@@ -15,7 +15,7 @@
     user-select:none;  
 }
 
-div.container {
+section:not(.login-page) div.container {
     max-width: 80%; 
 }
 

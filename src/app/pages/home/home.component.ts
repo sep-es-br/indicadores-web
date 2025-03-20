@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { HomeService } from "../../shared/services/home/home.service";
-import { IHome,HomeData } from "../../shared/interfaces/home.interface";
+import { IHome, HomeData, OverViewOrganizer } from '../../shared/interfaces/home.interface';
 import { Observable, timeout } from "rxjs";
 
 @Component({
@@ -10,9 +10,10 @@ import { Observable, timeout } from "rxjs";
 })
 export class HomeComponent implements OnInit {
 
-	public title = "indicadores";
 	public homeData!:IHome;
 	public administrationId!:string;
+	public areaName!:string;
+	public overViewOrganizer!:  {name: string; nameInPlural:string; count: number}[]
 
 
 	constructor(private _homeService: HomeService) { 
@@ -26,7 +27,13 @@ export class HomeComponent implements OnInit {
 		const responseData = this._homeService.getGeneralData(this.administrationId);
 		responseData.subscribe(
 			data=> {
-				this.homeData = data;}
+				this.homeData = data;
+				this.overViewOrganizer = this.getOverviewList()
+				if(this.homeData.overview.organizer.childOrganizer.length == 0){
+					this.areaName = this.homeData.overview.organizer.parentOrganizer[0]?.nameInPlural
+				}else{
+					this.areaName = this.homeData.overview.organizer.childOrganizer[0]?.nameInPlural
+				}}
 		);
 	}
 
@@ -36,5 +43,44 @@ export class HomeComponent implements OnInit {
 			this.getData();
 		}
 	}
+
+	getOrganizersKey() {
+		const organizersKey = Object.keys(this.homeData.organizers || {});
+    	return organizersKey.sort();
+    }
+
+	getOverviewList(){
+		const overviewList = [];
+
+		this.homeData.overview.organizer.parentOrganizer.forEach(item => {
+			overviewList.push({
+			  name: item.name,
+			  nameInPlural: item.nameInPlural,
+			  count: item.countOrganizer,
+			});
+		  });
+	  
+		  this.homeData.overview.organizer.childOrganizer.forEach(item => {
+			overviewList.push({
+				name: item.name,
+				nameInPlural: item.nameInPlural,
+				count: item.countOrganizer,
+			});
+		  });
+	  
+		  overviewList.push({
+			name: 'Desafio',
+			nameInPlural: 'Desafios',
+			count: this.homeData.overview.desafios
+		  });
+	  
+		  overviewList.push({
+			name: 'Indicador',
+			nameInPlural: 'Indicadores',
+			count: this.homeData.overview.indicadores
+		  });
+	  
+		  return overviewList;
+		}
 
 }

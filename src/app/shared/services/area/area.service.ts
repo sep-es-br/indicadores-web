@@ -13,7 +13,7 @@ import { ErrorHandlerService } from "../error-handler/error-handler.service";
 })
 export class AreaService {
 
-	private _url = `${environment.apiUrl}area`;
+	private _url = `${environment.apiUrl}organizer`;
 
 	public firstYear: Array<string> = []
 	public secondYear: Array<string> = []
@@ -39,8 +39,8 @@ export class AreaService {
 			}));
 	}
 
-	getAll(areaId: String | null): Observable<IAreaOverview[]>{
-		return this._http.get<IAreaOverview[]>(`${this._url}/${areaId}`).pipe(
+	getAll(areaId: String | null): Observable<{ [key: string]: IAreaOverview[] }>{
+		return this._http.get<{ [key: string]: IAreaOverview[] }>(`${this._url}/${areaId}`).pipe(
 			catchError((err: HttpErrorResponse) => {
 				this._errorHandlerService.handleError(err);
 				return throwError(() => err);
@@ -56,7 +56,7 @@ export class AreaService {
 
 			const yearGroupedData: IYearTargetResult = {
 				year: referringYear,
-				resultedIn: indicator.resultedIn
+				resultedIn: indicator.resulted
 					.filter(item => item.year === referringYear)
 					.map(({ year, ...rest }) => rest),  
 				targetFor: indicator.targetFor
@@ -103,9 +103,9 @@ export class AreaService {
 	  
 		if (percentage >= 100) {
 		  return 10;
-		} else if (percentage >= 85 && percentage < 100) {
+		} else if (percentage >= 75 && percentage < 100) {
 		  return 5;
-		} else if (percentage < 85) {
+		} else if (percentage < 75) {
 		  return 0;
 		}
 
