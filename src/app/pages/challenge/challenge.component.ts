@@ -315,7 +315,7 @@ export class ChallengeComponent implements OnInit {
     targetFor: number,
     resultedIn: number
   ): string {
-    if (!targetFor || !resultedIn || targetFor <= 0 || resultedIn <= 0) {
+    if (!targetFor || !resultedIn ) {
       return 'mirrored-gray-ball-img';
     }
 

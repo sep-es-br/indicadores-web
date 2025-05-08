@@ -89,7 +89,7 @@ export class AreaService {
 	}
 
 	private getIndicatorScoreCalculationResult(polarity: string, targetFor: number, resultedIn: number): number | null {
-		if (!targetFor || !resultedIn || targetFor <= 0 || resultedIn <= 0) {
+		if (!targetFor || !resultedIn) {
 		  return null;
 		}
 	  
