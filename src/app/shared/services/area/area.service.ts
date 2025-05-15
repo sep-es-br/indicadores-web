@@ -88,27 +88,33 @@ export class AreaService {
 
 	}
 
-	private getIndicatorScoreCalculationResult(polarity: string, targetFor: number, resultedIn: number): number | null {
-		if (!targetFor || !resultedIn) {
-		  return null;
+	private getIndicatorScoreCalculationResult(
+		polarity: string,
+		targetFor?: number,
+		resultedIn?: number
+	): number | null {
+		if (targetFor == null || resultedIn == null) {
+			return null;
 		}
-	  
-		let percentage: number;
-	  
-		if (polarity === 'Positiva' || polarity === 'Positivo') {
-		  percentage = (resultedIn / targetFor) * 100;
+		let value: number;
+		if (targetFor === 0) {
+			value = -resultedIn;
 		} else {
-		  percentage = (targetFor / resultedIn) * 100;
+			value = (targetFor - resultedIn) / Math.abs(targetFor);
 		}
+	  
+		const finalPercentage = (polarity === 'Positiva' || polarity === 'Positivo')
+			? 1 - value
+			: 1 + value;
+	  
+		const percentage = finalPercentage * 100;
 	  
 		if (percentage >= 100) {
-		  return 10;
-		} else if (percentage >= 75 && percentage < 100) {
-		  return 5;
-		} else if (percentage < 75) {
-		  return 0;
+			return 10;
+		} else if (percentage >= 75) {
+			return 5;
+		} else {
+			return 0;
 		}
-
-		return null;
 	  }
 }

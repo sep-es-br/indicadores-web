@@ -587,3 +587,51 @@
     border-radius: 50%;
 }
 
+.download-pdf {
+    color: #132446;
+    display: flex;
+    align-items: center;
+    margin-left: 0.5rem;
+    margin-top: 0.5rem;
+    height: 30px;
+    width: auto;
+    svg{
+        cursor: pointer;
+    }
+    span{
+        font-family: 'Montserrat', sans-serif;
+        font-weight: bold;
+        align-self: flex-end;
+        cursor: pointer;
+    } 
+  }
+
+  .tooltip-text {
+    position: relative;
+    cursor: help;
+    margin-left: 3px;
+  }
+  
+  .tooltip-text::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    white-space: pre-wrap;
+    width: 200px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s;
+  }
+  
+  .tooltip-text:hover::after {
+    opacity: 1;
+    visibility: visible;
+  }
+
