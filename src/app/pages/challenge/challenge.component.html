@@ -101,7 +101,7 @@
                         <table class="performance-table">
                             <tr>
                                 <th rowspan="2" class="header-cell">BASE DE REFERÊNCIA
-                                    <div *ngIf="selectedIndicator.justificationBase" style="display: inline-block; margin-left: 3px;" [title]="selectedIndicator.justificationBase" >
+                                    <div *ngIf="selectedIndicator.justificationBase" class="info-justification"  [title]="selectedIndicator.justificationBase" >
                                         <i class="fas fa-info-circle" style="margin-left: 3px;"></i>
                                     </div>
                                 </th>
@@ -132,7 +132,7 @@
                             <tr>
                                 <ng-container *ngIf=" showCurrentYear">
                                     <th class="subheader-cell">META
-                                        <div *ngIf="selectedIndicator.justificationGoal" style="display: inline-block; margin-left: 3px;" [title]="selectedIndicator.justificationGoal">
+                                        <div *ngIf="selectedIndicator.justificationGoal" class="info-justification"  [title]="selectedIndicator.justificationGoal">
                                             <i class="fas fa-info-circle"></i>
                                         </div>
                                     </th>
@@ -141,7 +141,7 @@
                                 </ng-container>
                                 <ng-container *ngIf="selectedYearTargetResult && selectedYear !== areaData.startOfAdministrationYear">
                                     <th class="subheader-cell" [ngClass]="{'invisible': !(indicatorFirstYearTargetResult)}">META
-                                        <div *ngIf="selectedIndicator.justificationGoal" style="display: inline-block; margin-left: 3px;" [title]="selectedIndicator.justificationGoal">
+                                        <div *ngIf="selectedIndicator.justificationGoal" class="info-justification"  [title]="selectedIndicator.justificationGoal">
                                             <i class="fas fa-info-circle"></i>
                                         </div>
                                     </th>
