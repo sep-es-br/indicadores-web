@@ -68,4 +68,8 @@ export class HeaderComponent implements OnInit {
 		this.isScrolled = scrollPosition > threshold;
 	}
 
+	logout() {
+		window.location.href = 'https://acessocidadao.es.gov.br/is/logout';
+	  }
+
 }

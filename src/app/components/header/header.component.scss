@@ -19,15 +19,16 @@ header{
 .menuHome{
     // margin-left: 0.95rem !important;
     margin: auto;
-    a{
-        font-size: 20px;
-        color: white !important ;
-        font-weight: 700;
-        font-family: 'Montserrat', sans-serif;
-    }
-    a:hover{
-        color: var(--corDefault) !important;
-    }
+}
+
+a{
+    font-size: 20px;
+    color: white !important ;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+}
+a:hover{
+    color: var(--corDefault) !important;
 }
 
 .navbar {
@@ -89,4 +90,4 @@ header{
 
 .invisivel {
     visibility: hidden;
-  }
+}
