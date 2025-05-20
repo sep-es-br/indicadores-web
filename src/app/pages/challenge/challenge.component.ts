@@ -195,8 +195,8 @@ export class ChallengeComponent implements OnInit {
       const targetForYear = indicator.targetFor.find(target => target.year === this.selectedYear);
 
 
-      const resultValue = resultForYear?.value ?? 0; 
-      const targetValue = targetForYear?.value ?? 0; 
+      const resultValue = resultForYear?.value; 
+      const targetValue = targetForYear?.value; 
 
       const ballClassYearTargetResult = this.getBallClass(indicator.polarity, targetValue, resultValue);
 
@@ -217,8 +217,13 @@ export class ChallengeComponent implements OnInit {
 
   selectIndicator(indicator: Iindicator) {
     this.clear()
-    this.selectedIndicator = indicator;
+    if (!this.selectedIndicator) {
+      this.selectedIndicator = { ...indicator }; // Cria uma cópia se for a primeira vez
+    } else {
+      Object.assign(this.selectedIndicator, indicator); // Atualiza propriedades
+    }
     this.dropdownOpen = false;
+    console.log(this.selectedIndicator)
     
     const yearGroupedData: IYearTargetResult[] = this.allYears.map((year) => {
       return {
@@ -236,7 +241,7 @@ export class ChallengeComponent implements OnInit {
           (item) => item.year === this.selectedYear) ?? null;
 
       this.ballClassYearTargetResult = this.getBallClass(this.selectedIndicator.polarity, 
-      this.selectedYearTargetResult?.targetFor?.[0]?.value ?? 0, this.selectedYearTargetResult?.resultedIn?.[0]?.value ?? 0)
+      this.selectedYearTargetResult?.targetFor?.[0]?.value, this.selectedYearTargetResult?.resultedIn?.[0]?.value)
 
     // if(this.currentYear >= this.areaData.startOfAdministrationYear && this.currentYear <= this.areaData.endOfAdministrationYear){
       const firstYearData: IYearTargetResult = {
@@ -250,8 +255,11 @@ export class ChallengeComponent implements OnInit {
       };
 
         this.indicatorFirstYearTargetResult = firstYearData;
-        this.ballClassCurrentYear  = this.getBallClass(this.selectedIndicator.polarity, 
-        this.indicatorFirstYearTargetResult?.targetFor?.[0]?.value ?? 0, this.indicatorFirstYearTargetResult?.resultedIn?.[0]?.value ?? 0)
+        this.ballClassCurrentYear  = this.getBallClass(
+          this.selectedIndicator.polarity, 
+          this.indicatorFirstYearTargetResult?.targetFor?.[0]?.value,
+          this.indicatorFirstYearTargetResult?.resultedIn?.[0]?.value
+        )
 
 
     const baseYearData: IYearTargetResult = {
@@ -288,9 +296,9 @@ export class ChallengeComponent implements OnInit {
     if(this.selectedIndicator){
       this.selectedYearTargetResult = this.indicatorYearTargetResult.find(
           (item) => item.year === this.selectedYear) ?? null;
-      
       this.ballClassYearTargetResult = this.getBallClass(this.selectedIndicator.polarity, 
-      this.selectedYearTargetResult?.targetFor?.[0]?.value ?? 0, this.selectedYearTargetResult?.resultedIn?.[0]?.value ?? 0)
+      this.selectedYearTargetResult?.targetFor?.[0]?.value , this.selectedYearTargetResult?.resultedIn?.[0]?.value)
+      
 
     }
     this.dropdownOpenYearOfTitle = false;
@@ -304,7 +312,7 @@ export class ChallengeComponent implements OnInit {
     }
     if(this.selectedIndicator){
       this.ballClassYearTargetResult = this.getBallClass(this.selectedIndicator.polarity, 
-      this.selectedYearTargetResult?.targetFor?.[0]?.value ?? 0, this.selectedYearTargetResult?.resultedIn?.[0]?.value ?? 0)
+      this.selectedYearTargetResult?.targetFor?.[0]?.value , this.selectedYearTargetResult?.resultedIn?.[0]?.value )
     }
 
     this.dropdownOpenYear = false;
@@ -312,21 +320,26 @@ export class ChallengeComponent implements OnInit {
 
   public getBallClass(
     polarity: string,
-    targetFor: number,
-    resultedIn: number
+    targetFor?: number,
+    resultedIn?: number
   ): string {
-    if (!targetFor || !resultedIn ) {
+    if (targetFor === null || targetFor === undefined || resultedIn === null || resultedIn === undefined) {
       return 'mirrored-gray-ball-img';
     }
-
-    let percentage: number;
-
-    if (polarity === 'Positiva' || polarity === 'Positivo') {
-      percentage = (resultedIn / targetFor) * 100;
+    let value: number;
+  
+    if (targetFor === 0) {
+      value = -resultedIn;
     } else {
-      percentage = (targetFor / resultedIn) * 100;
+      value = (targetFor - resultedIn) / Math.abs(targetFor);
     }
-
+  
+    const finalPercentage = (polarity === 'Positiva' || polarity === 'Positivo')
+      ? 1 - value
+      : 1 + value;
+  
+    const percentage = finalPercentage * 100;
+  
     if (percentage >= 100) {
       return 'mirrored-green-ball-img';
     } else if (percentage >= 75 && percentage < 100) {
@@ -334,6 +347,32 @@ export class ChallengeComponent implements OnInit {
     } else if (percentage < 75) {
       return 'mirrored-red-ball-img';
     }
+  
     return 'mirrored-gray-ball-img';
   }
+
+  downloadPdf(): void {
+    const filename = this.selectedIndicator?.fileName;
+    const originalFilename = this.selectedIndicator?.originalFileName;
+  
+    if (!filename || !originalFilename) {
+      console.warn('Arquivo PDF não disponível para download.');
+      return;
+    }
+  
+    this._indicatorService.downloadPdf(filename, originalFilename).subscribe({
+      next: (blob: Blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = originalFilename;
+        a.click();
+        window.URL.revokeObjectURL(url);
+      },
+      error: (err) => {
+        console.error('Erro ao fazer download do PDF:', err);
+      }
+    });
+  }
+  
 }
