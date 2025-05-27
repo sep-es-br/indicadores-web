@@ -743,3 +743,10 @@
     }
 
 }
+
+@media (max-width: 600px) {
+    .indicador-header-container{
+        display: grid !important;
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
