@@ -97,7 +97,7 @@
 .info-nome {
     display: flex;
     text-align: center;
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 
 .menuLateral{
@@ -190,13 +190,19 @@
     }
 }
 
-.legend span{
-    content: '&nbsp;';
-    display: block;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
+.legend-item {
+  display: flex;
+  align-items: center;
+  min-width: 210px; 
 }
+
+.legend span {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
 .polarity{
     display: flex;
     width: 14vw;
@@ -286,10 +292,10 @@
         text-align: center;
         display: inline-block;
         align-content:center;
-        height: 60px;
-        width: 60px;
+        height: 50px;
+        width: 50px;
         border-radius: 50%;
-        font-size: 1.5rem;
+        font-size: 1rem;
         font-weight: 700;
         color: white;
     }
@@ -337,7 +343,7 @@
     grid-template-columns: 18% 18% 18% 18% 28%;
     align-self: center;
     span{
-        margin: auto .75rem;
+        margin: auto .25rem;
         justify-content: center;
         text-align: center;
         display: inline-block;
@@ -373,3 +379,58 @@
     font-size: 14px;
     font-weight: bold;
 }
+
+@media (max-width: 1400px) {
+  .descriptionArea {
+    font-size: 1.5rem;
+  }
+  .card-overview-indicator{
+    justify-content: space-around;
+      .overview-indicator {
+        grid-template-columns: 20% 20% 20% 20% 20%;
+        span{
+            margin-bottom: 0 !important;
+        }
+        .ball-item {
+            display: block;
+            margin: 0 auto;
+        }
+    }
+  }
+  .overview{
+    grid-template-columns:repeat(2, 1fr);
+  }
+
+}
+
+@media (max-width: 1200px) {
+  .descriptionArea {
+    font-size: 1rem; 
+  }
+
+}
+
+@media (max-width: 991px) {
+    .overview{
+        grid-template-columns:repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 550px) {
+    .overview-indicator {
+    grid-template-columns: repeat(4, 1fr) !important;
+    grid-template-rows: auto auto;
+    row-gap: 1rem; 
+  }
+
+  .overview-indicator > div:nth-child(5) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    margin-left: auto !important;
+    width: 100px;
+  }
+    .overview{
+        grid-template-columns:repeat(2, 1fr);
+    }
+}
+

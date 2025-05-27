@@ -22,12 +22,12 @@
         <a class="nav-link text-white" href="/home">FAQ</a>
       </li>
     </ul>
-    <select [(ngModel)]="selectedAdminId" (change)="onSelectionChange($event)" class="custom-select">
+    <select [(ngModel)]="selectedAdminId" (change)="onSelectionChange($event)" class="custom-select me-3">
       <option *ngFor="let admin of administrationList" [value]="admin.id">
         {{ admin.name }}
       </option>
     </select>
-      <a class="nav-link text-white ms-3 me-3" (click)="logout()" style="cursor: pointer;">Sair</a>
+      <a class="nav-link text-white me-3" (click)="logout()" style="cursor: pointer;">Sair</a>
     </div>
       <div class="col-5 col-md-4 col-lg-2">
         <img class="img-fluid" src="/assets/images/home/Logo_SEP_Branco.png" />

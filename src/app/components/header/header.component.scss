@@ -40,6 +40,14 @@ a:hover{
     backdrop-filter: blur(5px);
 }
 
+@media screen and (max-width: 1420px)
+{
+   a, select{
+    font-size: 15px !important;
+    } 
+    
+}
+
 @media screen and (max-width: 1024px)
 {
     nav {
