@@ -403,25 +403,38 @@
 
 }
 
-@media (max-width: 1200px) {
-  .descriptionArea {
-    font-size: 1rem; 
-  }
-
-}
-
 @media (max-width: 991px) {
+
     .overview{
         grid-template-columns:repeat(4, 1fr);
+    }
+
+    .descriptionArea{
+        font-size: 1.2rem;
+        text-align: start;
     }
 }
 
 @media (max-width: 550px) {
+    .item-ods{
+        grid-template-columns:repeat(3, 1fr);
+        ods-text{
+            font-size: small;
+        }
+    }
+
+    section div.container {
+        max-width: 100%;
+    }
     .overview-indicator {
     grid-template-columns: repeat(4, 1fr) !important;
     grid-template-rows: auto auto;
     row-gap: 1rem; 
   }
+
+    .descriptionArea{
+        font-size: 1rem;
+    }
 
   .overview-indicator > div:nth-child(5) {
     grid-column: 1 / -1;

@@ -66,6 +66,21 @@ a:hover{
     
 }
 
+@media (max-width: 990px) {
+    .invisivel{
+        display: none;
+    }
+    .item-home, .nav-link{
+        margin-left: 5px;
+    }
+    .nav-link{
+        margin-top: 10px;
+    }
+    a, select{
+        font-size: 20px !important;
+    } 
+}
+
 .custom-select {
     margin-right: 10px;
     font-size: 20px;

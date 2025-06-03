@@ -29,3 +29,9 @@
     font-weight: 700;
     text-decoration: none;
 }
+
+@media (max-width: 550px) {       
+    section div.container {
+        max-width: 100%;
+    }
+}
