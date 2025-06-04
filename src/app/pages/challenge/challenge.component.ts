@@ -223,7 +223,6 @@ export class ChallengeComponent implements OnInit {
       Object.assign(this.selectedIndicator, indicator); // Atualiza propriedades
     }
     this.dropdownOpen = false;
-    console.log(this.selectedIndicator)
     
     const yearGroupedData: IYearTargetResult[] = this.allYears.map((year) => {
       return {

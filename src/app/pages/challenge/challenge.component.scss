@@ -497,7 +497,7 @@
     font-family: 'Montserrat-Bold', 'Montserrat Regular', 'Montserrat', sans-serif;
     font-weight: 700;
     font-style: normal;
-    font-size: 18px !important;
+    font-size: 14px !important;
     color: #132446;
 }
 
@@ -518,7 +518,7 @@
 
 .item-ods {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
     gap: 5px; 
     align-items: center;
 }
@@ -641,3 +641,126 @@
     cursor: pointer;
   }
 
+    performance-table thead, tbody, tfoot, tr, td, th {
+        font-size: 0.75rem;
+    }
+
+
+    .hide-on-md {
+        display: none !important;
+    }
+
+    .mobile-table {
+        display: none !important;
+    }
+
+
+  @media (max-width: 1200px) {
+
+    performance-table thead, tbody, tfoot, tr, td, th {
+        font-size: 0.6rem;
+    }
+
+  .titleArea,
+  .titleAnalysis,
+  .text-select {
+    font-size: 1.5rem; 
+  }
+
+  .overview{
+    span{
+        height: 50px;
+        width: 50px;
+        
+    }
+    }
+    .info-text{
+        font-size: 1rem;  
+    }
+
+    .dropdown-btn{
+        font-size: 0.8rem;
+    }
+
+    .medidas-text {
+        font-size: 10px !important;
+    }
+
+}
+
+  @media (max-width: 992px) {
+
+    .indicador-header-ods{
+        width: auto !important;
+        margin-top: 10px;
+        .item-ods{
+            justify-items: center;
+        }
+    }
+
+    performance-table thead, tbody, tfoot, tr, td, th {
+        .ball-item{
+            height: 30px;
+        }
+        font-size: 0.8rem;
+    }
+
+    .hide-on-desktop {
+        display: none !important;
+    }
+    .mobile-table {
+        display: table !important;
+    }
+
+    .indicador-header-container{
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .table-resultados-container {
+        display: contents;
+    }
+
+    .card-container.card-container-metricas {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+
+    
+  .titleArea,
+  .titleAnalysis,
+  .text-select {
+    font-size: 1rem; 
+    }
+
+    .dropdown-btn{
+        font-size: 0.7rem;
+    }
+
+    .info-text{
+        margin-bottom: 0;
+        margin-top: 10px;
+    }
+
+}
+
+@media (max-width: 600px) {
+    .indicador-header-container{
+        display: grid !important;
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    performance-table thead, tbody, tfoot, tr, th {
+        font-size: 0.6rem;
+    }
+    .year{
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 550px) {       
+    section div.container {
+        max-width: 100%;
+    }
+}

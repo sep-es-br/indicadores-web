@@ -56,7 +56,7 @@
 
 .mainHighlight4 {
     flex: 0 0 calc(25%);
-  }
+}
   
   .mainHighlight3 {
     flex: 0 0 calc(33.33%);  
@@ -99,12 +99,26 @@
     bottom: 10px;
 }
 
+@media screen and (max-width: 1361px)   {
+    div.container{
+        margin-top: 110px !important;
+    }
+
+    .mainHighlight {
+    font-size: 20px; 
+    }
+
+    .numberTitle {
+        font-size: 35px; 
+    }
+}
+
 @media screen and (max-width: 1024px)   {
     .mainSection{
         min-height: 100vh;
         height: 100% ;
         div.container{
-            margin-top: 110px;
+            margin-top: 0px !important;
         }
     }
     .mainTitle{
@@ -114,13 +128,18 @@
     .mainText{
         font-size: 25px;
     }
-    .mainHighlight{
-        font-size: 20px;
+
+    .mainHighlight {
+    font-size: 14px; 
+    }
+
+    .numberTitle {
+        font-size: 35px; 
     }
 }
 
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
     .mainSection{
         div.container{
             margin-top: -100px;
@@ -132,8 +151,9 @@
     .mainText{
         font-size: 18px;
     }
-    .mainHighlight{
-        font-size: 16px;
+
+    .mainHighlight4 {
+        flex: 0 0 calc(50%);
     }
     
 }
@@ -159,9 +179,15 @@
     .mainText{
         font-size: 16px;
     }
-    .mainHighlight{
-        font-size: 18px;
+
+    .mainHighlight {
+    font-size: 14px; 
     }
+
+    .numberTitle {
+        font-size: 35px; 
+    }
+
 }
 
 @media screen and (max-width: 375px) {
@@ -171,10 +197,19 @@
         }
     }
     .mainTitle{
-        font-size: 0.9rem;
+        font-size: 0.8rem;
     }
+        
     .mainText{
-        font-size: 14px;
+        font-size: 12px;
+    }
+        
+    .mainHighlight {
+    font-size: 10px; 
+    }
+
+    .numberTitle {
+        font-size: 25px; 
     }
     
 }
