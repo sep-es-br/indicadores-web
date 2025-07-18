@@ -130,7 +130,6 @@ export class ChallengeComponent implements OnInit {
             indicator.resulted.some((result) => result.year === year && result.value !== null)
           );
           if (hasValue) {
-            console.log(year)
             yearsWithValues.push(year);
           }
         });
