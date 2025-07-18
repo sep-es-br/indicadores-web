@@ -127,10 +127,10 @@ export class ChallengeComponent implements OnInit {
 
         yearRange.forEach((year) => {
           const hasValue = this.indicatorData.some((indicator) => 
-            indicator.targetFor.some((target) => target.year === year && target.value !== null) ||
             indicator.resulted.some((result) => result.year === year && result.value !== null)
           );
           if (hasValue) {
+            console.log(year)
             yearsWithValues.push(year);
           }
         });
