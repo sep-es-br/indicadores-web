@@ -287,7 +287,6 @@ export class ChallengeComponent implements OnInit {
       this.indicatorFirstYearTargetResult?.resultedIn?.[0]?.value,
     );
 
-    console.log("aaaa, ", this.areaData)
     const baseYearData: IYearTargetResult = {
       year: this.areaData.startOfAdministrationYear - 1,
       resultedIn: indicator.resulted
@@ -302,9 +301,6 @@ export class ChallengeComponent implements OnInit {
         .map(({ year, ...rest }) => rest),
     };
 
-    console.log("tttt: ", baseYearData)
-    console.log("eqweqwe", this.indicatorFirstYearTargetResult?.year )
-    console.log("arerae ", this.selectedIndicator)
     if (baseYearData.resultedIn.length > 0) {
       this.indicatorBaseYearTargetResult = baseYearData;
     } else {
