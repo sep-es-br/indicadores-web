@@ -279,13 +279,17 @@
                 <ng-container *ngIf="showCurrentYear">
                   <th class="subheader-cell">
                     META
-                    <div
-                      *ngIf="selectedIndicator.justificationGoal"
-                      class="info-justification"
-                      [title]="selectedIndicator.justificationGoal"
+                    <ng-container
+                      *ngFor="let item of selectedIndicator.targetFor"
                     >
-                      <i class="fas fa-info-circle"></i>
-                    </div>
+                      <div
+                        *ngIf="item.justificationGoal && (item.year == indicatorFirstYearTargetResult?.year)"
+                        class="info-justification"
+                        [title]="item.justificationGoal"
+                      >
+                        <i class="fas fa-info-circle"></i>
+                      </div>
+                    </ng-container>
                   </th>
                   <th class="subheader-cell">REALIZADO</th>
                   <th class="subheader-cell">DESEMPENHO</th>
