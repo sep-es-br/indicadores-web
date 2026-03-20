@@ -187,7 +187,7 @@
                 <tr>
                   <td class="body-cell">
                     {{
-                      indicatorBaseYearTargetResult?.resultedIn?.[0]?.showValue?.slice(
+                      indicatorBaseYearTargetResult?.times?.[0]?.showValueGoal?.slice(
                         0,
                         1000
                       ) || "-"
@@ -279,11 +279,15 @@
                 <ng-container *ngIf="showCurrentYear">
                   <th class="subheader-cell">
                     META
-                    <ng-container
-                      *ngFor="let item of selectedIndicator.targetFor"
-                    >
+                    <ng-container *ngFor="let item of selectedIndicator.times">
                       <div
-                        *ngIf="item.justificationGoal && (item.year == indicatorFirstYearTargetResult?.year)"
+                        *ngIf="
+                          item.justificationGoal &&
+                          verifyYearIndicator(
+                            item.year,
+                            indicatorBaseYearTargetResult?.year
+                          )
+                        "
                         class="info-justification"
                         [title]="item.justificationGoal"
                       >
@@ -305,12 +309,13 @@
                     [ngClass]="{ invisible: !indicatorFirstYearTargetResult }"
                   >
                     META
-                    <ng-container
-                      *ngFor="let item of selectedIndicator.targetFor"
-                    >
+                    <ng-container *ngFor="let item of selectedIndicator.times">
                       <!-- {{ item.justificationGoal }} -->
                       <div
-                        *ngIf="item.justificationGoal && (item.year == selectedYear)"
+                        *ngIf="
+                          item.justificationGoal &&
+                          verifyYearIndicator(item.year, selectedYear)
+                        "
                         class="info-justification"
                         [title]="item.justificationGoal"
                       >
@@ -335,7 +340,7 @@
               <tr>
                 <td class="body-cell hide-on-desktop" rowspan="2">
                   {{
-                    indicatorBaseYearTargetResult?.resultedIn?.[0]?.showValue?.slice(
+                    indicatorBaseYearTargetResult?.times?.[0]?.showValueResult?.slice(
                       0,
                       1000
                     ) || "-"
@@ -350,8 +355,8 @@
                     [ngClass]="{ invisible: !indicatorFirstYearTargetResult }"
                   >
                     {{
-                      indicatorFirstYearTargetResult?.targetFor?.[0]
-                        ?.showValue || "Sem dados"
+                      indicatorFirstYearTargetResult?.times?.[0]?.valueGoal ||
+                        "Sem dados"
                     }}
                   </td>
                   <td
@@ -359,8 +364,8 @@
                     [ngClass]="{ invisible: !indicatorFirstYearTargetResult }"
                   >
                     {{
-                      indicatorFirstYearTargetResult?.resultedIn?.[0]
-                        ?.showValue || "Sem dados"
+                      indicatorFirstYearTargetResult?.times?.[0]?.valueResult ||
+                        "Sem dados"
                     }}
                   </td>
                   <td
@@ -386,13 +391,13 @@
                 >
                   <td class="body-cell hide-on-desktop">
                     {{
-                      selectedYearTargetResult?.targetFor?.[0]?.showValue ||
+                      selectedYearTargetResult?.times?.[0]?.showValueGoal ||
                         "Sem dados"
                     }}
                   </td>
                   <td class="body-cell hide-on-desktop">
                     {{
-                      selectedYearTargetResult?.resultedIn?.[0]?.showValue ||
+                      selectedYearTargetResult?.times?.[0]?.valueResult ||
                         "Sem dados"
                     }}
                   </td>
@@ -463,9 +468,13 @@
                 <th class="subheader-cell">
                   META
                   <div
-                    *ngIf="selectedIndicator.justificationGoal"
+                    *ngIf="
+                      selectedYearTargetResult?.times?.[0]?.justificationGoal
+                    "
                     class="info-justification"
-                    [title]="selectedIndicator.justificationGoal"
+                    [title]="
+                      selectedYearTargetResult?.times?.[0]?.justificationGoal
+                    "
                   >
                     <i class="fas fa-info-circle"></i>
                   </div>
@@ -476,13 +485,13 @@
               <tr>
                 <td class="body-cell">
                   {{
-                    selectedYearTargetResult?.targetFor?.[0]?.showValue ||
+                    selectedYearTargetResult?.times?.[0]?.valueGoal ||
                       "Sem dados"
                   }}
                 </td>
                 <td class="body-cell">
                   {{
-                    selectedYearTargetResult?.resultedIn?.[0]?.showValue ||
+                    selectedYearTargetResult?.times?.[0]?.valueResult ||
                       "Sem dados"
                   }}
                 </td>

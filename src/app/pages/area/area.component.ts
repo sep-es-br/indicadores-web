@@ -34,10 +34,10 @@ export class AreaComponent implements OnInit {
 	public thirdYear: Array<string> = []
 	public fourthYear: Array<string> = []
 
-	public countFirstYear!: {green: number, yellow: number, red: number, gray: number}; 
-	public countSecondYear!: {green: number, yellow: number, red: number, gray: number}; 
-	public countThirdYear!: {green: number, yellow: number, red: number, gray: number}; 
-	public countFourthYear!: {green: number, yellow: number, red: number, gray: number}; 
+	public countFirstYear!: {green: number, yellow: number, red: number, gray: number};
+	public countSecondYear!: {green: number, yellow: number, red: number, gray: number};
+	public countThirdYear!: {green: number, yellow: number, red: number, gray: number};
+	public countFourthYear!: {green: number, yellow: number, red: number, gray: number};
 
 	private currentUrl: string = "";
 
@@ -86,6 +86,7 @@ export class AreaComponent implements OnInit {
 			const areaDetail = this._areaService.getDetail(this.areaId);
 			areaDetail.subscribe(
 				data => {
+          console.log("dadada", data)
 					this.areaData = data;
 					this.firstYear = this._areaService.firstYear
 					this.secondYear = this._areaService.secondYear
@@ -148,7 +149,7 @@ export class AreaComponent implements OnInit {
 
 	public getOdsCounts(): IOdsCount[] {
 		const odsMap: { [key: number]: number } = {};
-	
+
 		this.areaData.challenge.forEach(challenge => {
 		  challenge.indicatorList.forEach(indicator => {
 			indicator.ods.forEach(ods => {
@@ -160,7 +161,7 @@ export class AreaComponent implements OnInit {
 			});
 		  });
 		});
-	
+
 		return Object.keys(odsMap).map(key => ({
 		  ods: +key,
 		  count: odsMap[+key]

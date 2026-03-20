@@ -14,6 +14,17 @@ export interface IFilteredResult {
 
 export interface IYearTargetResult {
   year?: number;
-  targetFor: IFilteredResult[];
-  resultedIn: IFilteredResult[];
+  times?: Omit<ITimes, 'year'>[];
+}
+
+export interface ITimes {
+  type: string;
+  year: string;
+  period: number;
+  valueGoal: number;
+  showValueGoal: string;
+  valueResult: number;
+  showValueResult: string;
+  justificationGoal: string;
+  justificationResult: string;
 }
