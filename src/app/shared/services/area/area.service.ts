@@ -1,120 +1,145 @@
-import { Injectable } from "@angular/core";
-import { environment } from "../../../../environments/environment";
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { Observable, catchError, tap, throwError } from "rxjs";
-import { IArea, IAreaOverview } from "../../interfaces/area.interface";
-import { IChallenge } from "../../interfaces/challenge.interface";
-import { IYearTargetResult } from "../../interfaces/TargetResult.interface";
-import { Iindicator } from "../../interfaces/indicator.interface";
-import { ErrorHandlerService } from "../error-handler/error-handler.service";
+import { Injectable } from '@angular/core';
+import { environment } from '../../../../environments/environment';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, catchError, tap, throwError } from 'rxjs';
+import { IArea, IAreaOverview } from '../../interfaces/area.interface';
+import { IChallenge } from '../../interfaces/challenge.interface';
+import {
+  ITimes,
+  IYearTargetResult,
+} from '../../interfaces/TargetResult.interface';
+import { Iindicator } from '../../interfaces/indicator.interface';
+import { ErrorHandlerService } from '../error-handler/error-handler.service';
 
 @Injectable({
-	providedIn: "root",
+  providedIn: 'root',
 })
 export class AreaService {
+  private _url = `${environment.apiUrl}organizer`;
 
-	private _url = `${environment.apiUrl}organizer`;
+  public firstYear: Array<string> = [];
+  public secondYear: Array<string> = [];
+  public thirdYear: Array<string> = [];
+  public fourthYear: Array<string> = [];
 
-	public firstYear: Array<string> = []
-	public secondYear: Array<string> = []
-	public thirdYear: Array<string> = []
-	public fourthYear: Array<string> = []
+  constructor(
+    private _http: HttpClient,
+    private _errorHandlerService: ErrorHandlerService,
+  ) {}
 
-	constructor(
-		private _http: HttpClient,
-		private _errorHandlerService: ErrorHandlerService,
-	) {}
+  getDetail(areaId: String): Observable<IArea> {
+    return this._http.get<IArea>(`${this._url}/detail/${areaId}`).pipe(
+      tap((area) => {
+        this.firstYear = area.challenge.map((challenge) =>
+          this.getBallClass(challenge, area.startOfAdministrationYear),
+        );
+        this.secondYear = area.challenge.map((challenge) =>
+          this.getBallClass(challenge, area.startOfAdministrationYear + 1),
+        );
+        this.thirdYear = area.challenge.map((challenge) =>
+          this.getBallClass(challenge, area.startOfAdministrationYear + 2),
+        );
+        this.fourthYear = area.challenge.map((challenge) =>
+          this.getBallClass(challenge, area.startOfAdministrationYear + 3),
+        );
+      }),
+      catchError((err: HttpErrorResponse) => {
+        this._errorHandlerService.handleError(err);
+        return throwError(() => err);
+      }),
+    );
+  }
 
-	getDetail(areaId: String): Observable<IArea> {
-		return this._http.get<IArea>(`${this._url}/detail/${areaId}`).pipe(
-			tap((area)=> {
-					this.firstYear = area.challenge.map((challenge)=> this.getBallClass(challenge, area.startOfAdministrationYear))
-					this.secondYear = area.challenge.map((challenge)=> this.getBallClass(challenge, area.startOfAdministrationYear + 1))
-					this.thirdYear = area.challenge.map((challenge)=> this.getBallClass(challenge, area.startOfAdministrationYear + 2))
-					this.fourthYear = area.challenge.map((challenge)=> this.getBallClass(challenge, area.startOfAdministrationYear + 3))
-			}),
-			catchError((err: HttpErrorResponse) => {
-				this._errorHandlerService.handleError(err);
-				return throwError(() => err);
-			}));
-	}
+  getAll(
+    areaId: String | null,
+  ): Observable<{ [key: string]: IAreaOverview[] }> {
+    return this._http
+      .get<{ [key: string]: IAreaOverview[] }>(`${this._url}/${areaId}`)
+      .pipe(
+        catchError((err: HttpErrorResponse) => {
+          this._errorHandlerService.handleError(err);
+          return throwError(() => err);
+        }),
+      );
+  }
 
-	getAll(areaId: String | null): Observable<{ [key: string]: IAreaOverview[] }>{
-		return this._http.get<{ [key: string]: IAreaOverview[] }>(`${this._url}/${areaId}`).pipe(
-			catchError((err: HttpErrorResponse) => {
-				this._errorHandlerService.handleError(err);
-				return throwError(() => err);
-			})
-		);
-	}
+  private getBallClass(challenge: IChallenge, referringYear: number): string {
+    let indicatorScoreCalculationResultList: number[] = [];
+    challenge.indicatorList.forEach((indicator) => {
+      const timeForYear = indicator.times?.find((t) => {
+        if (String(t.year).includes('-')) {
+          const [start, end] = String(t.year).split('-').map(Number);
+          return referringYear >= start && referringYear <= end;
+        }
+        return Number(t.year) === referringYear;
+      });
 
-	private getBallClass(challenge: IChallenge, referringYear: number) : string{
+      const targetFor = timeForYear?.valueGoal;
+      const resultedIn = timeForYear?.valueResult;
 
-		let indicatorScoreCalculationResultList: number[] = [];
+      const result = this.getIndicatorScoreCalculationResult(
+        indicator.polarity,
+        targetFor,
+        resultedIn,
+      );
 
-		challenge.indicatorList.forEach((indicator) => {
+      if (result !== null && result !== undefined) {
+        indicatorScoreCalculationResultList.push(result);
+      }
+    });
 
-			const yearGroupedData: IYearTargetResult = {
-				year: referringYear,
-				resultedIn: indicator.resulted
-					.filter(item => item.year === referringYear)
-					.map(({ year, ...rest }) => rest),  
-				targetFor: indicator.targetFor
-					.filter(item => item.year === referringYear)
-					.map(({ year, ...rest }) => rest)  
-			};
+    const total = indicatorScoreCalculationResultList.reduce(
+      (acc, curr) => acc + curr,
+      0,
+    );
+    const average =
+      indicatorScoreCalculationResultList.length > 0
+        ? total / indicatorScoreCalculationResultList.length
+        : -1;
 
-			const targetFor: number = yearGroupedData.targetFor[0]?.value
-			const resultedIn: number =  yearGroupedData.resultedIn[0]?.value
-			const result = this.getIndicatorScoreCalculationResult(indicator.polarity, targetFor, resultedIn);
+    if (average == -1) {
+      return 'mirrored-gray-ball-img';
+    } else if (average >= 7.5) {
+      return 'mirrored-green-ball-img';
+    } else if (average >= 5 && average < 7.5) {
+      return 'mirrored-yellow-ball-img';
+    } else {
+      return 'mirrored-red-ball-img';
+    }
+  }
 
-			if (result !== null && result !== undefined) {
-				indicatorScoreCalculationResultList.push(result);
-			}
-			});
+  private getIndicatorScoreCalculationResult(
+    polarity: string,
+    targetFor?: number,
+    resultedIn?: number,
+  ): number | null {
+    if (targetFor == null || resultedIn == null) {
+      return null;
+    }
 
-			const total = indicatorScoreCalculationResultList.reduce((acc, curr) => acc + curr, 0);
-    		const average = indicatorScoreCalculationResultList.length > 0 ? total / indicatorScoreCalculationResultList.length : -1;
+    let value: number;
 
-			if (average == -1){
-				return 'mirrored-gray-ball-img'
-			}else if (average >= 7.5) {
-				return 'mirrored-green-ball-img'
-			} else if (average >= 5 && average < 7.5) {
-				return 'mirrored-yellow-ball-img';
-			} else {
-				return 'mirrored-red-ball-img';
-			}
+    if (targetFor === 0) {
+      value = -resultedIn;
+    } else {
+      value = (targetFor - resultedIn) / Math.abs(targetFor);
+    }
 
-	}
+    const finalPercentage =
+      polarity === 'Positiva' || polarity === 'Positivo'
+        ? 1 - value
+        : 1 + value;
 
-	private getIndicatorScoreCalculationResult(
-		polarity: string,
-		targetFor?: number,
-		resultedIn?: number
-	): number | null {
-		if (targetFor == null || resultedIn == null) {
-			return null;
-		}
-		let value: number;
-		if (targetFor === 0) {
-			value = -resultedIn;
-		} else {
-			value = (targetFor - resultedIn) / Math.abs(targetFor);
-		}
-	  
-		const finalPercentage = (polarity === 'Positiva' || polarity === 'Positivo')
-			? 1 - value
-			: 1 + value;
-	  
-		const percentage = finalPercentage * 100;
-	  
-		if (percentage >= 100) {
-			return 10;
-		} else if (percentage >= 75) {
-			return 5;
-		} else {
-			return 0;
-		}
-	  }
+    const percentage = finalPercentage * 100;
+
+
+
+    if (percentage >= 100) {
+      return 10;
+    } else if (percentage >= 75) {
+      return 5;
+    } else {
+      return 0;
+    }
+  }
 }

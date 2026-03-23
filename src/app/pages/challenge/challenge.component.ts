@@ -1,12 +1,14 @@
-import { Component, numberAttribute, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AreaService } from '../../shared/services/area/area.service';
-import { IArea, IAreaData } from '../../shared/interfaces/area.interface';
+import { IArea } from '../../shared/interfaces/area.interface';
 import { ChallengeService } from '../../shared/services/challenge/challenge.service';
 import { IChallenge } from '../../shared/interfaces/challenge.interface';
 import { IndicatorService } from '../../shared/services/indicator/indicator.service';
 import { Iindicator } from '../../shared/interfaces/indicator.interface';
-import { IYearTargetResult } from '../../shared/interfaces/TargetResult.interface';
+import {
+  ITimes,
+  IYearTargetResult,
+} from '../../shared/interfaces/TargetResult.interface';
 import { IBreadcrumbItem } from '../../shared/interfaces/breadcrumb-item.interface';
 
 @Component({
@@ -85,6 +87,7 @@ export class ChallengeComponent implements OnInit {
       }
     }
   }
+
   ngOnInit(): void {
     this._route.queryParams.subscribe((params) => {
       this.challengeId = params['id'] ? String(params['id']) : null;
@@ -136,11 +139,11 @@ export class ChallengeComponent implements OnInit {
         }
 
         yearRange.forEach((year) => {
-          const hasValue = this.indicatorData.some((indicator) =>
-            indicator.resulted.some(
-              (result) => result.year === year && result.value !== null,
-            ),
-          );
+          const hasValue = this.indicatorData.some((indicator) => {
+            const time = this.findTimeForYear(indicator.times, year);
+            return time?.valueResult != null;
+          });
+
           if (hasValue) {
             yearsWithValues.push(year);
           }
@@ -155,6 +158,22 @@ export class ChallengeComponent implements OnInit {
         }
       });
     }
+  }
+
+  verifyYearIndicator(
+    itemYear: number | string,
+    baseYear: number | string | undefined | null,
+  ): boolean {
+    if (baseYear == null) return false;
+    const base = Number(baseYear);
+    const item = Number(itemYear);
+
+    // if (base.includes('-')) {
+    //   const [start, end] = base.split('-').map(Number);
+    //   return Number(item) >= start && Number(item) <= end;
+    // }
+
+    return item === base;
   }
 
   upYearBreadcrumb() {
@@ -201,21 +220,14 @@ export class ChallengeComponent implements OnInit {
   populateCountScoreYear(year: number) {
     this.selectedYear = year;
     this.countScoreYear = { green: 0, yellow: 0, red: 0, gray: 0 };
-    this.indicatorData.forEach((indicator) => {
-      const resultForYear = indicator.resulted.find(
-        (result) => result.year === this.selectedYear,
-      );
-      const targetForYear = indicator.targetFor.find(
-        (target) => target.year === this.selectedYear,
-      );
 
-      const resultValue = resultForYear?.value;
-      const targetValue = targetForYear?.value;
+    this.indicatorData.forEach((indicator) => {
+      const time = this.findTimeForYear(indicator.times, year);
 
       const ballClassYearTargetResult = this.getBallClass(
         indicator.polarity,
-        targetValue,
-        resultValue,
+        time?.valueGoal,
+        time?.valueResult,
       );
 
       if (!this.countScoreYear) {
@@ -235,86 +247,75 @@ export class ChallengeComponent implements OnInit {
     });
   }
 
+  private findTimeForYear(
+    times: ITimes[],
+    year: number,
+  ): Omit<ITimes, 'year'> | undefined {
+    const found = times?.find((t) => {
+      if (String(t.year).includes('-')) {
+        const [start, end] = String(t.year).split('-').map(Number);
+        return year >= start && year <= end;
+      }
+      return Number(t.year) === year;
+    });
+
+    if (!found) return undefined;
+    const { year: _, ...rest } = found;
+    return rest;
+  }
+
   selectIndicator(indicator: Iindicator) {
     this.clear();
     if (!this.selectedIndicator) {
-      this.selectedIndicator = { ...indicator }; // Cria uma cópia se for a primeira vez
+      this.selectedIndicator = { ...indicator };
     } else {
-      Object.assign(this.selectedIndicator, indicator); // Atualiza propriedades
+      Object.assign(this.selectedIndicator, indicator);
     }
 
     this.dropdownOpen = false;
 
     const yearGroupedData: IYearTargetResult[] = this.allYears.map((year) => {
-      return {
-        year,
-        resultedIn: indicator.resulted
-          .filter((item) => item.year === year)
-          .map(({ year, ...rest }) => rest),
-        targetFor: indicator.targetFor
-          .filter((item) => item.year === year)
-          .map(({ year, ...rest }) => rest),
-      };
+      const time = this.findTimeForYear(indicator.times, year);
+      return { year, times: time ? [time] : [] };
     });
 
     this.indicatorYearTargetResult = yearGroupedData;
     this.selectedYearTargetResult =
       this.indicatorYearTargetResult.find(
-        (item) => item.year === this.selectedYear,
+        (item) => Number(item.year) === this.selectedYear,
       ) ?? null;
 
     this.ballClassYearTargetResult = this.getBallClass(
       this.selectedIndicator.polarity,
-      this.selectedYearTargetResult?.targetFor?.[0]?.value,
-      this.selectedYearTargetResult?.resultedIn?.[0]?.value,
+      this.selectedYearTargetResult?.times?.[0]?.valueGoal,
+      this.selectedYearTargetResult?.times?.[0]?.valueResult,
     );
 
-    // if(this.currentYear >= this.areaData.startOfAdministrationYear && this.currentYear <= this.areaData.endOfAdministrationYear){
-    const firstYearData: IYearTargetResult = {
+    const firstYearTime = this.findTimeForYear(
+      indicator.times,
+      this.areaData.startOfAdministrationYear,
+    );
+
+    this.indicatorFirstYearTargetResult = {
       year: this.areaData.startOfAdministrationYear,
-      resultedIn: indicator.resulted
-        .filter((item) => item.year === this.areaData.startOfAdministrationYear)
-        .map(({ year, ...rest }) => rest),
-      targetFor: indicator.targetFor
-        .filter((item) => item.year === this.areaData.startOfAdministrationYear)
-        .map(({ year, ...rest }) => rest),
+      times: firstYearTime ? [firstYearTime] : [],
     };
 
-    this.indicatorFirstYearTargetResult = firstYearData;
     this.ballClassCurrentYear = this.getBallClass(
       this.selectedIndicator.polarity,
-      this.indicatorFirstYearTargetResult?.targetFor?.[0]?.value,
-      this.indicatorFirstYearTargetResult?.resultedIn?.[0]?.value,
+      this.indicatorFirstYearTargetResult?.times?.[0]?.valueGoal,
+      this.indicatorFirstYearTargetResult?.times?.[0]?.valueResult,
     );
 
-    const baseYearData: IYearTargetResult = {
-      year: this.areaData.startOfAdministrationYear - 1,
-      resultedIn: indicator.resulted
-        .filter(
-          (item) => item.year === this.areaData.startOfAdministrationYear - 1,
-        )
-        .map(({ year, ...rest }) => rest),
-      targetFor: indicator.targetFor
-        .filter(
-          (item) => item.year === this.areaData.startOfAdministrationYear - 1,
-        )
-        .map(({ year, ...rest }) => rest),
-    };
-
-    if (baseYearData.resultedIn.length > 0) {
-      this.indicatorBaseYearTargetResult = baseYearData;
-    } else {
-      this.indicatorBaseYearTargetResult = undefined;
-    }
-
-    if (
+    const baseYear = this.areaData.startOfAdministrationYear - 1;
+    const baseYearTime = this.findTimeForYear(indicator.times, baseYear);
+    this.indicatorBaseYearTargetResult = baseYearTime
+      ? { year: baseYear, times: [baseYearTime] }
+      : undefined;
+    this.showCurrentYear = !(
       this.indicatorFirstYearTargetResult == undefined &&
-      !(this.selectedYearTargetResult == null)
-    ) {
-      this.showCurrentYear = false;
-    } else {
-      this.showCurrentYear = true;
-    }
+      this.selectedYearTargetResult != null
+    );
   }
 
   selectYearOfTitle(year: number) {
@@ -323,12 +324,13 @@ export class ChallengeComponent implements OnInit {
     if (this.selectedIndicator) {
       this.selectedYearTargetResult =
         this.indicatorYearTargetResult.find(
-          (item) => item.year === this.selectedYear,
+          (item) => Number(item.year) === this.selectedYear,
         ) ?? null;
+
       this.ballClassYearTargetResult = this.getBallClass(
         this.selectedIndicator.polarity,
-        this.selectedYearTargetResult?.targetFor?.[0]?.value,
-        this.selectedYearTargetResult?.resultedIn?.[0]?.value,
+        this.selectedYearTargetResult?.times?.[0]?.valueGoal,
+        this.selectedYearTargetResult?.times?.[0]?.valueResult,
       );
     }
     this.dropdownOpenYearOfTitle = false;
@@ -343,14 +345,12 @@ export class ChallengeComponent implements OnInit {
     if (this.selectedIndicator) {
       this.ballClassYearTargetResult = this.getBallClass(
         this.selectedIndicator.polarity,
-        this.selectedYearTargetResult?.targetFor?.[0]?.value,
-        this.selectedYearTargetResult?.resultedIn?.[0]?.value,
+        this.selectedYearTargetResult?.times?.[0]?.valueGoal,
+        this.selectedYearTargetResult?.times?.[0]?.valueResult,
       );
     }
-
     this.dropdownOpenYear = false;
   }
-
   public getBallClass(
     polarity: string,
     targetFor?: number,
