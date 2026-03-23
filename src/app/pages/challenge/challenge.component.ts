@@ -88,7 +88,6 @@ export class ChallengeComponent implements OnInit {
     }
   }
 
-
   ngOnInit(): void {
     this._route.queryParams.subscribe((params) => {
       this.challengeId = params['id'] ? String(params['id']) : null;
@@ -96,15 +95,6 @@ export class ChallengeComponent implements OnInit {
       this.clear();
       this.getData();
     });
-  }
-
-
-  // verifyTimesAndJustification() {
-  //   this.selectIndicator?
-  // }
-
-  verifyYearIndicator(year: string, indicatorFirstYear: number | undefined | null): boolean {
-    return year === String(indicatorFirstYear);
   }
 
   clear() {
@@ -122,6 +112,8 @@ export class ChallengeComponent implements OnInit {
   }
 
   getDetails() {
+    console.log("ddadsodsadsadsadsa", this.selectedIndicator?.times)
+
     if (this.challengeId) {
       const challengeDatail = this._challengeService.getDetail(
         this.challengeId,
@@ -168,6 +160,22 @@ export class ChallengeComponent implements OnInit {
         }
       });
     }
+  }
+
+  verifyYearIndicator(
+    itemYear: number | string,
+    baseYear: number | string | undefined | null,
+  ): boolean {
+    if (baseYear == null) return false;
+    const base = Number(baseYear);
+    const item = Number(itemYear);
+
+    // if (base.includes('-')) {
+    //   const [start, end] = base.split('-').map(Number);
+    //   return Number(item) >= start && Number(item) <= end;
+    // }
+
+    return item === base;
   }
 
   upYearBreadcrumb() {
@@ -240,6 +248,7 @@ export class ChallengeComponent implements OnInit {
       }
     });
   }
+
   private findTimeForYear(
     times: ITimes[],
     year: number,
@@ -275,7 +284,7 @@ export class ChallengeComponent implements OnInit {
     this.indicatorYearTargetResult = yearGroupedData;
     this.selectedYearTargetResult =
       this.indicatorYearTargetResult.find(
-        (item) => item.year === this.selectedYear,
+        (item) => Number(item.year) === this.selectedYear,
       ) ?? null;
 
     this.ballClassYearTargetResult = this.getBallClass(
@@ -317,9 +326,10 @@ export class ChallengeComponent implements OnInit {
     if (this.selectedIndicator) {
       this.selectedYearTargetResult =
         this.indicatorYearTargetResult.find(
-          (item) => item.year === this.selectedYear,
+          (item) => Number(item.year) === this.selectedYear,
         ) ?? null;
 
+      console.log(this.indicatorYearTargetResult, 'LLLLLLLLLLLLLLLLLLLLLL');
       this.ballClassYearTargetResult = this.getBallClass(
         this.selectedIndicator.polarity,
         this.selectedYearTargetResult?.times?.[0]?.valueGoal,
