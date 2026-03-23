@@ -112,8 +112,6 @@ export class ChallengeComponent implements OnInit {
   }
 
   getDetails() {
-    console.log("ddadsodsadsadsadsa", this.selectedIndicator?.times)
-
     if (this.challengeId) {
       const challengeDatail = this._challengeService.getDetail(
         this.challengeId,
@@ -329,7 +327,6 @@ export class ChallengeComponent implements OnInit {
           (item) => Number(item.year) === this.selectedYear,
         ) ?? null;
 
-      console.log(this.indicatorYearTargetResult, 'LLLLLLLLLLLLLLLLLLLLLL');
       this.ballClassYearTargetResult = this.getBallClass(
         this.selectedIndicator.polarity,
         this.selectedYearTargetResult?.times?.[0]?.valueGoal,

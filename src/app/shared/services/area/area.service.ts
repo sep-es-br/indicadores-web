@@ -42,11 +42,6 @@ export class AreaService {
         this.fourthYear = area.challenge.map((challenge) =>
           this.getBallClass(challenge, area.startOfAdministrationYear + 3),
         );
-
-        // console.log("FIRTS ",this.firstYear )
-        // console.log("secondYear ", this.secondYear)
-        // console.log("thirdYear ", this.thirdYear)
-        // console.log("fourthYear ", this.fourthYear)
       }),
       catchError((err: HttpErrorResponse) => {
         this._errorHandlerService.handleError(err);
@@ -70,19 +65,14 @@ export class AreaService {
 
   private getBallClass(challenge: IChallenge, referringYear: number): string {
     let indicatorScoreCalculationResultList: number[] = [];
-    // console.log('Dados chegados em getBallClass: challenge', challenge);
-    // console.log('Dados chegados em getBallClass: referringYear', referringYear);
     challenge.indicatorList.forEach((indicator) => {
       const timeForYear = indicator.times?.find((t) => {
-        // console.log("TTTT: ", t)
         if (String(t.year).includes('-')) {
           const [start, end] = String(t.year).split('-').map(Number);
           return referringYear >= start && referringYear <= end;
         }
         return Number(t.year) === referringYear;
       });
-
-      // console.log("IDINCADOR ID: ", indicator);
 
       const targetFor = timeForYear?.valueGoal;
       const resultedIn = timeForYear?.valueResult;
@@ -145,13 +135,10 @@ export class AreaService {
 
 
     if (percentage >= 100) {
-      console.log('acessei 100', percentage);
       return 10;
     } else if (percentage >= 75) {
-      console.log('acessei 75', percentage);
       return 5;
     } else {
-      console.log('acessei 0', percentage);
       return 0;
     }
   }

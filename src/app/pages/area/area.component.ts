@@ -86,7 +86,6 @@ export class AreaComponent implements OnInit {
 			const areaDetail = this._areaService.getDetail(this.areaId);
 			areaDetail.subscribe(
 				data => {
-          console.log("dadada", data)
 					this.areaData = data;
 					this.firstYear = this._areaService.firstYear
 					this.secondYear = this._areaService.secondYear
