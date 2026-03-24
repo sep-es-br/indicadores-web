@@ -176,6 +176,16 @@ export class ChallengeComponent implements OnInit {
     return item === base;
   }
 
+  verifyTypeYear(
+    itemYear: number | string,
+    baseYear: number | string | undefined | null,
+    type: string,
+  ): boolean {
+    if (baseYear == null) return false;
+
+    return type.toUpperCase() === 'BIANUAL';
+  }
+
   upYearBreadcrumb() {
     this.breadcrumb = [
       {
