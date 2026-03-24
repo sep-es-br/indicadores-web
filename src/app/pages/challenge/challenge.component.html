@@ -272,6 +272,23 @@
                         </li>
                       </ng-container>
                     </ul>
+
+                    <div class="type-year-dropwdown">
+                      <ng-container
+                        *ngFor="let item of selectedIndicator.times"
+                      >
+<div
+  *ngIf="
+    verifyTypeYear(item.year, selectedYear, item.type) &&
+    verifyYearIndicator(item.year, selectedYear)
+  "
+  class="info-justification"
+  [title]="item.justificationResult"
+>
+  Bianual
+</div>
+                      </ng-container>
+                    </div>
                   </div>
                 </th>
               </tr>
@@ -295,7 +312,21 @@
                       </div>
                     </ng-container>
                   </th>
-                  <th class="subheader-cell">REALIZADO</th>
+                  <th class="subheader-cell">
+                    REALIZADO
+                    <ng-container *ngFor="let item of selectedIndicator.times">
+                      <div
+                        *ngIf="
+                          item.justificationResult &&
+                          verifyYearIndicator(item.year, selectedYear)
+                        "
+                        class="info-justification"
+                        [title]="item.justificationResult"
+                      >
+                        <i class="fas fa-info-circle"></i>
+                      </div>
+                    </ng-container>
+                  </th>
                   <th class="subheader-cell">DESEMPENHO</th>
                 </ng-container>
                 <ng-container
@@ -328,6 +359,18 @@
                     [ngClass]="{ invisible: !indicatorFirstYearTargetResult }"
                   >
                     REALIZADO
+                    <ng-container *ngFor="let item of selectedIndicator.times">
+                      <div
+                        *ngIf="
+                          item.justificationResult &&
+                          verifyYearIndicator(item.year, selectedYear)
+                        "
+                        class="info-justification"
+                        [title]="item.justificationResult"
+                      >
+                        <i class="fas fa-info-circle"></i>
+                      </div>
+                    </ng-container>
                   </th>
                   <th
                     class="subheader-cell hide-on-desktop"

@@ -132,8 +132,6 @@ export class AreaService {
 
     const percentage = finalPercentage * 100;
 
-
-
     if (percentage >= 100) {
       return 10;
     } else if (percentage >= 75) {
