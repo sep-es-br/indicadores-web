@@ -277,16 +277,19 @@
                       <ng-container
                         *ngFor="let item of selectedIndicator.times"
                       >
-<div
-  *ngIf="
-    verifyTypeYear(item.year, selectedYear, item.type) &&
-    verifyYearIndicator(item.year, selectedYear)
-  "
-  class="info-justification"
-  [title]="item.justificationResult"
->
-  Bianual
-</div>
+                        <div
+                          *ngIf="
+                            verifyTypeYear(
+                              item.year,
+                              selectedYear,
+                              item.type
+                            ) && verifyYearIndicator(item.year, selectedYear)
+                          "
+                          class="info-justification"
+                          [title]="item.justificationResult"
+                        >
+                          Bianual
+                        </div>
                       </ng-container>
                     </div>
                   </div>
@@ -318,7 +321,7 @@
                       <div
                         *ngIf="
                           item.justificationResult &&
-                          verifyYearIndicator(item.year, selectedYear)
+                          verifyYearIndicator(item.year, indicatorFirstYearTargetResult?.year)
                         "
                         class="info-justification"
                         [title]="item.justificationResult"
@@ -341,7 +344,6 @@
                   >
                     META
                     <ng-container *ngFor="let item of selectedIndicator.times">
-                      <!-- {{ item.justificationGoal }} -->
                       <div
                         *ngIf="
                           item.justificationGoal &&
