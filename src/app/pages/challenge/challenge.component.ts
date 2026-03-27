@@ -183,7 +183,7 @@ export class ChallengeComponent implements OnInit {
   ): boolean {
     if (baseYear == null) return false;
 
-    return type.toUpperCase() === 'BIANUAL';
+    return type.toUpperCase() === 'BIANNUAL';
   }
 
   upYearBreadcrumb() {
