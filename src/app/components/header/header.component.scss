@@ -1,116 +1,154 @@
-header{
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-    // background-color: aqua;
-    nav{
-        padding: 2rem 0;
-    }
-    // z-index: 9999;
-        // opacity: .57;
-    
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+
+  nav {
+    padding: 2rem 0;
+  }
 }
 
-.img-fluid{
-    max-width: 90%;
+.img-fluid {
+  max-width: 90%;
 }
 
-.menuHome{
-    // margin-left: 0.95rem !important;
-    margin: auto;
+.menuHome {
+  margin: auto;
 }
 
-a{
-    font-size: 20px;
-    color: white !important ;
-    font-weight: 700;
-    font-family: 'Montserrat', sans-serif;
+a {
+  font-size: 20px;
+  color: white !important;
+  font-weight: 700;
+  font-family: "Montserrat", sans-serif;
 }
-a:hover{
-    color: var(--corDefault) !important;
+
+a:hover {
+  color: var(--corDefault) !important;
 }
 
 .navbar {
-    transition: background-color 0.5s ease;
+  transition: background-color 0.5s ease;
 }
-  
+
 .navbar-scrolled {
-    background-color: #03122fe6;
-    backdrop-filter: blur(5px);
-}
-
-@media screen and (max-width: 1420px)
-{
-   a, select{
-    font-size: 15px !important;
-    } 
-    
-}
-
-@media screen and (max-width: 1024px)
-{
-    nav {
-        background-color: #03122fe6;
-    }
-    div.navbar-collapse   {
-        padding: 1.25rem;
-    }
-    
-}
-
-@media screen and (max-width: 768px) {
-    .navbar-brand {
-        width: 45%;
-    }
-    
-}
-
-@media (max-width: 990px) {
-    .invisivel{
-        display: none;
-    }
-    .item-home, .nav-link{
-        margin-left: 5px;
-    }
-    .nav-link{
-        margin-top: 10px;
-    }
-    a, select{
-        font-size: 20px !important;
-    } 
+  background-color: #03122fe6;
+  backdrop-filter: blur(5px);
 }
 
 .custom-select {
-    margin-right: 10px;
-    font-size: 20px;
-    background-color: transparent; 
-    color: white; 
-    border: none;
-    font-weight: 700;
-    font-family: "Montserrat", sans-serif;
-    cursor: pointer;
-  }
-  
-  .custom-select option {
-    background-color: #e0e0e0; 
-    color: #333;
-    border: none; 
-    font-weight: 700;
-    font-family: "Montserrat", sans-serif;
+  margin-right: 10px;
+  font-size: 18px;
+  background-color: rgba(255, 255, 255, 0.08);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-weight: 600;
+  font-family: "Montserrat", sans-serif;
+  cursor: pointer;
+  padding: 6px 32px 6px 10px;
+  border-radius: 8px;
+  transition: all 0.25s ease;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='20' viewBox='0 0 20 20' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M5 7l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 16px;
+
+  option {
+    background-color: #1f1f1f;
+    color: #fff;
+    font-weight: 500;
   }
 
-  .custom-select:hover{
-    color: var(--corDefault) !important;
+  &:hover {
+    border-color: var(--corDefault);
+    color: var(--corDefault);
+    background-color: rgba(255, 255, 255, 0.12);
   }
 
-  .custom-select:focus,
-.custom-select:active {
-  outline: none;
-  border: none;
-  box-shadow: none; 
+  &:focus,
+  &:active {
+    outline: none;
+    border-color: var(--corDefault);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.15);
+  }
+}
+
+.logout {
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: #ff4d4f !important;
+  }
 }
 
 .invisivel {
-    visibility: hidden;
+  visibility: hidden;
+}
+
+@media screen and (max-width: 1420px) {
+  a,
+  select {
+    font-size: 15px !important;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  nav {
+    background-color: #03122fe6;
+  }
+
+  div.navbar-collapse {
+    padding: 1.25rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .navbar-brand {
+    width: 45%;
+  }
+}
+
+@media (max-width: 990px) {
+  .invisivel {
+    display: none !important;
+  }
+
+  .item-home,
+  .nav-link {
+    margin-left: 5px;
+    margin-top: 10px;
+  }
+
+  a,
+  select {
+    font-size: 20px !important;
+  }
+
+  .custom-select {
+    display: none;
+    font-size: 16px;
+    padding: 5px 28px 5px 10px;
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 8px;
+  }
+
+  .navbar-collapse.show {
+    .custom-select {
+      display: block !important;
+    }
+
+    .logout {
+      display: none !important;
+    }
+  }
+
+  .navbar:has(.navbar-collapse.show) > .container > div:last-of-type .logout {
+    display: none !important;
+  }
 }
