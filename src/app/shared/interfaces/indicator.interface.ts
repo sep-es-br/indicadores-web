@@ -1,16 +1,15 @@
-import { ITargetResult } from "./TargetResult.interface"
+import { ITargetResult, ITimes } from './TargetResult.interface';
 
-export interface Iindicator{
-    id: string
-    measureUnit: string
-    name: string
-    organizationAcronym: string
-    polarity: string
-    justificationBase?: string
-    justificationGoal?: string
-    fileName?: string
-    originalFileName?: string
-    ods: number[]
-    targetFor: ITargetResult[]
-    resulted: ITargetResult[]
+export interface Iindicator {
+  id: string;
+  uuId: string;
+  name: string;
+  measureUnit: string;
+  organizationAcronym: string;
+  polarity: string;
+  justificationBase?: string;
+  fileName?: string;
+  originalFileName?: string;
+  ods: number[];
+  times: ITimes[];
 }
