@@ -326,6 +326,8 @@ export class ChallengeComponent implements OnInit {
       this.indicatorFirstYearTargetResult == undefined &&
       this.selectedYearTargetResult != null
     );
+
+    console.log("dados passados", this.indicatorBaseYearTargetResult)
   }
 
   selectYearOfTitle(year: number) {

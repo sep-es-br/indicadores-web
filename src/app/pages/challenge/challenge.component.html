@@ -321,7 +321,10 @@
                       <div
                         *ngIf="
                           item.justificationResult &&
-                          verifyYearIndicator(item.year, indicatorFirstYearTargetResult?.year)
+                          verifyYearIndicator(
+                            item.year,
+                            indicatorFirstYearTargetResult?.year
+                          )
                         "
                         class="info-justification"
                         [title]="item.justificationResult"
@@ -400,7 +403,7 @@
                     [ngClass]="{ invisible: !indicatorFirstYearTargetResult }"
                   >
                     {{
-                      indicatorFirstYearTargetResult?.times?.[0]?.valueGoal ||
+                      indicatorFirstYearTargetResult?.times?.[0]?.showValueGoal ||
                         "Sem dados"
                     }}
                   </td>
@@ -409,7 +412,7 @@
                     [ngClass]="{ invisible: !indicatorFirstYearTargetResult }"
                   >
                     {{
-                      indicatorFirstYearTargetResult?.times?.[0]?.valueResult ||
+                      indicatorFirstYearTargetResult?.times?.[0]?.showValueResult ||
                         "Sem dados"
                     }}
                   </td>
@@ -442,7 +445,7 @@
                   </td>
                   <td class="body-cell hide-on-desktop">
                     {{
-                      selectedYearTargetResult?.times?.[0]?.valueResult ||
+                      selectedYearTargetResult?.times?.[0]?.showValueResult ||
                         "Sem dados"
                     }}
                   </td>
@@ -530,13 +533,13 @@
               <tr>
                 <td class="body-cell">
                   {{
-                    selectedYearTargetResult?.times?.[0]?.valueGoal ||
+                    selectedYearTargetResult?.times?.[0]?.showValueGoal ||
                       "Sem dados"
                   }}
                 </td>
                 <td class="body-cell">
                   {{
-                    selectedYearTargetResult?.times?.[0]?.valueResult ||
+                    selectedYearTargetResult?.times?.[0]?.showValueResult ||
                       "Sem dados"
                   }}
                 </td>
